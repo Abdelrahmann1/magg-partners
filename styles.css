@@ -543,12 +543,12 @@ section { padding:140px 64px; }
   position: absolute;
   bottom:0; left:0; right:0;
   padding: 0 36px 36px;
-  background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, transparent 100%);
-  transform: translateY(24px);
-  opacity: 0;
-  transition: transform var(--t) var(--ease), opacity var(--t) ease;
+  background: linear-gradient(to top, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.4) 60%, transparent 100%);
+  transition: background var(--t) ease;
 }
-.proj-card:hover .proj-info { transform:translateY(0); opacity:1; }
+.proj-card:hover .proj-info {
+  background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.5) 60%, transparent 100%);
+}
 
 .proj-loc {
   font-size: 10px;
