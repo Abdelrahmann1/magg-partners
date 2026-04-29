@@ -69,11 +69,9 @@ button { cursor:none; }
 #loader.done { opacity:0; pointer-events:none; }
 
 .loader-logo {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.5em;
-  text-transform: uppercase;
-  color: var(--white);
+  height: 36px;
+  width: auto;
+  object-fit: contain;
 }
 .loader-bar {
   width: 180px;
@@ -138,12 +136,14 @@ nav.scrolled {
   border-bottom-color: var(--border);
 }
 .nav-logo {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--white);
+  display: flex;
+  align-items: center;
   transition: opacity var(--tf);
+}
+.nav-logo img {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
 }
 .nav-logo:hover { opacity:0.6; }
 
@@ -994,10 +994,9 @@ footer {
   align-items: end;
 }
 .f-logo {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+  height: 30px;
+  width: auto;
+  object-fit: contain;
 }
 .f-tagline {
   font-size: 12px;

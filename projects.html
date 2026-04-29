@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — Magg+Partners</title>
+  <link rel="icon" type="image/png" href="assets/assets/Logo/260403_Logo_Magg+Partners_Website_Icon.png">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Projects Page ───────────────────────────────────── */
+    .page-hero {
+      padding: 200px 64px 100px;
+      background: var(--black);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 60px;
+    }
+    .page-hero h1 {
+      font-size: clamp(64px, 10vw, 160px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      line-height: 0.88;
+    }
+    .page-hero-right {
+      flex-shrink: 0;
+      text-align: right;
+    }
+    .page-hero-count {
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .page-hero-desc {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--muted);
+      max-width: 320px;
+      text-align: right;
+    }
+
+    /* ── Filter Bar ──────────────────────────────────────── */
+    .filter-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 64px;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .filter-bar::-webkit-scrollbar { display:none; }
+
+    .filter-btn {
+      font-family: var(--font);
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: none;
+      border: none;
+      padding: 22px 28px;
+      position: relative;
+      white-space: nowrap;
+      transition: color var(--tf);
+    }
+    .filter-btn::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 2px;
+      background: var(--white);
+      transform: scaleX(0);
+      transition: transform 0.4s var(--ease);
+    }
+    .filter-btn.active,
+    .filter-btn:hover { color: var(--white); }
+    .filter-btn.active::after { transform: scaleX(1); }
+
+    .filter-count {
+      margin-left: auto;
+      padding: 22px 0;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.25em;
+      color: rgba(245,240,235,0.3);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── Grid ────────────────────────────────────────────── */
+    .projects-page { background: var(--off-black); }
+
+    .grid-wrapper {
+      padding: 2px;
+      columns: 3;
+      column-gap: 2px;
+    }
+
+    .grid-card {
+      break-inside: avoid;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 2px;
+      display: block;
+      text-decoration: none;
+    }
+    .grid-card.hidden { display:none; }
+
+    .grid-card img {
+      width: 100%;
+      display: block;
+      filter: brightness(0.72);
+      transition: transform 1s var(--ease), filter 0.7s ease;
+      will-change: transform;
+    }
+    .grid-card:hover img {
+      transform: scale(1.06);
+      filter: brightness(0.4);
+    }
+
+    /* tall cards every 4th item in column 1 */
+    .grid-card.tall img { aspect-ratio: 3/4; object-fit:cover; }
+    .grid-card.wide img { aspect-ratio: 4/3; object-fit:cover; }
+    .grid-card.sq   img { aspect-ratio: 1/1; object-fit:cover; }
+
+    .grid-info {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 0 32px 28px;
+      background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, transparent 100%);
+      transform: translateY(20px);
+      opacity: 0;
+      transition: transform var(--t) var(--ease), opacity var(--t) ease;
+    }
+    .grid-card:hover .grid-info { transform:translateY(0); opacity:1; }
+
+    .grid-cat {
+      font-size: 9px;
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .grid-name {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      line-height: 1.05;
+    }
+    .grid-meta {
+      margin-top: 8px;
+      font-size: 10px;
+      font-weight: 300;
+      color: rgba(245,240,235,0.45);
+      letter-spacing: 0.15em;
+    }
+
+    .grid-num {
+      position: absolute;
+      top: 20px; left: 24px;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.22em;
+      color: rgba(245,240,235,0.55);
+      transition: opacity 0.3s;
+    }
+    .grid-card:hover .grid-num { opacity:0; }
+
+    /* ── No results ───────────────────────────────────────── */
+    .no-results {
+      display: none;
+      padding: 120px 64px;
+      text-align: center;
+    }
+    .no-results.show { display:block; }
+    .no-results p {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Footer strip ─────────────────────────────────────── */
+    .back-strip {
+      padding: 48px 64px;
+      border-top: 1px solid var(--border);
+      background: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .back-link {
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color var(--tf);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .back-link:hover { color:var(--white); }
+
+    /* ── Responsive ───────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .grid-wrapper { columns:2; }
+    }
+    @media (max-width: 768px) {
+      .page-hero { padding:160px 24px 60px; flex-direction:column; align-items:flex-start; }
+      .page-hero-right { text-align:left; }
+      .page-hero-desc { text-align:left; }
+      .filter-bar { padding:0 24px; }
+      .grid-wrapper { columns:1; padding:2px; }
+      .back-strip { padding:32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Custom Cursor ───────────────────────────────────── -->
+  <div class="c-dot" id="cDot"></div>
+  <div class="c-ring" id="cRing"></div>
+
+  <!-- ── Navigation ──────────────────────────────────────── -->
+  <nav id="nav" class="scrolled">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/assets/Logo/260403_Logo_Magg+Partners_White.png" alt="Magg+Partners">
+    </a>
+    <ul class="nav-links">
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="index.html#studio">Studio</a></li>
+      <li><a href="index.html#people">People</a></li>
+      <li><a href="index.html#news">News</a></li>
+      <li><a href="index.html#careers">Careers</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <button class="nav-hamburger" id="ham" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ── Mobile Menu ─────────────────────────────────────── -->
+  <div class="mobile-menu" id="mob">
+    <ul>
+      <li><a href="projects.html" class="mob-link">Projects</a></li>
+      <li><a href="index.html#studio" class="mob-link">Studio</a></li>
+      <li><a href="index.html#people" class="mob-link">People</a></li>
+      <li><a href="index.html#news" class="mob-link">News</a></li>
+      <li><a href="index.html#careers" class="mob-link">Careers</a></li>
+      <li><a href="index.html#contact" class="mob-link">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- ── Page Hero ───────────────────────────────────────── -->
+  <div class="page-hero">
+    <h1>Projects</h1>
+    <div class="page-hero-right">
+      <div class="page-hero-count" id="heroCount">22 Projects</div>
+      <p class="page-hero-desc">Selected works across architecture, urban design, interiors, and real estate development — worldwide.</p>
+    </div>
+  </div>
+
+  <!-- ── Filter ──────────────────────────────────────────── -->
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="architecture">Architecture</button>
+    <button class="filter-btn" data-filter="urban">Urban Design</button>
+    <button class="filter-btn" data-filter="interiors">Interiors</button>
+    <button class="filter-btn" data-filter="realestate">Real Estate</button>
+    <span class="filter-count" id="filterCount">22 projects</span>
+  </div>
+
+  <!-- ── Grid ────────────────────────────────────────────── -->
+  <div class="projects-page">
+    <div class="grid-wrapper" id="grid"></div>
+    <div class="no-results" id="noResults">
+      <p>No projects found in this category.</p>
+    </div>
+  </div>
+
+  <!-- ── Back Strip ──────────────────────────────────────── -->
+  <div class="back-strip">
+    <a href="index.html" class="back-link">← Back to Home</a>
+    <a href="index.html#contact" class="view-all">Start a Project →</a>
+  </div>
+
+  <script src="projects-data.js"></script>
+  <script>
+    /* ── Cursor ──────────────────────────────────────────── */
+    const cDot = document.getElementById('cDot');
+    const cRing = document.getElementById('cRing');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cDot.style.left=mx+'px';cDot.style.top=my+'px';});
+    document.addEventListener('mousedown',()=>document.body.classList.add('c-click'));
+    document.addEventListener('mouseup',()=>document.body.classList.remove('c-click'));
+    (function loop(){rx+=(mx-rx)*0.11;ry+=(my-ry)*0.11;cRing.style.left=rx+'px';cRing.style.top=ry+'px';requestAnimationFrame(loop);})();
+
+    /* ── Mobile Menu ─────────────────────────────────────── */
+    const ham=document.getElementById('ham'),mob=document.getElementById('mob');
+    let mobOpen=false;
+    ham.addEventListener('click',()=>{mobOpen=!mobOpen;ham.classList.toggle('open',mobOpen);mob.classList.toggle('open',mobOpen);document.body.style.overflow=mobOpen?'hidden':'';});
+    document.querySelectorAll('.mob-link').forEach(a=>a.addEventListener('click',()=>{mobOpen=false;ham.classList.remove('open');mob.classList.remove('open');document.body.style.overflow='';}));
+
+    /* ── Cursor hover ────────────────────────────────────── */
+    const addHover = el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('c-hover'));el.addEventListener('mouseleave',()=>document.body.classList.remove('c-hover'));};
+
+    /* ── Aspect ratio cycle ──────────────────────────────── */
+    const ratios = ['tall','wide','sq','tall','wide','tall','sq','wide'];
+
+    /* ── Build Grid ──────────────────────────────────────── */
+    const grid = document.getElementById('grid');
+
+    function buildGrid(projects) {
+      grid.innerHTML = '';
+      projects.forEach((p, i) => {
+        const ratio = ratios[i % ratios.length];
+        const a = document.createElement('a');
+        a.href = `project.html?id=${p.id}`;
+        a.className = `grid-card ${ratio}`;
+        a.dataset.category = p.category;
+        a.innerHTML = `
+          <img src="${p.thumb}" alt="${p.name}" loading="lazy">
+          <div class="grid-num">${p.num}</div>
+          <div class="grid-info">
+            <div class="grid-cat">${p.categoryLabel}</div>
+            <div class="grid-name">${p.name}</div>
+            <div class="grid-meta">${p.location} — ${p.year}</div>
+          </div>`;
+        grid.appendChild(a);
+        addHover(a);
+      });
+    }
+
+    buildGrid(PROJECTS);
+
+    /* ── Filter ──────────────────────────────────────────── */
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const filterCount = document.getElementById('filterCount');
+    let currentFilter = 'all';
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentFilter = btn.dataset.filter;
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const cards = grid.querySelectorAll('.grid-card');
+        let visible = 0;
+        cards.forEach(card => {
+          const match = currentFilter === 'all' || card.dataset.category === currentFilter;
+          card.classList.toggle('hidden', !match);
+          if (match) visible++;
+        });
+
+        filterCount.textContent = visible + ' project' + (visible !== 1 ? 's' : '');
+        document.getElementById('noResults').classList.toggle('show', visible === 0);
+      });
+    });
+
+    /* ── Scroll reveal on grid cards ─────────────────────── */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.05 });
+
+    function observeCards() {
+      grid.querySelectorAll('.grid-card').forEach((card, i) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(32px)';
+        card.style.transition = `opacity 0.7s ease ${(i % 6) * 0.08}s, transform 0.7s var(--ease) ${(i % 6) * 0.08}s`;
+        io.observe(card);
+      });
+    }
+    observeCards();
+  </script>
+</body>
+</html>

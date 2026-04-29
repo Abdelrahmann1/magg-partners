@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project — Magg+Partners</title>
+  <link rel="icon" type="image/png" href="assets/assets/Logo/260403_Logo_Magg+Partners_Website_Icon.png">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Project Detail Page ─────────────────────────────── */
+    .proj-hero {
+      position: relative;
+      height: 100vh;
+      min-height: 640px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 64px 80px;
+    }
+    .proj-hero-bg {
+      position: absolute;
+      inset: 0;
+      background: center/cover no-repeat;
+      transform: scale(1.06);
+      transition: transform 10s var(--ease);
+    }
+    .proj-hero-bg.ready { transform: scale(1); }
+    .proj-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(10,10,10,0.15) 0%,
+        rgba(10,10,10,0.05) 35%,
+        rgba(10,10,10,0.75) 100%
+      );
+    }
+    .proj-hero-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 60px;
+    }
+    .proj-hero-left {}
+    .proj-hero-eyebrow {
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.8s ease 0.6s, transform 0.8s ease 0.6s;
+    }
+    .proj-hero-bg.ready ~ .proj-hero-overlay + .proj-hero-content .proj-hero-eyebrow,
+    .ph-animate .proj-hero-eyebrow { opacity:1; transform:translateY(0); }
+
+    .proj-hero-title {
+      font-size: clamp(52px, 8vw, 130px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      line-height: 0.9;
+      color: var(--white);
+    }
+    .proj-hero-title .h1-line { display:block; overflow:hidden; }
+    .proj-hero-title .h1-inner {
+      display: block;
+      transform: translateY(110%);
+      transition: transform 1.1s var(--ease);
+    }
+    .proj-hero-title .h1-inner.out { transform: translateY(0); }
+    .proj-hero-title .h1-line:nth-child(1) .h1-inner { transition-delay: 0.65s; }
+    .proj-hero-title .h1-line:nth-child(2) .h1-inner { transition-delay: 0.82s; }
+
+    .proj-hero-right {
+      flex-shrink: 0;
+      text-align: right;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.9s ease 1.2s, transform 0.9s ease 1.2s;
+    }
+    .proj-hero-right.show { opacity:1; transform:translateY(0); }
+    .proj-hero-loc {
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: rgba(245,240,235,0.7);
+      margin-bottom: 4px;
+    }
+    .proj-hero-year {
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+    }
+
+    /* ── Back Button ──────────────────────────────────────── */
+    .proj-back {
+      position: absolute;
+      top: 120px; left: 64px;
+      z-index: 10;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(245,240,235,0.65);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: color var(--tf);
+    }
+    .proj-back:hover { color: var(--white); }
+
+    /* ── Info Strip ───────────────────────────────────────── */
+    .info-strip {
+      background: var(--off-black);
+      border-bottom: 1px solid var(--border);
+      padding: 0 64px;
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .info-strip::-webkit-scrollbar { display:none; }
+    .info-cell {
+      padding: 36px 48px 36px 0;
+      margin-right: 48px;
+      border-right: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .info-cell:last-child { border-right:none; margin-right:0; }
+    .info-label {
+      font-size: 9px;
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(245,240,235,0.35);
+      margin-bottom: 8px;
+    }
+    .info-val {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+    }
+
+    /* ── Body ─────────────────────────────────────────────── */
+    .proj-body {
+      background: var(--black);
+      padding: 120px 64px;
+    }
+    .proj-body-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 100px;
+      align-items: start;
+    }
+    .proj-brief-label {
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: rgba(245,240,235,0.35);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .proj-brief-label::before {
+      content: '';
+      display: block;
+      width: 28px; height: 1px;
+      background: var(--faint);
+    }
+    .proj-brief {
+      font-size: clamp(22px, 3vw, 38px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      line-height: 1.1;
+      position: sticky;
+      top: 120px;
+    }
+    .proj-desc {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 2;
+      color: rgba(245,240,235,0.72);
+    }
+
+    /* ── Gallery ──────────────────────────────────────────── */
+    .proj-gallery {
+      background: var(--off-black);
+      padding: 2px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    .gallery-grid .gimg {
+      overflow: hidden;
+    }
+    .gallery-grid .gimg:first-child {
+      grid-column: 1 / -1;
+    }
+    .gallery-grid img {
+      width: 100%;
+      display: block;
+      filter: brightness(0.85);
+      transition: transform 1s var(--ease), filter 0.7s ease;
+    }
+    .gallery-grid .gimg:first-child img { height: 600px; object-fit:cover; }
+    .gallery-grid .gimg:not(:first-child) img { height: 380px; object-fit:cover; }
+    .gallery-grid .gimg:hover img {
+      transform: scale(1.04);
+      filter: brightness(0.7);
+    }
+
+    /* ── Related Projects ─────────────────────────────────── */
+    .related {
+      background: var(--black);
+      padding: 120px 64px;
+      border-top: 1px solid var(--border);
+    }
+    .related-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 72px;
+    }
+    .related-head h2 {
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      line-height: 0.95;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .related-card {
+      position: relative;
+      overflow: hidden;
+      display: block;
+    }
+    .related-card img {
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+      filter: brightness(0.7);
+      transition: transform 0.9s var(--ease), filter 0.7s ease;
+      display: block;
+    }
+    .related-card:hover img { transform:scale(1.06); filter:brightness(0.4); }
+    .related-info {
+      position: absolute;
+      bottom:0; left:0; right:0;
+      padding: 0 28px 24px;
+      background: linear-gradient(to top, rgba(10,10,10,0.92) 0%, transparent 100%);
+      transform: translateY(16px);
+      opacity: 0;
+      transition: transform var(--t) var(--ease), opacity var(--t) ease;
+    }
+    .related-card:hover .related-info { transform:translateY(0); opacity:1; }
+    .related-loc {
+      font-size: 9px;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .related-name {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+
+    /* ── Bottom Nav ───────────────────────────────────────── */
+    .proj-nav-strip {
+      background: var(--off-black);
+      border-top: 1px solid var(--border);
+      padding: 0 64px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+    }
+    .proj-nav-btn {
+      padding: 40px 0;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: color var(--tf);
+    }
+    .proj-nav-btn:hover { color:var(--white); }
+    .proj-nav-btn.right { justify-content:flex-end; text-align:right; }
+    .proj-nav-center {
+      text-align: center;
+      padding: 40px 32px;
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+    }
+    .proj-nav-center a {
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(245,240,235,0.35);
+      transition: color var(--tf);
+    }
+    .proj-nav-center a:hover { color:var(--white); }
+
+    /* ── Responsive ───────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .proj-hero { padding:0 24px 60px; }
+      .proj-back { left:24px; top:100px; }
+      .proj-hero-content { flex-direction:column; align-items:flex-start; gap:16px; }
+      .proj-hero-right { text-align:left; }
+      .info-strip { padding:0 24px; }
+      .proj-body { padding:80px 24px; }
+      .proj-body-grid { grid-template-columns:1fr; gap:48px; }
+      .proj-brief { position:static; font-size:clamp(20px,5vw,32px); }
+      .gallery-grid { grid-template-columns:1fr; }
+      .gallery-grid .gimg:first-child { grid-column:1; }
+      .related { padding:80px 24px; }
+      .related-grid { grid-template-columns:1fr; }
+      .proj-nav-strip { padding:0 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Custom Cursor ───────────────────────────────────── -->
+  <div class="c-dot" id="cDot"></div>
+  <div class="c-ring" id="cRing"></div>
+
+  <!-- ── Navigation ──────────────────────────────────────── -->
+  <nav id="nav">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/assets/Logo/260403_Logo_Magg+Partners_White.png" alt="Magg+Partners">
+    </a>
+    <ul class="nav-links">
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="index.html#studio">Studio</a></li>
+      <li><a href="index.html#people">People</a></li>
+      <li><a href="index.html#news">News</a></li>
+      <li><a href="index.html#careers">Careers</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <button class="nav-hamburger" id="ham" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ── Mobile Menu ─────────────────────────────────────── -->
+  <div class="mobile-menu" id="mob">
+    <ul>
+      <li><a href="projects.html" class="mob-link">Projects</a></li>
+      <li><a href="index.html#studio" class="mob-link">Studio</a></li>
+      <li><a href="index.html#people" class="mob-link">People</a></li>
+      <li><a href="index.html#news" class="mob-link">News</a></li>
+      <li><a href="index.html#careers" class="mob-link">Careers</a></li>
+      <li><a href="index.html#contact" class="mob-link">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- ── Hero ────────────────────────────────────────────── -->
+  <div class="proj-hero" id="projHero">
+    <a href="projects.html" class="proj-back">← All Projects</a>
+    <div class="proj-hero-bg" id="projHeroBg"></div>
+    <div class="proj-hero-overlay"></div>
+    <div class="proj-hero-content">
+      <div class="proj-hero-left">
+        <div class="proj-hero-eyebrow" id="projEyebrow"></div>
+        <div class="proj-hero-title" id="projTitle"></div>
+      </div>
+      <div class="proj-hero-right" id="projHeroRight">
+        <div class="proj-hero-loc" id="projLoc"></div>
+        <div class="proj-hero-year" id="projYear"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Info Strip ──────────────────────────────────────── -->
+  <div class="info-strip" id="infoStrip"></div>
+
+  <!-- ── Body ────────────────────────────────────────────── -->
+  <div class="proj-body">
+    <div class="proj-body-grid">
+      <div class="reveal">
+        <div class="proj-brief-label">Overview</div>
+        <div class="proj-brief" id="projBrief"></div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <p class="proj-desc" id="projDesc"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Gallery ─────────────────────────────────────────── -->
+  <div class="proj-gallery reveal">
+    <div class="gallery-grid" id="gallery"></div>
+  </div>
+
+  <!-- ── Related Projects ────────────────────────────────── -->
+  <div class="related">
+    <div class="related-head reveal">
+      <h2>Related<br>Projects</h2>
+      <a href="projects.html" class="view-all">View All →</a>
+    </div>
+    <div class="related-grid reveal" id="related"></div>
+  </div>
+
+  <!-- ── Bottom Navigation ───────────────────────────────── -->
+  <div class="proj-nav-strip">
+    <a class="proj-nav-btn" id="prevBtn" href="#">← Previous</a>
+    <div class="proj-nav-center">
+      <a href="projects.html">All Projects</a>
+    </div>
+    <a class="proj-nav-btn right" id="nextBtn" href="#">Next →</a>
+  </div>
+
+  <script src="projects-data.js"></script>
+  <script>
+    /* ── Cursor ──────────────────────────────────────────── */
+    const cDot=document.getElementById('cDot'),cRing=document.getElementById('cRing');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cDot.style.left=mx+'px';cDot.style.top=my+'px';});
+    document.addEventListener('mousedown',()=>document.body.classList.add('c-click'));
+    document.addEventListener('mouseup',()=>document.body.classList.remove('c-click'));
+    (function loop(){rx+=(mx-rx)*0.11;ry+=(my-ry)*0.11;cRing.style.left=rx+'px';cRing.style.top=ry+'px';requestAnimationFrame(loop);})();
+
+    /* ── Nav scroll ──────────────────────────────────────── */
+    const nav=document.getElementById('nav');
+    window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>72),{passive:true});
+
+    /* ── Mobile Menu ─────────────────────────────────────── */
+    const ham=document.getElementById('ham'),mob=document.getElementById('mob');
+    let mobOpen=false;
+    ham.addEventListener('click',()=>{mobOpen=!mobOpen;ham.classList.toggle('open',mobOpen);mob.classList.toggle('open',mobOpen);document.body.style.overflow=mobOpen?'hidden':'';});
+    document.querySelectorAll('.mob-link').forEach(a=>a.addEventListener('click',()=>{mobOpen=false;ham.classList.remove('open');mob.classList.remove('open');document.body.style.overflow='';}));
+
+    /* ── Cursor hover ────────────────────────────────────── */
+    function addHover(el){el.addEventListener('mouseenter',()=>document.body.classList.add('c-hover'));el.addEventListener('mouseleave',()=>document.body.classList.remove('c-hover'));}
+
+    /* ── Scroll Reveal ───────────────────────────────────── */
+    const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:0.08,rootMargin:'0px 0px -48px 0px'});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    /* ── Load Project ────────────────────────────────────── */
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    const idx = PROJECTS.findIndex(p => p.id === id);
+    const project = idx !== -1 ? PROJECTS[idx] : PROJECTS[0];
+
+    document.title = `${project.name} — Magg+Partners`;
+
+    /* Hero */
+    const heroBg = document.getElementById('projHeroBg');
+    heroBg.style.backgroundImage = `url('${project.hero}')`;
+
+    setTimeout(() => {
+      heroBg.classList.add('ready');
+      document.getElementById('projHeroRight').classList.add('show');
+
+      /* Animate eyebrow */
+      const eyebrow = document.getElementById('projEyebrow');
+      eyebrow.textContent = `${project.categoryLabel} — ${project.num}`;
+      eyebrow.style.opacity = '1';
+      eyebrow.style.transform = 'translateY(0)';
+
+      /* Animate title */
+      const titleEl = document.getElementById('projTitle');
+      const words = project.name.split(' ');
+      titleEl.innerHTML = words.map(w =>
+        `<span class="h1-line"><span class="h1-inner">${w}</span></span>`
+      ).join('');
+      setTimeout(() => {
+        titleEl.querySelectorAll('.h1-inner').forEach((el, i) => {
+          setTimeout(() => el.classList.add('out'), i * 150);
+        });
+      }, 50);
+    }, 200);
+
+    document.getElementById('projLoc').textContent = project.location;
+    document.getElementById('projYear').textContent = project.year;
+
+    /* Info strip */
+    const strip = document.getElementById('infoStrip');
+    const cells = [
+      { label: 'Type',   val: project.type },
+      { label: 'Size',   val: project.size },
+      { label: 'Floors', val: project.floors },
+      { label: 'Status', val: project.status },
+      { label: 'Client', val: project.client },
+      { label: 'Year',   val: project.year },
+    ];
+    strip.innerHTML = cells.map(c => `
+      <div class="info-cell">
+        <div class="info-label">${c.label}</div>
+        <div class="info-val">${c.val}</div>
+      </div>`).join('');
+
+    /* Body */
+    document.getElementById('projBrief').textContent = project.brief;
+    document.getElementById('projDesc').textContent = project.description;
+
+    /* Gallery */
+    const gal = document.getElementById('gallery');
+    gal.innerHTML = project.gallery.map((src, i) => `
+      <div class="gimg">
+        <img src="${src}" alt="${project.name} ${i+1}" loading="${i===0?'eager':'lazy'}">
+      </div>`).join('');
+
+    /* Related projects */
+    const others = PROJECTS
+      .filter(p => p.id !== project.id && p.category === project.category)
+      .slice(0, 3);
+    const related = others.length >= 3 ? others :
+      [...others, ...PROJECTS.filter(p => p.id !== project.id && !others.includes(p))].slice(0, 3);
+
+    document.getElementById('related').innerHTML = related.map(p => `
+      <a class="related-card" href="project.html?id=${p.id}">
+        <img src="${p.thumb}" alt="${p.name}" loading="lazy">
+        <div class="related-info">
+          <div class="related-loc">${p.location}</div>
+          <div class="related-name">${p.name}</div>
+        </div>
+      </a>`).join('');
+
+    document.querySelectorAll('.related-card').forEach(addHover);
+
+    /* Prev / Next */
+    const prev = PROJECTS[(idx - 1 + PROJECTS.length) % PROJECTS.length];
+    const next = PROJECTS[(idx + 1) % PROJECTS.length];
+    document.getElementById('prevBtn').href = `project.html?id=${prev.id}`;
+    document.getElementById('prevBtn').innerHTML = `← ${prev.name}`;
+    document.getElementById('nextBtn').href = `project.html?id=${next.id}`;
+    document.getElementById('nextBtn').innerHTML = `${next.name} →`;
+
+    [document.getElementById('prevBtn'), document.getElementById('nextBtn')].forEach(addHover);
+  </script>
+</body>
+</html>
