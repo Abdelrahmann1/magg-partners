@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Careers — Magg+Partners</title>
+  <link rel="icon" type="image/png" href="assets/assets/Logo/260403_Logo_Magg+Partners_Website_Icon.png">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Careers Page ────────────────────────────────────── */
+    .car-hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 64px 100px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .car-hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom,
+          rgba(10,10,10,0.45) 0%,
+          rgba(10,10,10,0.1) 40%,
+          rgba(10,10,10,0.82) 100%),
+        url('https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=2400&q=85')
+        center / cover no-repeat;
+      transform: scale(1.06);
+      transition: transform 10s var(--ease);
+    }
+    .car-hero-bg.ready { transform: scale(1); }
+
+    .car-hero-content {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: flex-end;
+    }
+
+    .car-hero-eyebrow {
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: rgba(245,240,235,0.55);
+      margin-bottom: 32px;
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.9s ease 0.5s, transform 0.9s ease 0.5s;
+    }
+    .car-hero-bg.ready ~ .car-hero-content .car-hero-eyebrow { opacity:1; transform:translateY(0); }
+
+    .car-hero-h1 {
+      font-size: clamp(64px, 10vw, 148px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      line-height: 0.88;
+      color: var(--white);
+    }
+    .car-hero-h1 .h1-line { display:block; overflow:hidden; }
+    .car-hero-h1 .h1-inner {
+      display: block;
+      transform: translateY(112%);
+      transition: transform 1.1s var(--ease);
+    }
+    .car-hero-h1 .h1-inner.out { transform: translateY(0); }
+    .car-hero-h1 .h1-line:nth-child(1) .h1-inner { transition-delay: 0.6s; }
+    .car-hero-h1 .h1-line:nth-child(2) .h1-inner { transition-delay: 0.78s; }
+
+    .car-hero-right {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.9s ease 1.3s, transform 0.9s ease 1.3s;
+    }
+    .car-hero-bg.ready ~ .car-hero-content .car-hero-right { opacity:1; transform:translateY(0); }
+
+    .car-hero-tagline {
+      font-size: clamp(18px, 2.5vw, 28px);
+      font-weight: 300;
+      line-height: 1.55;
+      color: rgba(245,240,235,0.75);
+      margin-bottom: 40px;
+      letter-spacing: -0.01em;
+    }
+    .car-hero-sub {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--muted);
+    }
+
+    .car-hero-scroll {
+      position: absolute;
+      bottom: 100px;
+      right: 64px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      opacity: 0;
+      transition: opacity 0.9s ease 1.8s;
+    }
+    .car-hero-bg.ready ~ .car-hero-scroll { opacity: 1; }
+    .car-hero-scroll span {
+      font-size: 9px;
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(245,240,235,0.45);
+      writing-mode: vertical-rl;
+    }
+
+    /* ── Values Strip ────────────────────────────────────── */
+    .values {
+      background: var(--off-black);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid var(--border);
+    }
+    .value-item {
+      padding: 64px 48px;
+      border-right: 1px solid var(--border);
+      transition: background var(--t);
+    }
+    .value-item:last-child { border-right: none; }
+    .value-item:hover { background: var(--dark); }
+    .value-num {
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.28em;
+      color: rgba(245,240,235,0.28);
+      margin-bottom: 32px;
+    }
+    .value-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .value-desc {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--muted);
+    }
+
+    /* ── Jobs Section ────────────────────────────────────── */
+    .jobs-section {
+      background: var(--black);
+      padding: 120px 64px;
+      border-bottom: 1px solid var(--border);
+    }
+    .jobs-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: end;
+      margin-bottom: 80px;
+    }
+    .jobs-intro {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 2;
+      color: var(--muted);
+    }
+
+    /* Filter tabs */
+    .jobs-filter {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--border);
+      margin-bottom: 2px;
+      width: fit-content;
+    }
+    .jf-btn {
+      font-family: var(--font);
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: none;
+      border: none;
+      border-right: 1px solid var(--border);
+      padding: 14px 28px;
+      transition: color var(--tf), background var(--tf);
+      white-space: nowrap;
+    }
+    .jf-btn:last-child { border-right: none; }
+    .jf-btn.active,
+    .jf-btn:hover { color: var(--black); background: var(--white); }
+
+    /* Job list */
+    .jobs-list { border-top: 1px solid var(--border); }
+    .job-row {
+      display: grid;
+      grid-template-columns: 1fr 200px 180px 56px;
+      align-items: center;
+      gap: 32px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+      transition: padding-left 0.4s var(--ease);
+      cursor: none;
+    }
+    .job-row:hover { padding-left: 20px; }
+    .job-row.hidden { display: none; }
+
+    .jr-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+    }
+    .jr-dept {
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .jr-loc {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+    .jr-arrow {
+      font-size: 18px;
+      color: rgba(245,240,235,0.25);
+      text-align: right;
+      transition: color var(--tf), transform var(--tf);
+    }
+    .job-row:hover .jr-arrow { color: var(--white); transform: translateX(4px); }
+
+    .no-jobs {
+      display: none;
+      padding: 80px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+    .no-jobs.show { display: block; }
+
+    /* ── Open Application ────────────────────────────────── */
+    .open-app {
+      background: var(--off-black);
+      padding: 120px 64px;
+      border-bottom: 1px solid var(--border);
+    }
+    .open-app-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+    .open-app-left h2 {
+      font-size: clamp(36px, 5vw, 72px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      line-height: 0.95;
+      margin-bottom: 32px;
+    }
+    .open-app-left p {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 2;
+      color: var(--muted);
+    }
+    .open-app-form { display: flex; flex-direction: column; }
+    .open-app-form .fg:first-child { border-top: 1px solid var(--border); }
+    .open-app-form .fg { border-bottom: 1px solid var(--border); padding: 22px 0; position: relative; }
+    .open-app-form .fg label {
+      display: block;
+      font-size: 9px;
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(245,240,235,0.35);
+      margin-bottom: 8px;
+    }
+    .open-app-form .fg input,
+    .open-app-form .fg select,
+    .open-app-form .fg textarea {
+      background: none;
+      border: none;
+      outline: none;
+      width: 100%;
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--white);
+      resize: none;
+    }
+    .open-app-form .fg select option { background: var(--off-black); }
+    .open-app-form .fg textarea { min-height: 100px; }
+    .open-app-form .fg input::placeholder,
+    .open-app-form .fg textarea::placeholder { color: rgba(245,240,235,0.22); }
+    .open-app-form .fg::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0;
+      width: 0; height: 1px;
+      background: var(--white);
+      transition: width 0.5s var(--ease);
+    }
+    .open-app-form .fg:focus-within::after { width: 100%; }
+
+    /* ── Life Section ────────────────────────────────────── */
+    .life {
+      background: var(--black);
+      padding: 120px 64px;
+      border-bottom: 1px solid var(--border);
+    }
+    .life-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 72px;
+    }
+    .life-img {
+      overflow: hidden;
+      position: relative;
+    }
+    .life-img img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      filter: brightness(0.75);
+      transition: transform 1s var(--ease), filter 0.7s ease;
+      display: block;
+    }
+    .life-img:hover img { transform: scale(1.05); filter: brightness(0.55); }
+    .life-img-cap {
+      position: absolute;
+      bottom: 16px; left: 20px;
+      font-size: 9px;
+      font-weight: 300;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(245,240,235,0.6);
+    }
+
+    /* ── Back Strip ──────────────────────────────────────── */
+    .back-strip {
+      padding: 48px 64px;
+      background: var(--off-black);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .back-link {
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: color var(--tf);
+    }
+    .back-link:hover { color: var(--white); }
+
+    /* ── Responsive ──────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .values { grid-template-columns: repeat(2, 1fr); }
+      .life-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .car-hero { padding: 0 24px 80px; }
+      .car-hero-content { grid-template-columns: 1fr; gap: 40px; }
+      .car-hero-scroll { display: none; }
+      .values { grid-template-columns: 1fr; }
+      .value-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .jobs-section { padding: 80px 24px; }
+      .jobs-top { grid-template-columns: 1fr; gap: 40px; }
+      .job-row { grid-template-columns: 1fr auto; gap: 12px; }
+      .jr-dept, .jr-loc { display: none; }
+      .open-app { padding: 80px 24px; }
+      .open-app-grid { grid-template-columns: 1fr; gap: 60px; }
+      .life { padding: 80px 24px; }
+      .life-grid { grid-template-columns: 1fr; }
+      .back-strip { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Custom Cursor ───────────────────────────────────── -->
+  <div class="c-dot" id="cDot"></div>
+  <div class="c-ring" id="cRing"></div>
+
+  <!-- ── Navigation ──────────────────────────────────────── -->
+  <nav id="nav">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/assets/Logo/260403_Logo_Magg+Partners_White.png" alt="Magg+Partners">
+    </a>
+    <ul class="nav-links">
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="index.html#studio">Studio</a></li>
+      <li><a href="index.html#people">People</a></li>
+      <li><a href="index.html#news">News</a></li>
+      <li><a href="careers.html">Careers</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <button class="nav-hamburger" id="ham" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ── Mobile Menu ─────────────────────────────────────── -->
+  <div class="mobile-menu" id="mob">
+    <ul>
+      <li><a href="projects.html"    class="mob-link">Projects</a></li>
+      <li><a href="index.html#studio"  class="mob-link">Studio</a></li>
+      <li><a href="index.html#people"  class="mob-link">People</a></li>
+      <li><a href="index.html#news"    class="mob-link">News</a></li>
+      <li><a href="careers.html"       class="mob-link">Careers</a></li>
+      <li><a href="index.html#contact" class="mob-link">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- ── Hero ────────────────────────────────────────────── -->
+  <div class="car-hero">
+    <div class="car-hero-bg" id="carHeroBg"></div>
+
+    <div class="car-hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-track"><div class="scroll-runner"></div></div>
+    </div>
+
+    <div class="car-hero-content">
+      <div>
+        <div class="car-hero-eyebrow">Join Us — Open Positions</div>
+        <h1 class="car-hero-h1">
+          <span class="h1-line"><span class="h1-inner">Shape</span></span>
+          <span class="h1-line"><span class="h1-inner">The World</span></span>
+        </h1>
+      </div>
+      <div class="car-hero-right">
+        <p class="car-hero-tagline">We build exceptional teams as deliberately as we build exceptional buildings.</p>
+        <p class="car-hero-sub">Magg+Partners is a global studio of architects, urbanists, designers, and thinkers. We are always looking for people who share our commitment to precision, creativity, and the long view.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Values ──────────────────────────────────────────── -->
+  <div class="values">
+    <div class="value-item reveal">
+      <div class="value-num">01</div>
+      <div class="value-title">Craft</div>
+      <p class="value-desc">We believe in the value of making things well. Every detail, at every scale, receives the same level of attention.</p>
+    </div>
+    <div class="value-item reveal reveal-delay-1">
+      <div class="value-num">02</div>
+      <div class="value-title">Ambition</div>
+      <p class="value-desc">We take on complex, significant projects. The work is demanding and the standards are high — that is the point.</p>
+    </div>
+    <div class="value-item reveal reveal-delay-2">
+      <div class="value-num">03</div>
+      <div class="value-title">Rigour</div>
+      <p class="value-desc">We think carefully, question assumptions, and pursue ideas until they are resolved. Rigour is not a constraint — it is how we achieve freedom.</p>
+    </div>
+    <div class="value-item reveal reveal-delay-3">
+      <div class="value-num">04</div>
+      <div class="value-title">Collaboration</div>
+      <p class="value-desc">The best work emerges from genuine collaboration — between disciplines, between offices, and between people with different points of view.</p>
+    </div>
+  </div>
+
+  <!-- ── Job Listings ────────────────────────────────────── -->
+  <div class="jobs-section">
+    <div class="jobs-top reveal">
+      <h2 class="s-heading">Open<br>Positions</h2>
+      <p class="jobs-intro">We are currently hiring across all disciplines and offices. Each role is an opportunity to work on significant projects with an exceptional team.</p>
+    </div>
+
+    <div class="jobs-filter reveal">
+      <button class="jf-btn active" data-dept="all">All</button>
+      <button class="jf-btn" data-dept="architecture">Architecture</button>
+      <button class="jf-btn" data-dept="urbanism">Urbanism</button>
+      <button class="jf-btn" data-dept="interiors">Interiors</button>
+      <button class="jf-btn" data-dept="development">Development</button>
+      <button class="jf-btn" data-dept="operations">Operations</button>
+    </div>
+
+    <div class="jobs-list reveal" id="jobsList">
+
+      <div class="job-row" data-dept="architecture">
+        <div class="jr-title">Senior Architect</div>
+        <div class="jr-dept">Architecture</div>
+        <div class="jr-loc">London / Dubai</div>
+        <div class="jr-arrow">→</div>
+      </div>
+
+      <div class="job-row" data-dept="architecture">
+        <div class="jr-title">Project Architect</div>
+        <div class="jr-dept">Architecture</div>
+        <div class="jr-loc">Singapore</div>
+        <div class="jr-arrow">→</div>
+      </div>
+
+      <div class="job-row" data-dept="architecture">
+        <div class="jr-title">Architectural Designer</div>
+        <div class="jr-dept">Architecture</div>
+        <div class="jr-loc">New York</div>
+        <div class="jr-arrow">→</div>
+      </div>
+
+      <div class="job-row" data-dept="architecture">
+        <div class="jr-title">Technical Architect</div>
+        <div class="jr-dept">Architecture</div>
+        <div class="jr-loc">London</div>
+        <div class="jr-arrow">→</div>
+      </div>
+
+      <div class="job-row" data-dept="urbanism">
+        <div class="jr-title">Urban Designer</div>
+        <div class="jr-dept">Urbanism</div>
+        <div class="jr-loc">Singapore</div>
+        <div class="jr-arrow">→</div>
+      </div>
+
+      <div class="job-row" data-dept="urbanism">
+        <div class="jr-title">Masterplanning Lead</div>
+        <div class="jr-dept">Urbanism</div>
+        <div class="jr-loc">Dubai</div>
+        <div class="jr-arrow">→</div>
+      </div>
+
+      <div class="job-row" data-dept="interiors">
+        <div class="jr-title">Interior Designer</div>
+        <div class="jr-dept">Interiors</div>
+        <div class="jr-loc">New York</div>
+        <div class="jr-arrow">→</div>
+      </div>
+
+      <div class="job-row" data-dept="interiors">
+        <div class="jr-title">Senior Interior Designer</div>
+        <div class="jr-dept">Interiors</div>
+        <div class="jr-loc">Milan</div>
+        <div class="jr-arrow">→</div>
+      </div>
+
+      <div class="job-row" data-dept="development">
+        <div class="jr-title">Real Estate Analyst</div>
+        <div class="jr-dept">Development</div>
+        <div class="jr-loc">London</div>
+        <div class="jr-arrow">→</div>
+      </div>
+
+      <div class="job-row" data-dept="development">
+        <div class="jr-title">Development Director</div>
+        <div class="jr-dept">Development</div>
+        <div class="jr-loc">Dubai</div>
+        <div class="jr-arrow">→</div>
+      </div>
+
+      <div class="job-row" data-dept="operations">
+        <div class="jr-title">Project Manager</div>
+        <div class="jr-dept">Operations</div>
+        <div class="jr-loc">Tokyo</div>
+        <div class="jr-arrow">→</div>
+      </div>
+
+      <div class="job-row" data-dept="operations">
+        <div class="jr-title">Design Technology Lead</div>
+        <div class="jr-dept">Operations</div>
+        <div class="jr-loc">London</div>
+        <div class="jr-arrow">→</div>
+      </div>
+
+    </div>
+    <div class="no-jobs" id="noJobs">No positions available in this category right now.</div>
+  </div>
+
+  <!-- ── Open Application ─────────────────────────────────── -->
+  <div class="open-app">
+    <div class="open-app-grid">
+      <div class="reveal">
+        <div class="s-label" style="margin-bottom:40px;">Open Application</div>
+        <h2>Don't See<br>Your Role?</h2>
+        <p>We welcome speculative applications from exceptional people. Tell us who you are and what you do best — we read every submission.</p>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <form class="open-app-form" onsubmit="return false;">
+          <div class="fg">
+            <label>Full Name</label>
+            <input type="text" placeholder="Your name">
+          </div>
+          <div class="fg">
+            <label>Email Address</label>
+            <input type="email" placeholder="your@email.com">
+          </div>
+          <div class="fg">
+            <label>Discipline</label>
+            <select>
+              <option value="" disabled selected>Select your field</option>
+              <option>Architecture</option>
+              <option>Urban Design</option>
+              <option>Interiors</option>
+              <option>Real Estate</option>
+              <option>Operations</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label>Portfolio / Website</label>
+            <input type="text" placeholder="yourportfolio.com">
+          </div>
+          <div class="fg">
+            <label>Tell Us About Yourself</label>
+            <textarea placeholder="Your experience, what drives you, what you're looking for..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Submit Application →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Life at the Studio ───────────────────────────────── -->
+  <div class="life">
+    <div class="s-label reveal">Studio Life</div>
+    <div class="reveal">
+      <h2 class="s-heading">Where We Work</h2>
+    </div>
+    <div class="life-grid">
+      <div class="life-img reveal reveal-delay-1">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=85" alt="London Studio" loading="lazy">
+        <span class="life-img-cap">London HQ</span>
+      </div>
+      <div class="life-img reveal reveal-delay-2">
+        <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=85" alt="Dubai Studio" loading="lazy">
+        <span class="life-img-cap">Dubai Studio</span>
+      </div>
+      <div class="life-img reveal reveal-delay-3">
+        <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&q=85" alt="Singapore Studio" loading="lazy">
+        <span class="life-img-cap">Singapore Studio</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Footer Strip ─────────────────────────────────────── -->
+  <div class="back-strip">
+    <a href="index.html" class="back-link">← Back to Home</a>
+    <a href="index.html#contact" class="view-all">Get In Touch →</a>
+  </div>
+
+  <script>
+    /* ── Cursor ──────────────────────────────────────────── */
+    const cDot=document.getElementById('cDot'),cRing=document.getElementById('cRing');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cDot.style.left=mx+'px';cDot.style.top=my+'px';});
+    document.addEventListener('mousedown',()=>document.body.classList.add('c-click'));
+    document.addEventListener('mouseup',()=>document.body.classList.remove('c-click'));
+    (function loop(){rx+=(mx-rx)*0.11;ry+=(my-ry)*0.11;cRing.style.left=rx+'px';cRing.style.top=ry+'px';requestAnimationFrame(loop);})();
+
+    /* ── Nav ─────────────────────────────────────────────── */
+    const nav=document.getElementById('nav');
+    window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>72),{passive:true});
+
+    /* ── Mobile Menu ─────────────────────────────────────── */
+    const ham=document.getElementById('ham'),mob=document.getElementById('mob');
+    let mobOpen=false;
+    ham.addEventListener('click',()=>{mobOpen=!mobOpen;ham.classList.toggle('open',mobOpen);mob.classList.toggle('open',mobOpen);document.body.style.overflow=mobOpen?'hidden':'';});
+    document.querySelectorAll('.mob-link').forEach(a=>a.addEventListener('click',()=>{mobOpen=false;ham.classList.remove('open');mob.classList.remove('open');document.body.style.overflow='';}));
+
+    /* ── Cursor hover ────────────────────────────────────── */
+    document.querySelectorAll('a,button,.job-row,.value-item').forEach(el=>{
+      el.addEventListener('mouseenter',()=>document.body.classList.add('c-hover'));
+      el.addEventListener('mouseleave',()=>document.body.classList.remove('c-hover'));
+    });
+
+    /* ── Hero animate ────────────────────────────────────── */
+    const heroBg=document.getElementById('carHeroBg');
+    setTimeout(()=>{
+      heroBg.classList.add('ready');
+      setTimeout(()=>{
+        document.querySelectorAll('.car-hero-h1 .h1-inner').forEach((el,i)=>{
+          setTimeout(()=>el.classList.add('out'),i*160);
+        });
+      },100);
+    },200);
+
+    /* ── Scroll Reveal ───────────────────────────────────── */
+    const io=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});
+    },{threshold:0.08,rootMargin:'0px 0px -48px 0px'});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    /* ── Job Filter ──────────────────────────────────────── */
+    const jfBtns=document.querySelectorAll('.jf-btn');
+    const jobRows=document.querySelectorAll('.job-row');
+    const noJobs=document.getElementById('noJobs');
+
+    jfBtns.forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        jfBtns.forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        const dept=btn.dataset.dept;
+        let visible=0;
+        jobRows.forEach(row=>{
+          const match=dept==='all'||row.dataset.dept===dept;
+          row.classList.toggle('hidden',!match);
+          if(match)visible++;
+        });
+        noJobs.classList.toggle('show',visible===0);
+      });
+    });
+  </script>
+</body>
+</html>
