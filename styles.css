@@ -407,16 +407,22 @@ section { padding:140px 64px; }
 .exp-grid {
   display: grid;
   grid-template-columns: repeat(4,1fr);
-  border: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
 }
 .exp-item {
   padding: 56px 40px 48px;
   border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
   position: relative;
   overflow: hidden;
   transition: background var(--t);
 }
-.exp-item:last-child { border-right:none; }
+/* 11 items in 4 cols → rows 4/4/3 */
+/* last column in each row: no extra right border */
+.exp-item:nth-child(4n) { border-right: 1px solid var(--border); } /* keep — grid border handles */
+/* last row (items 9–11): no bottom border */
+.exp-item:nth-child(n+9) { border-bottom: none; }
 .exp-item::after {
   content: '';
   position: absolute;
@@ -453,14 +459,6 @@ section { padding:140px 64px; }
   transition: color var(--t);
 }
 .exp-item:hover .exp-desc { color:rgba(245,240,235,0.75); }
-.exp-arrow {
-  display: block;
-  margin-top: 40px;
-  font-size: 18px;
-  color: rgba(245,240,235,0.25);
-  transition: color var(--tf), transform var(--tf);
-}
-.exp-item:hover .exp-arrow { color:var(--white); transform:translateX(6px); }
 
 /* ─── PROJECTS ───────────────────────────────────────── */
 #projects {
@@ -1060,7 +1058,10 @@ footer {
 
 /* ─── Responsive ─────────────────────────────────────── */
 @media (max-width: 1100px) {
+  /* 11 items in 2 cols → rows 2×5 + 1 → last row is item 11 */
   .exp-grid { grid-template-columns:repeat(2,1fr); }
+  .exp-item:nth-child(n+9) { border-bottom: 1px solid var(--border); } /* reset desktop rule */
+  .exp-item:nth-child(n+11) { border-bottom: none; }
   .people-grid { grid-template-columns:repeat(2,1fr); }
 }
 @media (max-width: 900px) {
@@ -1078,8 +1079,10 @@ footer {
   section { padding:80px 24px; }
   #hero { padding:0 24px 64px; }
   .hero-scroll-ind { right:24px; bottom:64px; }
+  /* single column — restore bottom borders on all, remove right borders */
   .exp-grid { grid-template-columns:1fr; }
-  .exp-item { border-right:none; border-bottom:1px solid var(--border); }
+  .exp-item { border-right:none !important; border-bottom:1px solid var(--border) !important; }
+  .exp-item:last-child { border-bottom:none !important; }
   #projects { padding-left:0; padding-right:0; }
   .proj-head { padding:0 24px; }
   .proj-progress { padding:24px 24px 0; }
