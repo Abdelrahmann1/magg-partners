@@ -203,30 +203,52 @@ document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
   let heroIdx   = 0;
   let heroTimer = null;
 
-  /* Build slides + dots */
+  /* Build slides + dots — only first image loads immediately, rest lazy-load */
   heroImages.forEach((img, i) => {
+    const isFirst = i === 0;
+
     /* slide */
     const slide = document.createElement('div');
-    slide.className = 'hc-slide' + (i === 0 ? ' active' : '');
-    /* blurred background — fills bars without cutting the image */
+    slide.className = 'hc-slide' + (isFirst ? ' active' : '');
+    slide.dataset.src = img.src; /* store src for lazy loading */
+
+    /* blurred background */
     const bg = document.createElement('div');
     bg.className = 'hc-slide-bg';
-    bg.style.backgroundImage = `url('${img.src}')`;
+    if (isFirst) bg.style.backgroundImage = `url('${img.src}')`;
     slide.appendChild(bg);
-    /* sharp foreground image — full image, no cropping */
+
+    /* sharp foreground image */
     const im = document.createElement('img');
-    im.src = img.src;
+    if (isFirst) {
+      im.src = img.src;           /* first slide loads immediately */
+    } else {
+      im.dataset.src = img.src;   /* rest load only when needed */
+    }
     im.alt = img.label;
     slide.appendChild(im);
     heroCarousel.appendChild(slide);
 
     /* dot */
     const dot = document.createElement('button');
-    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.className = 'carousel-dot' + (isFirst ? ' active' : '');
     dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
     dot.addEventListener('click', () => heroGoTo(i));
     heroDots.appendChild(dot);
   });
+
+  /* Load a slide's image on demand */
+  function loadSlide(slide) {
+    const im = slide.querySelector('img');
+    const bg = slide.querySelector('.hc-slide-bg');
+    if (im && im.dataset.src) {
+      im.src = im.dataset.src;
+      delete im.dataset.src;
+    }
+    if (bg && !bg.style.backgroundImage && slide.dataset.src) {
+      bg.style.backgroundImage = `url('${slide.dataset.src}')`;
+    }
+  }
 
   function heroGoTo(n) {
     const slides = heroCarousel.querySelectorAll('.hc-slide');
@@ -237,6 +259,11 @@ document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     setTimeout(() => slides[exiting] && slides[exiting].classList.remove('exit'), 1300);
     dots[heroIdx].classList.remove('active');
     heroIdx = ((n % heroImages.length) + heroImages.length) % heroImages.length;
+    /* load this slide now if not already loaded */
+    loadSlide(slides[heroIdx]);
+    /* preload the next slide in the background */
+    const nextIdx = ((heroIdx + 1) % heroImages.length);
+    loadSlide(slides[nextIdx]);
     slides[heroIdx].classList.add('active');
     dots[heroIdx].classList.add('active');
     clearInterval(heroTimer);
