@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>News & Press — Magg+Partners</title>
   <link rel="icon" type="image/png" href="assets/assets/Logo/260403_Logo_Magg+Partners_Website_Icon.png">
+  <link rel="shortcut icon" type="image/jpeg" href="assets/assets/Logo/favicon.jpg">
+  <link rel="apple-touch-icon" href="assets/assets/Logo/260403_Logo_Magg+Partners_Website_Icon.png">
   <link rel="stylesheet" href="styles.css">
   <style>
 
@@ -500,29 +502,35 @@
     <a href="index.html" class="nav-logo">
       <img src="assets/assets/Logo/260403_Logo_Magg+Partners_White.png" alt="Magg+Partners">
     </a>
-    <ul class="nav-links">
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="index.html#studio">Studio</a></li>
-      <li><a href="index.html#people">People</a></li>
-      <li><a href="news.html">News</a></li>
-      <li><a href="careers.html">Careers</a></li>
-      <li><a href="index.html#contact">Contact</a></li>
-    </ul>
-    <button class="nav-hamburger" id="ham" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="nav-right">
+      <button class="nav-search-btn" id="searchBtn" aria-label="Search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+      </button>
+      <button class="nav-hamburger" id="ham" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
 
-  <!-- ── Mobile Menu ─────────────────────────────────────── -->
+  <!-- ── Overlay Menu ────────────────────────────────────── -->
   <div class="mobile-menu" id="mob">
     <ul>
-      <li><a href="projects.html"    class="mob-link">Projects</a></li>
-      <li><a href="index.html#studio"  class="mob-link">Studio</a></li>
-      <li><a href="index.html#people"  class="mob-link">People</a></li>
+      <li><a href="projects.html"      class="mob-link">Projects</a></li>
+      <li><a href="index.html#people"  class="mob-link">Studio</a></li>
       <li><a href="news.html"          class="mob-link">News</a></li>
       <li><a href="careers.html"       class="mob-link">Careers</a></li>
       <li><a href="index.html#contact" class="mob-link">Contact</a></li>
     </ul>
+  </div>
+
+  <!-- ── Search Overlay ─────────────────────────────────── -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-input-wrap">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+      <input type="text" id="searchInput" placeholder="Search projects, locations, services…" autocomplete="off">
+      <button class="search-close" id="searchClose">ESC</button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
   </div>
 
   <!-- ── Page Hero ───────────────────────────────────────── -->
@@ -843,6 +851,7 @@
     <a href="index.html#contact" class="view-all">Get In Touch →</a>
   </div>
 
+  <script src="projects-data.js"></script>
   <script>
     /* ── Cursor ──────────────────────────────────────────── */
     const cDot=document.getElementById('cDot'),cRing=document.getElementById('cRing');
@@ -856,11 +865,27 @@
     const nav=document.getElementById('nav');
     window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>72),{passive:true});
 
-    /* ── Mobile Menu ─────────────────────────────────────── */
+    /* ── Menu + Search ───────────────────────────────────── */
     const ham=document.getElementById('ham'),mob=document.getElementById('mob');
     let mobOpen=false;
+    function closeMenu(){mobOpen=false;ham.classList.remove('open');mob.classList.remove('open');document.body.style.overflow='';}
     ham.addEventListener('click',()=>{mobOpen=!mobOpen;ham.classList.toggle('open',mobOpen);mob.classList.toggle('open',mobOpen);document.body.style.overflow=mobOpen?'hidden':'';});
-    document.querySelectorAll('.mob-link').forEach(a=>a.addEventListener('click',()=>{mobOpen=false;ham.classList.remove('open');mob.classList.remove('open');document.body.style.overflow='';}));
+    document.querySelectorAll('.mob-link').forEach(a=>a.addEventListener('click',closeMenu));
+    const searchOverlay=document.getElementById('searchOverlay'),searchBtn=document.getElementById('searchBtn'),searchClose=document.getElementById('searchClose'),searchInput=document.getElementById('searchInput'),searchResultsEl=document.getElementById('searchResults');
+    function openSearch(){closeMenu();searchOverlay.classList.add('open');document.body.style.overflow='hidden';setTimeout(()=>searchInput.focus(),100);}
+    function closeSearch(){searchOverlay.classList.remove('open');document.body.style.overflow='';searchInput.value='';}
+    searchBtn.addEventListener('click',openSearch);searchClose.addEventListener('click',closeSearch);
+    searchOverlay.addEventListener('click',e=>{if(e.target===searchOverlay)closeSearch();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();});
+    searchInput.addEventListener('input',()=>{
+      const q=searchInput.value.trim().toLowerCase();searchResultsEl.innerHTML='';
+      if(!q){return;}
+      const m=(typeof PROJECTS!=='undefined'?PROJECTS:[]).filter(p=>p.name.toLowerCase().includes(q)||p.location.toLowerCase().includes(q)).slice(0,8);
+      if(!m.length){searchResultsEl.innerHTML='<p class="search-empty">No results</p>';return;}
+      const g=document.createElement('div');g.className='search-group';g.innerHTML='<div class="search-group-label">Projects</div>';
+      m.forEach(p=>{const a=document.createElement('a');a.className='search-result-item';a.href='project.html?id='+p.id;a.innerHTML=`<span class="sri-name">${p.name}</span><span class="sri-meta">${p.location} · ${p.year}</span>`;a.addEventListener('click',closeSearch);g.appendChild(a);});
+      searchResultsEl.appendChild(g);
+    });
 
     /* ── Cursor hover ────────────────────────────────────── */
     document.querySelectorAll('a,button,.award-item,.logo-cell').forEach(el=>{

@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Project — Magg+Partners</title>
   <link rel="icon" type="image/png" href="assets/assets/Logo/260403_Logo_Magg+Partners_Website_Icon.png">
+  <link rel="shortcut icon" type="image/jpeg" href="assets/assets/Logo/favicon.jpg">
+  <link rel="apple-touch-icon" href="assets/assets/Logo/260403_Logo_Magg+Partners_Website_Icon.png">
   <link rel="stylesheet" href="styles.css">
   <style>
     /* ── Project Detail Page ─────────────────────────────── */
@@ -352,36 +354,50 @@
     <a href="index.html" class="nav-logo">
       <img src="assets/assets/Logo/260403_Logo_Magg+Partners_White.png" alt="Magg+Partners">
     </a>
-    <ul class="nav-links">
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="index.html#studio">Studio</a></li>
-      <li><a href="index.html#people">People</a></li>
-      <li><a href="index.html#news">News</a></li>
-      <li><a href="index.html#careers">Careers</a></li>
-      <li><a href="index.html#contact">Contact</a></li>
-    </ul>
-    <button class="nav-hamburger" id="ham" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="nav-right">
+      <button class="nav-search-btn" id="searchBtn" aria-label="Search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+      </button>
+      <button class="nav-hamburger" id="ham" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
 
-  <!-- ── Mobile Menu ─────────────────────────────────────── -->
+  <!-- ── Overlay Menu ────────────────────────────────────── -->
   <div class="mobile-menu" id="mob">
     <ul>
-      <li><a href="projects.html" class="mob-link">Projects</a></li>
-      <li><a href="index.html#studio" class="mob-link">Studio</a></li>
-      <li><a href="index.html#people" class="mob-link">People</a></li>
-      <li><a href="index.html#news" class="mob-link">News</a></li>
-      <li><a href="index.html#careers" class="mob-link">Careers</a></li>
+      <li><a href="projects.html"    class="mob-link">Projects</a></li>
+      <li><a href="index.html#people" class="mob-link">Studio</a></li>
+      <li><a href="news.html"        class="mob-link">News</a></li>
+      <li><a href="careers.html"     class="mob-link">Careers</a></li>
       <li><a href="index.html#contact" class="mob-link">Contact</a></li>
     </ul>
   </div>
 
-  <!-- ── Hero ────────────────────────────────────────────── -->
+  <!-- ── Search Overlay ─────────────────────────────────── -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-input-wrap">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+      <input type="text" id="searchInput" placeholder="Search projects, locations, services…" autocomplete="off">
+      <button class="search-close" id="searchClose">ESC</button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+
+  <!-- ── Hero with Carousel ──────────────────────────────── -->
   <div class="proj-hero" id="projHero">
     <a href="projects.html" class="proj-back">← All Projects</a>
-    <div class="proj-hero-bg" id="projHeroBg"></div>
+    <!-- carousel container — slides injected by JS -->
+    <div class="hero-carousel" id="heroCarousel"></div>
     <div class="proj-hero-overlay"></div>
+    <!-- dots -->
+    <div class="carousel-dots" id="carouselDots"></div>
+    <!-- arrows -->
+    <div class="carousel-arrows">
+      <button class="carousel-arrow" id="carouselPrev">&#8592;</button>
+      <button class="carousel-arrow" id="carouselNext">&#8594;</button>
+    </div>
     <div class="proj-hero-content">
       <div class="proj-hero-left">
         <div class="proj-hero-eyebrow" id="projEyebrow"></div>
@@ -458,14 +474,44 @@
     (function loop(){rx+=(mx-rx)*0.11;ry+=(my-ry)*0.11;cRing.style.left=rx+'px';cRing.style.top=ry+'px';requestAnimationFrame(loop);})();
 
     /* ── Nav scroll ──────────────────────────────────────── */
-    const nav=document.getElementById('nav');
-    window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>72),{passive:true});
+    const navEl=document.getElementById('nav');
+    window.addEventListener('scroll',()=>navEl.classList.toggle('scrolled',window.scrollY>72),{passive:true});
 
-    /* ── Mobile Menu ─────────────────────────────────────── */
+    /* ── Overlay Menu ────────────────────────────────────── */
     const ham=document.getElementById('ham'),mob=document.getElementById('mob');
     let mobOpen=false;
+    function closeMenu(){mobOpen=false;ham.classList.remove('open');mob.classList.remove('open');document.body.style.overflow='';}
     ham.addEventListener('click',()=>{mobOpen=!mobOpen;ham.classList.toggle('open',mobOpen);mob.classList.toggle('open',mobOpen);document.body.style.overflow=mobOpen?'hidden':'';});
-    document.querySelectorAll('.mob-link').forEach(a=>a.addEventListener('click',()=>{mobOpen=false;ham.classList.remove('open');mob.classList.remove('open');document.body.style.overflow='';}));
+    document.querySelectorAll('.mob-link').forEach(a=>a.addEventListener('click',closeMenu));
+
+    /* ── Search ──────────────────────────────────────────── */
+    const searchOverlay=document.getElementById('searchOverlay');
+    const searchBtn=document.getElementById('searchBtn');
+    const searchClose=document.getElementById('searchClose');
+    const searchInput=document.getElementById('searchInput');
+    const searchResults=document.getElementById('searchResults');
+    const PAGES=[
+      {name:'Projects Gallery',meta:'All Projects',href:'projects.html'},
+      {name:'Careers',meta:'Join The Team',href:'careers.html'},
+      {name:'News & Press',meta:'Latest Articles & Awards',href:'news.html'},
+      {name:'Studio',meta:'About Magg+Partners',href:'index.html#people'},
+      {name:'Contact',meta:'Get In Touch',href:'index.html#contact'},
+    ];
+    function openSearch(){closeMenu();searchOverlay.classList.add('open');document.body.style.overflow='hidden';setTimeout(()=>searchInput.focus(),100);runSearch('');}
+    function closeSearch(){searchOverlay.classList.remove('open');document.body.style.overflow='';searchInput.value='';}
+    searchBtn.addEventListener('click',openSearch);
+    searchClose.addEventListener('click',closeSearch);
+    searchOverlay.addEventListener('click',e=>{if(e.target===searchOverlay)closeSearch();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();openSearch();}});
+    searchInput.addEventListener('input',()=>runSearch(searchInput.value));
+    function runSearch(q){
+      q=q.trim().toLowerCase();searchResults.innerHTML='';
+      const matched=q.length<1?PROJECTS.slice(0,8):PROJECTS.filter(p=>p.name.toLowerCase().includes(q)||p.location.toLowerCase().includes(q)||p.categoryLabel.toLowerCase().includes(q)||(p.type&&p.type.toLowerCase().includes(q))||p.year.includes(q)).slice(0,10);
+      const matchedP=q.length<1?PAGES:PAGES.filter(p=>p.name.toLowerCase().includes(q)||p.meta.toLowerCase().includes(q));
+      if(!matched.length&&!matchedP.length){searchResults.innerHTML='<p class="search-empty">No results for "'+searchInput.value+'"</p>';return;}
+      if(matched.length){const g=document.createElement('div');g.className='search-group';g.innerHTML='<div class="search-group-label">Projects</div>';matched.forEach(p=>{const a=document.createElement('a');a.className='search-result-item';a.href='project.html?id='+p.id;a.innerHTML=`<span class="sri-name">${p.name}</span><span class="sri-meta">${p.location} · ${p.year}</span>`;a.addEventListener('click',closeSearch);searchResults.appendChild(a);});searchResults.appendChild(g);}
+      if(matchedP.length){const g=document.createElement('div');g.className='search-group';g.innerHTML='<div class="search-group-label">Pages</div>';matchedP.forEach(p=>{const a=document.createElement('a');a.className='search-result-item';a.href=p.href;a.innerHTML=`<span class="sri-name">${p.name}</span><span class="sri-meta">${p.meta}</span>`;a.addEventListener('click',closeSearch);g.appendChild(a);});searchResults.appendChild(g);}
+    }
 
     /* ── Cursor hover ────────────────────────────────────── */
     function addHover(el){el.addEventListener('mouseenter',()=>document.body.classList.add('c-hover'));el.addEventListener('mouseleave',()=>document.body.classList.remove('c-hover'));}
@@ -482,21 +528,63 @@
 
     document.title = `${project.name} — Magg+Partners`;
 
-    /* Hero */
-    const heroBg = document.getElementById('projHeroBg');
-    heroBg.style.backgroundImage = `url('${project.hero}')`;
+    /* ── Hero Carousel ───────────────────────────────────── */
+    const carousel   = document.getElementById('heroCarousel');
+    const dotsWrap   = document.getElementById('carouselDots');
+    const prevBtn2   = document.getElementById('carouselPrev');
+    const nextBtn2   = document.getElementById('carouselNext');
 
+    /* Build slides: hero first, then gallery */
+    const slideImages = [project.hero, ...project.gallery.filter(s => s !== project.hero)];
+    let currentSlide  = 0;
+    let carouselTimer = null;
+
+    slideImages.forEach((src, i) => {
+      const slide = document.createElement('div');
+      slide.className = 'hc-slide' + (i === 0 ? ' active' : '');
+      /* use <img> so images are never cropped (object-fit: contain) */
+      const im = document.createElement('img');
+      im.src = src;
+      im.alt = project.name + ' — image ' + (i + 1);
+      slide.appendChild(im);
+      carousel.appendChild(slide);
+
+      const dot = document.createElement('div');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(dot);
+    });
+
+    const slides = carousel.querySelectorAll('.hc-slide');
+    const dots   = dotsWrap.querySelectorAll('.carousel-dot');
+
+    function goTo(n) {
+      slides[currentSlide].classList.remove('active');
+      slides[currentSlide].classList.add('exit');
+      dots[currentSlide].classList.remove('active');
+      setTimeout(() => slides[currentSlide].classList.remove('exit'), 1200);
+      currentSlide = (n + slideImages.length) % slideImages.length;
+      slides[currentSlide].classList.add('active');
+      dots[currentSlide].classList.add('active');
+      resetTimer();
+    }
+
+    function resetTimer() {
+      clearInterval(carouselTimer);
+      carouselTimer = setInterval(() => goTo(currentSlide + 1), 5000);
+    }
+
+    prevBtn2.addEventListener('click', () => goTo(currentSlide - 1));
+    nextBtn2.addEventListener('click', () => goTo(currentSlide + 1));
+    resetTimer();
+
+    /* ── Hero text animate ───────────────────────────────── */
     setTimeout(() => {
-      heroBg.classList.add('ready');
       document.getElementById('projHeroRight').classList.add('show');
-
-      /* Animate eyebrow */
       const eyebrow = document.getElementById('projEyebrow');
       eyebrow.textContent = `${project.categoryLabel} — ${project.num}`;
       eyebrow.style.opacity = '1';
       eyebrow.style.transform = 'translateY(0)';
-
-      /* Animate title */
       const titleEl = document.getElementById('projTitle');
       const words = project.name.split(' ');
       titleEl.innerHTML = words.map(w =>
@@ -507,64 +595,56 @@
           setTimeout(() => el.classList.add('out'), i * 150);
         });
       }, 50);
-    }, 200);
+    }, 300);
 
     document.getElementById('projLoc').textContent = project.location;
     document.getElementById('projYear').textContent = project.year;
 
-    /* Info strip */
+    /* ── Info strip ──────────────────────────────────────── */
     const strip = document.getElementById('infoStrip');
     const cells = [
-      { label: 'Type',   val: project.type },
-      { label: 'Size',   val: project.size },
-      { label: 'Floors', val: project.floors },
-      { label: 'Status', val: project.status },
-      { label: 'Client', val: project.client },
-      { label: 'Year',   val: project.year },
+      {label:'Type',val:project.type},
+      {label:'Size',val:project.size},
+      {label:'Floors',val:project.floors},
+      {label:'Status',val:project.status},
+      {label:'Client',val:project.client},
+      {label:'Year',val:project.year},
     ];
-    strip.innerHTML = cells.map(c => `
-      <div class="info-cell">
-        <div class="info-label">${c.label}</div>
-        <div class="info-val">${c.val}</div>
-      </div>`).join('');
+    strip.innerHTML = cells.map(c =>
+      `<div class="info-cell"><div class="info-label">${c.label}</div><div class="info-val">${c.val}</div></div>`
+    ).join('');
 
-    /* Body */
+    /* ── Body ────────────────────────────────────────────── */
     document.getElementById('projBrief').textContent = project.brief;
-    document.getElementById('projDesc').textContent = project.description;
+    document.getElementById('projDesc').textContent  = project.description;
 
-    /* Gallery */
+    /* ── Gallery ─────────────────────────────────────────── */
     const gal = document.getElementById('gallery');
-    gal.innerHTML = project.gallery.map((src, i) => `
-      <div class="gimg">
-        <img src="${src}" alt="${project.name} ${i+1}" loading="${i===0?'eager':'lazy'}">
-      </div>`).join('');
+    gal.innerHTML = project.gallery.map((src, i) =>
+      `<div class="gimg"><img src="${src}" alt="${project.name} ${i+1}" loading="${i===0?'eager':'lazy'}"></div>`
+    ).join('');
 
-    /* Related projects */
-    const others = PROJECTS
-      .filter(p => p.id !== project.id && p.category === project.category)
-      .slice(0, 3);
+    /* ── Related ─────────────────────────────────────────── */
+    const others = PROJECTS.filter(p => p.id !== project.id && p.category === project.category).slice(0,3);
     const related = others.length >= 3 ? others :
-      [...others, ...PROJECTS.filter(p => p.id !== project.id && !others.includes(p))].slice(0, 3);
-
-    document.getElementById('related').innerHTML = related.map(p => `
-      <a class="related-card" href="project.html?id=${p.id}">
+      [...others, ...PROJECTS.filter(p => p.id !== project.id && !others.includes(p))].slice(0,3);
+    document.getElementById('related').innerHTML = related.map(p =>
+      `<a class="related-card" href="project.html?id=${p.id}">
         <img src="${p.thumb}" alt="${p.name}" loading="lazy">
         <div class="related-info">
           <div class="related-loc">${p.location}</div>
           <div class="related-name">${p.name}</div>
         </div>
       </a>`).join('');
-
     document.querySelectorAll('.related-card').forEach(addHover);
 
-    /* Prev / Next */
-    const prev = PROJECTS[(idx - 1 + PROJECTS.length) % PROJECTS.length];
-    const next = PROJECTS[(idx + 1) % PROJECTS.length];
-    document.getElementById('prevBtn').href = `project.html?id=${prev.id}`;
-    document.getElementById('prevBtn').innerHTML = `← ${prev.name}`;
-    document.getElementById('nextBtn').href = `project.html?id=${next.id}`;
-    document.getElementById('nextBtn').innerHTML = `${next.name} →`;
-
+    /* ── Prev / Next ─────────────────────────────────────── */
+    const prevP = PROJECTS[(idx - 1 + PROJECTS.length) % PROJECTS.length];
+    const nextP = PROJECTS[(idx + 1) % PROJECTS.length];
+    document.getElementById('prevBtn').href = `project.html?id=${prevP.id}`;
+    document.getElementById('prevBtn').innerHTML = `← ${prevP.name}`;
+    document.getElementById('nextBtn').href = `project.html?id=${nextP.id}`;
+    document.getElementById('nextBtn').innerHTML = `${nextP.name} →`;
     [document.getElementById('prevBtn'), document.getElementById('nextBtn')].forEach(addHover);
   </script>
 </body>

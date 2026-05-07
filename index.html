@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Magg+Partners</title>
   <link rel="icon" type="image/png" href="assets/assets/Logo/260403_Logo_Magg+Partners_Website_Icon.png">
+  <link rel="shortcut icon" type="image/jpeg" href="assets/assets/Logo/favicon.jpg">
+  <link rel="apple-touch-icon" href="assets/assets/Logo/260403_Logo_Magg+Partners_Website_Icon.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -23,41 +25,49 @@
   <!-- ── Navigation ──────────────────────────────────────── -->
   <nav id="nav">
     <a href="#" class="nav-logo"><img src="assets/assets/Logo/260403_Logo_Magg+Partners_White.png" alt="Magg+Partners"></a>
-    <ul class="nav-links">
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#studio">Studio</a></li>
-      <li><a href="#people">People</a></li>
-      <li><a href="news.html">News</a></li>
-      <li><a href="careers.html">Careers</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <button class="nav-hamburger" id="ham" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="nav-right">
+      <button class="nav-search-btn" id="searchBtn" aria-label="Search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+      </button>
+      <button class="nav-hamburger" id="ham" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
 
-  <!-- ── Mobile Menu ─────────────────────────────────────── -->
+  <!-- ── Overlay Menu ────────────────────────────────────── -->
   <div class="mobile-menu" id="mob">
     <ul>
-      <li><a href="#projects" class="mob-link">Projects</a></li>
-      <li><a href="#studio"   class="mob-link">Studio</a></li>
-      <li><a href="#people"   class="mob-link">People</a></li>
-      <li><a href="news.html" class="mob-link">News</a></li>
+      <li><a href="#projects"    class="mob-link">Projects</a></li>
+      <li><a href="#people"      class="mob-link">Studio</a></li>
+      <li><a href="news.html"    class="mob-link">News</a></li>
       <li><a href="careers.html" class="mob-link">Careers</a></li>
-      <li><a href="#contact"  class="mob-link">Contact</a></li>
+      <li><a href="#contact"     class="mob-link">Contact</a></li>
     </ul>
+  </div>
+
+  <!-- ── Search Overlay ─────────────────────────────────── -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-input-wrap">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+      <input type="text" id="searchInput" placeholder="Search projects, locations, services…" autocomplete="off">
+      <button class="search-close" id="searchClose">ESC</button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
   </div>
 
   <!-- ── HERO ────────────────────────────────────────────── -->
   <section id="hero">
-    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-carousel" id="heroCarousel"></div>
+    <div class="hero-overlay"></div>
+    <div class="carousel-dots" id="heroDots"></div>
+    <div class="carousel-arrows">
+      <button class="carousel-arrow" id="heroPrev" aria-label="Previous">&#8592;</button>
+      <button class="carousel-arrow" id="heroNext" aria-label="Next">&#8594;</button>
+    </div>
     <div class="hero-content">
-      <p class="hero-eyebrow">Global Architecture &amp; Real Estate — Est. 2005</p>
-      <h1 class="hero-h1">
-        <span class="h1-line"><span class="h1-inner">Designing</span></span>
-        <span class="h1-line"><span class="h1-inner">The Future</span></span>
-      </h1>
-      <p class="hero-sub">We shape the built environment through visionary architecture, urban thinking, and real estate development across the globe.</p>
+      <h1 class="hero-h1">Designing the Future<br>of the Built Environment</h1>
+      <p class="hero-sub">We shape cities, spaces, and lives across the globe.</p>
     </div>
     <div class="hero-scroll-ind">
       <span>Scroll</span>
@@ -67,7 +77,6 @@
 
   <!-- ── EXPERTISE ───────────────────────────────────────── -->
   <section id="expertise">
-    <div class="s-label reveal">01 — Expertise</div>
     <div class="exp-top">
       <h2 class="s-heading reveal">What<br>We Do</h2>
       <p class="reveal reveal-delay-1">We operate across eleven disciplines, each informed by the same commitment to excellence, innovation, and human-centred design.</p>
@@ -113,27 +122,11 @@
         <div class="exp-title">AI Innovation</div>
         <p class="exp-desc">Leveraging artificial intelligence to transform design processes and redefine built environment outcomes.</p>
       </div>
-      <div class="exp-item reveal reveal-delay-1">
-        <div class="exp-num">09</div>
-        <div class="exp-title">Research &amp; Development</div>
-        <p class="exp-desc">Pioneering new materials, methodologies, and technologies that push the limits of architecture.</p>
-      </div>
-      <div class="exp-item reveal reveal-delay-2">
-        <div class="exp-num">10</div>
-        <div class="exp-title">Project Management</div>
-        <p class="exp-desc">End-to-end delivery expertise ensuring quality, programme, and budget are never compromised.</p>
-      </div>
-      <div class="exp-item reveal reveal-delay-3">
-        <div class="exp-num">11</div>
-        <div class="exp-title">Real Estate</div>
-        <p class="exp-desc">Strategic development of high-value real estate assets for clients worldwide, from conception to delivery.</p>
-      </div>
     </div>
   </section>
 
   <!-- ── PROJECTS ─────────────────────────────────────────── -->
   <section id="projects">
-    <div class="s-label reveal" style="padding:0 64px;">02 — Selected Work</div>
     <div class="proj-head reveal">
       <h2 class="s-heading">Projects</h2>
       <a href="projects.html" class="view-all">View All →</a>
@@ -144,7 +137,6 @@
 
         <a class="proj-card lg" href="project.html?id=dens-dental-center">
           <img src="assets/assets/02_Projects/2115_Dens%20Dental%20Center,%20Alexandria,%20EGY/Hero.jpg" alt="Dens Dental Center" class="proj-img" loading="lazy">
-          <div class="proj-num">01</div>
           <div class="proj-info">
             <div class="proj-loc">Alexandria, Egypt</div>
             <div class="proj-name">Dens Dental Center</div>
@@ -154,7 +146,6 @@
 
         <a class="proj-card" href="project.html?id=mayfair-studio-apartment">
           <img src="assets/assets/02_Projects/2212_Mayfair%20Studio%20Apartment,%20London,%20UK/Hero.jpg" alt="Mayfair Studio Apartment" class="proj-img" loading="lazy">
-          <div class="proj-num">02</div>
           <div class="proj-info">
             <div class="proj-loc">Mayfair, London, UK</div>
             <div class="proj-name">Mayfair Studio Apartment</div>
@@ -164,7 +155,6 @@
 
         <a class="proj-card" href="project.html?id=go-green-office">
           <img src="assets/assets/02_Projects/2213_Go%20Green%20Office,%20Riyadh,%20KSA/Hero.jpg" alt="Go Green Office" class="proj-img" loading="lazy">
-          <div class="proj-num">03</div>
           <div class="proj-info">
             <div class="proj-loc">Riyadh, Saudi Arabia</div>
             <div class="proj-name">Go Green Office</div>
@@ -174,7 +164,6 @@
 
         <a class="proj-card lg" href="project.html?id=office-hq-kuwait">
           <img src="assets/assets/02_Projects/2218_Office_HQ,%20Kuwait/Final%202_HERO_01.jpg" alt="Office HQ" class="proj-img" loading="lazy">
-          <div class="proj-num">04</div>
           <div class="proj-info">
             <div class="proj-loc">Kuwait City, Kuwait</div>
             <div class="proj-name">Office HQ</div>
@@ -184,7 +173,6 @@
 
         <a class="proj-card" href="project.html?id=gazeli-villa">
           <img src="assets/assets/02_Projects/2311_GAZELI%20Villa,%20Alamin,%20Egypt/03.jpg" alt="GAZELI Villa" class="proj-img" loading="lazy">
-          <div class="proj-num">05</div>
           <div class="proj-info">
             <div class="proj-loc">Alamin, Egypt</div>
             <div class="proj-name">GAZELI Villa</div>
@@ -194,7 +182,6 @@
 
         <a class="proj-card" href="project.html?id=el-zawad-villa">
           <img src="assets/assets/02_Projects/2411_Hussien%20El%20Zawad_Villa_Jeddah,%20KSA/Hero.jpg" alt="Hussien El Zawad Villa" class="proj-img" loading="lazy">
-          <div class="proj-num">06</div>
           <div class="proj-info">
             <div class="proj-loc">Jeddah, Saudi Arabia</div>
             <div class="proj-name">Hussien El Zawad Villa</div>
@@ -211,59 +198,8 @@
     </div>
   </section>
 
-  <!-- ── STUDIO ───────────────────────────────────────────── -->
-  <section id="studio">
-    <div class="s-label reveal">03 — About</div>
-    <div class="studio-grid">
-      <div class="studio-img-wrap reveal">
-        <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1200&q=85" alt="Studio" loading="lazy">
-        <span class="studio-img-cap">HQ — London, 2024</span>
-      </div>
-      <div class="studio-text reveal reveal-delay-2">
-        <h2>Architecture Is<br>Our Language</h2>
-        <p>The Top Global Architecture is a practice defined by precision, creativity, and global ambition. For over two decades, we have shaped some of the world's most significant buildings and urban environments.</p>
-        <p>Our work spans residential towers, cultural institutions, urban masterplans, and luxury private residences — united by an unwavering commitment to quality and innovation.</p>
-
-        <div class="studio-stat-row">
-          <div class="studio-stat">
-            <div class="stat-num">200+</div>
-            <div class="stat-label">Professionals</div>
-          </div>
-          <div class="studio-stat">
-            <div class="stat-num">8</div>
-            <div class="stat-label">Global Studios</div>
-          </div>
-          <div class="studio-stat">
-            <div class="stat-num">120+</div>
-            <div class="stat-label">Projects Built</div>
-          </div>
-        </div>
-
-        <div class="timeline">
-          <div class="tl-item">
-            <span class="tl-year">2005</span>
-            <span class="tl-txt">Founded in London with a vision to redefine global architecture.</span>
-          </div>
-          <div class="tl-item">
-            <span class="tl-year">2010</span>
-            <span class="tl-txt">Expanded to Asia and Middle East. First international commission completed.</span>
-          </div>
-          <div class="tl-item">
-            <span class="tl-year">2016</span>
-            <span class="tl-txt">Awarded international recognition. 50+ projects completed across four continents.</span>
-          </div>
-          <div class="tl-item">
-            <span class="tl-year">2024</span>
-            <span class="tl-txt">200+ professionals across 8 studios worldwide. Three continents. One vision.</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ── PEOPLE ───────────────────────────────────────────── -->
   <section id="people">
-    <div class="s-label reveal">04 — Our Team</div>
     <div class="people-head reveal">
       <h2 class="s-heading">The People</h2>
       <a href="#" class="view-all">Full Team →</a>
@@ -302,7 +238,6 @@
 
   <!-- ── NEWS ─────────────────────────────────────────────── -->
   <section id="news">
-    <div class="s-label reveal">05 — Press</div>
     <div class="news-head reveal">
       <h2 class="s-heading">News &amp; Press</h2>
       <a href="news.html" class="view-all">All Articles →</a>
@@ -335,10 +270,9 @@
 
   <!-- ── CONTACT ───────────────────────────────────────────── -->
   <section id="contact">
-    <div class="s-label reveal">06 — Get In Touch</div>
     <div class="contact-grid">
-      <div class="reveal">
-        <h2 class="contact-left">Start A<br>Conversation</h2>
+      <div class="contact-left reveal">
+        <h2>Start A<br>Conversation</h2>
         <div class="contact-details">
           <div class="cd-item">
             <div class="cd-label">Headquarters</div>
@@ -411,6 +345,7 @@
     </div>
   </footer>
 
+  <script src="projects-data.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
