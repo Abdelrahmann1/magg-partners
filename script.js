@@ -208,6 +208,12 @@ document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     /* slide */
     const slide = document.createElement('div');
     slide.className = 'hc-slide' + (i === 0 ? ' active' : '');
+    /* blurred background — fills bars without cutting the image */
+    const bg = document.createElement('div');
+    bg.className = 'hc-slide-bg';
+    bg.style.backgroundImage = `url('${img.src}')`;
+    slide.appendChild(bg);
+    /* sharp foreground image — full image, no cropping */
     const im = document.createElement('img');
     im.src = img.src;
     im.alt = img.label;

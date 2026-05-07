@@ -542,7 +542,12 @@
     slideImages.forEach((src, i) => {
       const slide = document.createElement('div');
       slide.className = 'hc-slide' + (i === 0 ? ' active' : '');
-      /* use <img> so images are never cropped (object-fit: contain) */
+      /* blurred background fills the bars */
+      const bg = document.createElement('div');
+      bg.className = 'hc-slide-bg';
+      bg.style.backgroundImage = `url('${src}')`;
+      slide.appendChild(bg);
+      /* sharp foreground — full image, no cropping */
       const im = document.createElement('img');
       im.src = src;
       im.alt = project.name + ' — image ' + (i + 1);
