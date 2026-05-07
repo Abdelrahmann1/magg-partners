@@ -129,7 +129,7 @@ nav {
   border-bottom: 1px solid transparent;
 }
 nav.scrolled {
-  padding: 20px 64px;
+  padding: 36px 64px;
   background: rgba(10,10,10,0.92);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
@@ -354,22 +354,54 @@ nav.scrolled {
 .reveal-delay-3 { transition-delay:0.24s; }
 .reveal-delay-4 { transition-delay:0.32s; }
 
-/* expertise grid items — each column staggered */
-.exp-item {
-  --item-delay: 0s;
+/* ── Expertise cards — unique clip-path wipe animation ── */
+
+/* stagger delays per card */
+.exp-item { --item-delay: 0s; }
+.exp-grid .exp-item:nth-child(1)  { --item-delay:0.00s; }
+.exp-grid .exp-item:nth-child(2)  { --item-delay:0.08s; }
+.exp-grid .exp-item:nth-child(3)  { --item-delay:0.16s; }
+.exp-grid .exp-item:nth-child(4)  { --item-delay:0.24s; }
+.exp-grid .exp-item:nth-child(5)  { --item-delay:0.10s; }
+.exp-grid .exp-item:nth-child(6)  { --item-delay:0.18s; }
+.exp-grid .exp-item:nth-child(7)  { --item-delay:0.26s; }
+.exp-grid .exp-item:nth-child(8)  { --item-delay:0.34s; }
+
+/* override standard .reveal — scaleY blind-open from top */
+.exp-grid .exp-item.reveal {
+  opacity: 1 !important;
+  transform: scaleY(0) !important;
+  transform-origin: top center;
+  transition: transform 0.75s var(--ease) !important;
   transition-delay: var(--item-delay) !important;
 }
-.exp-grid .exp-item:nth-child(1)  { --item-delay:0.04s; }
-.exp-grid .exp-item:nth-child(2)  { --item-delay:0.10s; }
-.exp-grid .exp-item:nth-child(3)  { --item-delay:0.16s; }
-.exp-grid .exp-item:nth-child(4)  { --item-delay:0.22s; }
-.exp-grid .exp-item:nth-child(5)  { --item-delay:0.28s; }
-.exp-grid .exp-item:nth-child(6)  { --item-delay:0.34s; }
-.exp-grid .exp-item:nth-child(7)  { --item-delay:0.40s; }
-.exp-grid .exp-item:nth-child(8)  { --item-delay:0.46s; }
-.exp-grid .exp-item:nth-child(9)  { --item-delay:0.52s; }
-.exp-grid .exp-item:nth-child(10) { --item-delay:0.58s; }
-.exp-grid .exp-item:nth-child(11) { --item-delay:0.64s; }
+.exp-grid .exp-item.reveal.in {
+  transform: scaleY(1) !important;
+}
+
+/* internal elements cascade in after the card wipes up */
+.exp-item .exp-num,
+.exp-item .exp-title,
+.exp-item .exp-desc {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s var(--ease), letter-spacing 0.4s var(--ease), color var(--t);
+}
+.exp-item.in .exp-num {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(var(--item-delay) + 0.50s);
+}
+.exp-item.in .exp-title {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(var(--item-delay) + 0.62s);
+}
+.exp-item.in .exp-desc {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(var(--item-delay) + 0.74s);
+}
 
 /* ─── Section Commons ────────────────────────────────── */
 section { padding:140px 64px; }
@@ -535,22 +567,44 @@ section { padding:140px 64px; }
 .exp-grid {
   display: grid;
   grid-template-columns: repeat(4,1fr);
-  border-top: 1px solid var(--border);
-  border-left: 1px solid var(--border);
+  gap: 20px;
 }
 .exp-item {
-  padding: 56px 40px 48px;
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  padding: 0 0 40px;
+  border: 1px solid var(--border);
   position: relative;
   overflow: hidden;
   transition: background var(--t);
 }
-/* 11 items in 4 cols → rows 4/4/3 */
-/* last column in each row: no extra right border */
-.exp-item:nth-child(4n) { border-right: 1px solid var(--border); } /* keep — grid border handles */
-/* last row (items 9–11): no bottom border */
-.exp-item:nth-child(n+9) { border-bottom: none; }
+
+/* ── image at top of card ── */
+.exp-img-wrap {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  margin-bottom: 36px;
+}
+.exp-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.75);
+  transition: transform 0.9s var(--ease), filter 0.5s ease;
+  display: block;
+}
+.exp-item:hover .exp-img {
+  transform: scale(1.07);
+  filter: brightness(0.5);
+}
+
+/* push text content inside padding */
+.exp-item .exp-num,
+.exp-item .exp-title,
+.exp-item .exp-desc {
+  padding-left: 36px;
+  padding-right: 36px;
+}
 .exp-item::after {
   content: '';
   position: absolute;
@@ -561,14 +615,21 @@ section { padding:140px 64px; }
   transform-origin: left;
   transition: transform 0.5s var(--ease);
 }
-.exp-item:hover { background:var(--off-black); }
-.exp-item:hover::after { transform:scaleX(1); }
+.exp-item:hover { background: rgba(245,240,235,0.04); }
+.exp-item:hover::after { transform: scaleX(1); }
+
+/* hover: title + desc shift right */
+.exp-item:hover .exp-title {
+  transform: translateX(6px) !important;
+  letter-spacing: -0.01em;
+}
 
 .exp-num {
   font-size: 10px;
   font-weight: 300;
   letter-spacing: 0.25em;
   color: rgba(245,240,235,0.28);
+  display: none;
   margin-bottom: 52px;
 }
 .exp-title {
@@ -584,9 +645,12 @@ section { padding:140px 64px; }
   font-weight: 300;
   line-height: 1.9;
   color: var(--muted);
-  transition: color var(--t);
+  transition: color var(--t), transform 0.4s var(--ease);
 }
-.exp-item:hover .exp-desc { color:rgba(245,240,235,0.75); }
+.exp-item:hover .exp-desc {
+  color: rgba(245,240,235,0.75);
+  transform: translateX(6px);
+}
 
 /* ─── PROJECTS ───────────────────────────────────────── */
 #projects {
@@ -1327,10 +1391,7 @@ footer {
 
 /* ─── Responsive ─────────────────────────────────────── */
 @media (max-width: 1100px) {
-  /* 11 items in 2 cols → rows 2×5 + 1 → last row is item 11 */
-  .exp-grid { grid-template-columns:repeat(2,1fr); }
-  .exp-item:nth-child(n+9) { border-bottom: 1px solid var(--border); } /* reset desktop rule */
-  .exp-item:nth-child(n+11) { border-bottom: none; }
+  .exp-grid { grid-template-columns:repeat(2,1fr); gap:16px; }
   .people-grid { grid-template-columns:repeat(2,1fr); }
 }
 @media (max-width: 900px) {
@@ -1342,15 +1403,14 @@ footer {
 }
 @media (max-width: 768px) {
   nav { padding:22px 24px; }
-  nav.scrolled { padding:14px 24px; }
+  nav.scrolled { padding:22px 24px; }
   .search-overlay { padding:100px 24px 40px; }
   section { padding:80px 24px; }
   #hero { padding:0 24px 64px; }
   .hero-scroll-ind { right:24px; bottom:64px; }
   /* single column — restore bottom borders on all, remove right borders */
-  .exp-grid { grid-template-columns:1fr; }
-  .exp-item { border-right:none !important; border-bottom:1px solid var(--border) !important; }
-  .exp-item:last-child { border-bottom:none !important; }
+  .exp-grid { grid-template-columns:1fr; gap:12px; }
+  .exp-item { border: 1px solid var(--border) !important; }
   #projects { padding-left:0; padding-right:0; }
   .proj-head { padding:0 24px; }
   .proj-progress { padding:24px 24px 0; }
