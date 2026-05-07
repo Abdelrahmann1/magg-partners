@@ -27,7 +27,23 @@ const PROJECTS = [
       'assets/assets/02_Projects/2115_Dens%20Dental%20Center,%20Alexandria,%20EGY/2115_08.jpg',
     ],
     brief: 'A calm and refined dental clinic that redefines the conventional healthcare experience across 300 sqm.',
-    description: 'Located in Alexandria, Egypt, Dens Dental Center moves away from the clinical coldness often associated with medical interiors, creating instead a warm, minimal, and carefully balanced space that supports patient comfort, operational clarity, and a strong professional identity. The design is organised around a clear spatial sequence beginning with a soft and welcoming reception area. Curved forms, integrated lighting, and a restrained material palette — white textured surfaces, light grey flooring, warm timber panels, and subtle metallic accents — create a sense of calm from the moment of arrival. The reception desk is designed as a sculptural focal point, with rounded edges and soft illumination reinforcing the clinic\'s precise but approachable character. Treatment rooms balance technical functionality with visual softness, integrating dental equipment within a bright, uncluttered setting that enhances efficiency without compromising the patient experience.'
+    description: 'Located in Alexandria, Egypt, Dens Dental Center moves away from the clinical coldness often associated with medical interiors, creating instead a warm, minimal, and carefully balanced space that supports patient comfort, operational clarity, and a strong professional identity. The design is organised around a clear spatial sequence beginning with a soft and welcoming reception area. Curved forms, integrated lighting, and a restrained material palette — white textured surfaces, light grey flooring, warm timber panels, and subtle metallic accents — create a sense of calm from the moment of arrival. The reception desk is designed as a sculptural focal point, with rounded edges and soft illumination reinforcing the clinic\'s precise but approachable character. Treatment rooms balance technical functionality with visual softness, integrating dental equipment within a bright, uncluttered setting that enhances efficiency without compromising the patient experience.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2021',
+      designFinishYear: '2020',
+      size: {
+        siteArea: '300 m²',
+        stories: '1',
+        grossArea: '300 m²',
+      },
+      sustainability: 'WELL Building Standard — Compliant',
+      collaborators: [
+        'Private Client',
+        'Local Structural Engineer',
+        'MEP Consultant',
+      ],
+    },
   },
 
   {
@@ -55,7 +71,15 @@ const PROJECTS = [
       'assets/assets/02_Projects/2212_Mayfair%20Studio%20Apartment,%20London,%20UK/2212_07.jpg',
     ],
     brief: 'A refined compact residence in Mayfair that transforms limited space into a highly functional and atmospheric London home.',
-    description: 'The Mayfair Studio Apartment responds to the demands of urban living through a carefully balanced design approach, combining spatial efficiency, quiet luxury, and a strong sense of material character. The design is organised around an open-plan living arrangement where the lounge, dining, kitchen, and working areas are visually connected while maintaining a clear sense of purpose. Bespoke joinery defines different functions within the apartment, integrating storage, display, media, and work areas into a coherent architectural composition. Dark cabinetry, richly veined stone, warm timber flooring, soft textiles, and brushed metallic accents create a layered and sophisticated atmosphere. A marble-effect island and splashback provide a strong visual anchor in the kitchen, while the bathroom continues the same design language using dark tones, sculptural sanitaryware, feature lighting, and graphic flooring to create a more intimate and dramatic experience.'
+    description: 'The Mayfair Studio Apartment responds to the demands of urban living through a carefully balanced design approach, combining spatial efficiency, quiet luxury, and a strong sense of material character. The design is organised around an open-plan living arrangement where the lounge, dining, kitchen, and working areas are visually connected while maintaining a clear sense of purpose. Bespoke joinery defines different functions within the apartment, integrating storage, display, media, and work areas into a coherent architectural composition. Dark cabinetry, richly veined stone, warm timber flooring, soft textiles, and brushed metallic accents create a layered and sophisticated atmosphere. A marble-effect island and splashback provide a strong visual anchor in the kitchen, while the bathroom continues the same design language using dark tones, sculptural sanitaryware, feature lighting, and graphic flooring to create a more intimate and dramatic experience.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2022',
+      designFinishYear: '2021',
+      size: { siteArea: '75 m²', stories: '1', grossArea: '75 m²' },
+      sustainability: 'EPC Rating A — Energy Efficient Design',
+      collaborators: ['Private Client', 'London Interior Contractor', 'M&E Specialist'],
+    },
   },
 
   {
@@ -86,7 +110,15 @@ const PROJECTS = [
       'assets/assets/02_Projects/2213_Go%20Green%20Office,%20Riyadh,%20KSA/F11.jpg',
     ],
     brief: 'A contemporary workplace in Riyadh that brings together professional clarity, natural warmth, and a human approach to the working environment.',
-    description: 'Go Green Office is planned to support different modes of work throughout the day. Open workstations encourage collaboration and visibility, while meeting rooms, executive offices, informal lounges, and focused work areas provide the privacy and flexibility required for a modern corporate environment. Glass partitions maintain transparency across the workplace, allowing daylight and views to travel deeper into the interior while preserving acoustic separation. The material palette reinforces the project\'s connection to nature and wellbeing: light timber, soft white surfaces, muted green upholstery, textured wall panels, and integrated lighting create a fresh and composed interior language. Planting is not treated as decoration but as part of the workplace experience, introduced through shared tables, lounge areas, and visual thresholds to bring softness and rhythm into the office.'
+    description: 'Go Green Office is planned to support different modes of work throughout the day. Open workstations encourage collaboration and visibility, while meeting rooms, executive offices, informal lounges, and focused work areas provide the privacy and flexibility required for a modern corporate environment. Glass partitions maintain transparency across the workplace, allowing daylight and views to travel deeper into the interior while preserving acoustic separation. The material palette reinforces the project\'s connection to nature and wellbeing: light timber, soft white surfaces, muted green upholstery, textured wall panels, and integrated lighting create a fresh and composed interior language. Planting is not treated as decoration but as part of the workplace experience, introduced through shared tables, lounge areas, and visual thresholds to bring softness and rhythm into the office.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2022',
+      designFinishYear: '2022',
+      size: { siteArea: '450 m²', stories: '1', grossArea: '450 m²' },
+      sustainability: 'LEED ID+C Commercial Interiors Silver',
+      collaborators: ['Private Client', 'Saudi Interior Contractor', 'Biophilic Design Consultant'],
+    },
   },
 
   {
@@ -112,7 +144,15 @@ const PROJECTS = [
       'assets/assets/02_Projects/2215_Dr.%20Mona%20Elharoun,%20Zayed%20City,%20EGY/2215_06.png',
     ],
     brief: 'A contemporary residential development in Zayed City shaped around clarity, proportion, and a composed architectural identity.',
-    description: 'The Elharoun Residential Project presents a calm yet confident residential character, where simple massing, deep façade reveals, warm tones, and landscaped open spaces work together to create a refined living environment. The architectural expression is defined by a disciplined façade rhythm — recessed windows, framed balconies, and repeated modular openings create depth across the elevations, allowing the buildings to respond to light and shadow throughout the day. Generous setbacks, landscaped edges, pedestrian routes, and shared outdoor spaces soften the relationship between the buildings and their surroundings. The material palette is intentionally restrained, using warm beige tones and soft landscape elements to establish a residential atmosphere that feels elegant, durable, and contextually appropriate, combining architectural simplicity with long-term value.'
+    description: 'The Elharoun Residential Project presents a calm yet confident residential character, where simple massing, deep façade reveals, warm tones, and landscaped open spaces work together to create a refined living environment. The architectural expression is defined by a disciplined façade rhythm — recessed windows, framed balconies, and repeated modular openings create depth across the elevations, allowing the buildings to respond to light and shadow throughout the day. Generous setbacks, landscaped edges, pedestrian routes, and shared outdoor spaces soften the relationship between the buildings and their surroundings. The material palette is intentionally restrained, using warm beige tones and soft landscape elements to establish a residential atmosphere that feels elegant, durable, and contextually appropriate, combining architectural simplicity with long-term value.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2022',
+      designFinishYear: '2021',
+      size: { siteArea: '2,400 m²', stories: '3', grossArea: '1,800 m²' },
+      sustainability: 'Egypt Green Building Council — Registered',
+      collaborators: ['Dr. Mona Elharoun', 'Local Structural Engineer', 'Landscape Architect'],
+    },
   },
 
   {
@@ -141,7 +181,15 @@ const PROJECTS = [
       'assets/assets/02_Projects/2218_Office_HQ,%20Kuwait/y.jpg',
     ],
     brief: 'A headquarters environment that feels confident, crafted, and spatially memorable — where industrial intensity meets the warmth of hospitality.',
-    description: 'Office HQ is shaped around the idea of a workplace with presence. At the heart of the project is a strong contrast between raw structure and refined interior intervention. Exposed ceilings, visible services, concrete textures, and dark architectural elements establish an industrial base, while timber ceilings, warm wall linings, soft seating, and curated lighting introduce a more human and tactile layer. Open workstations sit within a 500 sqm floorplate with panoramic city views, while curved meeting rooms and enclosed spaces create sculptural moments within the plan. Internal courtyards, glazed openings, folding doors, and planted edges bring softness into the office environment, creating moments of retreat within a larger corporate setting. Natural materials, brickwork, timber surfaces, stone flooring, and metal detailing create a layered interior language that feels grounded, mature, and distinctive.'
+    description: 'Office HQ is shaped around the idea of a workplace with presence. At the heart of the project is a strong contrast between raw structure and refined interior intervention. Exposed ceilings, visible services, concrete textures, and dark architectural elements establish an industrial base, while timber ceilings, warm wall linings, soft seating, and curated lighting introduce a more human and tactile layer. Open workstations sit within a 500 sqm floorplate with panoramic city views, while curved meeting rooms and enclosed spaces create sculptural moments within the plan. Internal courtyards, glazed openings, folding doors, and planted edges bring softness into the office environment, creating moments of retreat within a larger corporate setting. Natural materials, brickwork, timber surfaces, stone flooring, and metal detailing create a layered interior language that feels grounded, mature, and distinctive.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2022',
+      designFinishYear: '2022',
+      size: { siteArea: '500 m²', stories: '1', grossArea: '500 m²' },
+      sustainability: 'GSAS 2 Star Certified',
+      collaborators: ['Private Client', 'Kuwait Interior Contractor', 'MEP Engineer', 'Lighting Designer'],
+    },
   },
 
   {
@@ -167,7 +215,14 @@ const PROJECTS = [
       'assets/assets/02_Projects/2311_2_Kitchen%20Design_New%20Cairo,%20Egypt/Final55.jpg',
     ],
     brief: 'A residential kitchen in New Cairo combining timeless detailing, warm materiality, and contemporary functionality.',
-    description: 'This Kitchen Design in New Cairo is a residential interior project defined by light timber cabinetry, marble surfaces, integrated appliances, open shelving, and a dining-focused island. The kitchen is designed as both a practical workspace and a welcoming social setting. Clean lines, considered proportions, and a restrained palette of warm timber and cool stone create a space that feels both refined and deeply liveable. Concealed storage and integrated appliances preserve the clean and minimal character of the interior, while the island becomes a natural gathering point for daily life and entertaining. The result is a calm, elegant interior that supports everyday living with a sense of understated luxury.'
+    description: 'This Kitchen Design in New Cairo is a residential interior project defined by light timber cabinetry, marble surfaces, integrated appliances, open shelving, and a dining-focused island. The kitchen is designed as both a practical workspace and a welcoming social setting. Clean lines, considered proportions, and a restrained palette of warm timber and cool stone create a space that feels both refined and deeply liveable. Concealed storage and integrated appliances preserve the clean and minimal character of the interior, while the island becomes a natural gathering point for daily life and entertaining. The result is a calm, elegant interior that supports everyday living with a sense of understated luxury.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2023',
+      designFinishYear: '2023',
+      size: { siteArea: '45 m²', stories: '1', grossArea: '45 m²' },
+      collaborators: ['Private Client', 'Bespoke Joinery Fabricator', 'Stone & Marble Supplier'],
+    },
   },
 
   {
@@ -197,7 +252,15 @@ const PROJECTS = [
       'assets/assets/02_Projects/2311_GAZELI%20Villa,%20Alamin,%20Egypt/16.jpg',
     ],
     brief: 'A contemporary coastal residence in Alamin shaped around openness, leisure, and a seamless relationship between indoor and outdoor living.',
-    description: 'GAZELI Villa responds to the relaxed character of its coastal setting through a calm architectural language, combining clean modern forms, warm natural materials, and resort-inspired outdoor spaces. The design is organised around a continuous connection between the villa\'s internal living areas and its external terraces, pool, and landscaped garden. Large glazed openings allow the living and dining spaces to extend naturally toward the outdoor deck, creating a fluid sequence between the interior, shaded terrace, poolside seating, and planted surroundings. White and light-toned architectural surfaces are paired with rich timber ceilings, textured stone-like flooring, soft neutral furnishings, and natural planting to create a warm and relaxed interior language. The timber soffits continue between interior and exterior zones, reinforcing visual continuity and giving the home a strong sense of warmth, rhythm, and crafted detail.'
+    description: 'GAZELI Villa responds to the relaxed character of its coastal setting through a calm architectural language, combining clean modern forms, warm natural materials, and resort-inspired outdoor spaces. The design is organised around a continuous connection between the villa\'s internal living areas and its external terraces, pool, and landscaped garden. Large glazed openings allow the living and dining spaces to extend naturally toward the outdoor deck, creating a fluid sequence between the interior, shaded terrace, poolside seating, and planted surroundings. White and light-toned architectural surfaces are paired with rich timber ceilings, textured stone-like flooring, soft neutral furnishings, and natural planting to create a warm and relaxed interior language. The timber soffits continue between interior and exterior zones, reinforcing visual continuity and giving the home a strong sense of warmth, rhythm, and crafted detail.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2023',
+      designFinishYear: '2022',
+      size: { siteArea: '1,200 m²', stories: '2', grossArea: '620 m²' },
+      sustainability: 'Passive Cooling Design — Mediterranean Climate Standard',
+      collaborators: ['Private Client', 'Structural Engineer', 'Landscape Designer', 'Local Contractor'],
+    },
   },
 
   {
@@ -226,7 +289,14 @@ const PROJECTS = [
       'assets/assets/02_Projects/2316_O+A%20Office,%20Riyadh/17.jpg',
     ],
     brief: 'A refined workplace interior in Riyadh balancing professional precision with a warm, creative character.',
-    description: 'The O+A Office interior is designed to express the identity of a forward-thinking creative organisation while supporting the full range of daily professional activity. The design brings together considered materiality, spatial flexibility, and a strong visual language rooted in precision and warmth. Open workstations and collaborative zones sit alongside enclosed meeting rooms and private focus areas, each transition marked by shifts in material, light, and spatial quality. Bespoke joinery, feature lighting, and carefully selected furniture create a professional environment that remains approachable and memorable. The result is a workplace that reflects the ambitions of its occupants while providing a setting that genuinely supports creative work.'
+    description: 'The O+A Office interior is designed to express the identity of a forward-thinking creative organisation while supporting the full range of daily professional activity. The design brings together considered materiality, spatial flexibility, and a strong visual language rooted in precision and warmth. Open workstations and collaborative zones sit alongside enclosed meeting rooms and private focus areas, each transition marked by shifts in material, light, and spatial quality. Bespoke joinery, feature lighting, and carefully selected furniture create a professional environment that remains approachable and memorable. The result is a workplace that reflects the ambitions of its occupants while providing a setting that genuinely supports creative work.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2023',
+      designFinishYear: '2023',
+      size: { siteArea: '380 m²', stories: '1', grossArea: '380 m²' },
+      collaborators: ['O+A', 'Saudi Interior Contractor', 'AV & Technology Consultant', 'Furniture Specialist'],
+    },
   },
 
   {
@@ -257,7 +327,15 @@ const PROJECTS = [
       'assets/assets/02_Projects/2319_Cap.%20Kareem%20Shaalan%20Villa_New%20Cairo,%20Egypt/12.jpg',
     ],
     brief: 'A private villa in New Cairo combining contemporary architectural clarity with a warm and refined residential character.',
-    description: 'The Kareem Shaalan Villa is designed as a refined contemporary residence in New Cairo, bringing together clean architectural language, considered materiality, and a strong sense of spatial quality. The design balances the requirements of private family living with generous entertaining spaces, creating a home that feels both ordered and welcoming. Strong horizontal lines, deep façade reveals, and carefully composed openings give the exterior a composed and distinctive presence, while interior spaces are organised to maximise natural light, cross-ventilation, and visual connection to the surrounding landscape. The project reflects a commitment to architectural precision and long-term residential quality.'
+    description: 'The Kareem Shaalan Villa is designed as a refined contemporary residence in New Cairo, bringing together clean architectural language, considered materiality, and a strong sense of spatial quality. The design balances the requirements of private family living with generous entertaining spaces, creating a home that feels both ordered and welcoming. Strong horizontal lines, deep façade reveals, and carefully composed openings give the exterior a composed and distinctive presence, while interior spaces are organised to maximise natural light, cross-ventilation, and visual connection to the surrounding landscape. The project reflects a commitment to architectural precision and long-term residential quality.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2023',
+      designFinishYear: '2022',
+      size: { siteArea: '1,800 m²', stories: '3', grossArea: '1,200 m²' },
+      sustainability: 'Egyptian Green Building Council — Registered',
+      collaborators: ['Cap. Kareem Shaalan', 'Structural Engineer', 'MEP Consultant', 'Landscape Architect'],
+    },
   },
 
   {
@@ -279,7 +357,15 @@ const PROJECTS = [
       'assets/assets/02_Projects/2320_Mr.%20Walid%20Resort%20Villas_Newbaa,%20Egypt/Hero_Shot.png',
     ],
     brief: 'A resort villa development in Newbaa, Egypt, shaped around leisure, natural landscape, and a refined coastal character.',
-    description: 'The Walid Resort Villas are conceived as a contemporary resort residential development in Newbaa, Egypt, responding to the natural qualities of its coastal setting. The architecture brings together clean geometric forms, warm material tones, and generous outdoor living spaces to create a resort environment that feels relaxed and refined. Each villa is positioned to maximise views and natural ventilation, with terraces, pools, and landscaped gardens forming an integral part of the residential experience. The project balances the privacy requirements of individual villas with a coherent architectural identity across the development, creating a unified resort ensemble that remains quietly distinctive in its landscape setting.'
+    description: 'The Walid Resort Villas are conceived as a contemporary resort residential development in Newbaa, Egypt, responding to the natural qualities of its coastal setting. The architecture brings together clean geometric forms, warm material tones, and generous outdoor living spaces to create a resort environment that feels relaxed and refined. Each villa is positioned to maximise views and natural ventilation, with terraces, pools, and landscaped gardens forming an integral part of the residential experience. The project balances the privacy requirements of individual villas with a coherent architectural identity across the development, creating a unified resort ensemble that remains quietly distinctive in its landscape setting.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2023',
+      designFinishYear: '2023',
+      size: { siteArea: '6,500 m²', stories: '2', grossArea: '3,200 m²' },
+      sustainability: 'Passive Solar Design — Mediterranean Coastal Standard',
+      collaborators: ['Mr. Walid', 'Coastal Structural Engineer', 'Landscape Architect', 'Resort Contractor'],
+    },
   },
 
   {
@@ -303,7 +389,15 @@ const PROJECTS = [
       'assets/assets/02_Projects/2411_Hussien%20El%20Zawad_Villa_Jeddah,%20KSA/07.jpg',
     ],
     brief: 'A private villa in Jeddah that combines contemporary architectural language with the warmth of refined Saudi residential living.',
-    description: 'The Hussien El Zawad Villa is a private residential commission in Jeddah, Saudi Arabia, designed to reflect the aspirations and lifestyle of its occupants within a strong and distinctive architectural framework. The design brings together a composed exterior with generous, light-filled interior spaces, organised to support both intimate family living and larger-scale entertaining. Carefully considered materiality, layered lighting, and bespoke interior elements create an atmosphere that feels simultaneously refined and welcoming. The project demonstrates a commitment to architectural quality, spatial generosity, and the precise execution of a clear design vision from concept through to completion.'
+    description: 'The Hussien El Zawad Villa is a private residential commission in Jeddah, Saudi Arabia, designed to reflect the aspirations and lifestyle of its occupants within a strong and distinctive architectural framework. The design brings together a composed exterior with generous, light-filled interior spaces, organised to support both intimate family living and larger-scale entertaining. Carefully considered materiality, layered lighting, and bespoke interior elements create an atmosphere that feels simultaneously refined and welcoming. The project demonstrates a commitment to architectural quality, spatial generosity, and the precise execution of a clear design vision from concept through to completion.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2024',
+      designFinishYear: '2023',
+      size: { siteArea: '2,100 m²', stories: '3', grossArea: '1,400 m²' },
+      sustainability: 'GSAS Design & Build — Registered',
+      collaborators: ['Hussien El Zawad', 'Saudi Structural Engineer', 'MEP Consultant', 'Landscape Architect'],
+    },
   },
 
   {
@@ -329,7 +423,14 @@ const PROJECTS = [
       'assets/assets/02_Projects/2416_Agency%20Studio_Riyadh,%20KSA/6.jpg',
     ],
     brief: 'A creative studio interior in Riyadh designed to express a bold professional identity within a refined and functional workspace.',
-    description: 'The Agency Studio interior in Riyadh is conceived as a space that reflects the creative ambition of its occupants while providing a highly functional and inspiring working environment. The design balances openness with focused work areas, using material contrast, considered lighting, and bespoke furniture to define different zones within a coherent spatial composition. Strong visual identity, clean detailing, and a palette of materials that combine warmth with precision give the studio a character that is distinctly professional while remaining atmospheric and creatively stimulating. The project demonstrates that workplace design can be both operationally effective and architecturally memorable.'
+    description: 'The Agency Studio interior in Riyadh is conceived as a space that reflects the creative ambition of its occupants while providing a highly functional and inspiring working environment. The design balances openness with focused work areas, using material contrast, considered lighting, and bespoke furniture to define different zones within a coherent spatial composition. Strong visual identity, clean detailing, and a palette of materials that combine warmth with precision give the studio a character that is distinctly professional while remaining atmospheric and creatively stimulating. The project demonstrates that workplace design can be both operationally effective and architecturally memorable.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2024',
+      designFinishYear: '2024',
+      size: { siteArea: '320 m²', stories: '1', grossArea: '320 m²' },
+      collaborators: ['Private Client', 'Saudi Interior Contractor', 'Lighting Designer', 'Brand Identity Consultant'],
+    },
   },
 
   {
@@ -357,7 +458,15 @@ const PROJECTS = [
       'assets/assets/02_Projects/2511_WestApartment_London,%20UK/12.jpg',
     ],
     brief: 'A contemporary London apartment interior that combines spatial intelligence with a refined material palette and quiet luxury.',
-    description: 'The West Apartment in London is a complete interior design project that transforms a contemporary London apartment into a highly considered and atmospheric private residence. The design responds to the proportions and qualities of the existing space through bespoke joinery, carefully layered materiality, and integrated lighting that creates warmth and visual rhythm throughout. A palette of considered tones and textures — combining warm timber, soft stone surfaces, and refined textile selections — establishes a calm and sophisticated domestic atmosphere. Every element of the interior has been designed to create a home that is both deeply functional and quietly beautiful, demonstrating that compact urban living can be approached with the same rigour and ambition as a larger residential commission.'
+    description: 'The West Apartment in London is a complete interior design project that transforms a contemporary London apartment into a highly considered and atmospheric private residence. The design responds to the proportions and qualities of the existing space through bespoke joinery, carefully layered materiality, and integrated lighting that creates warmth and visual rhythm throughout. A palette of considered tones and textures — combining warm timber, soft stone surfaces, and refined textile selections — establishes a calm and sophisticated domestic atmosphere. Every element of the interior has been designed to create a home that is both deeply functional and quietly beautiful, demonstrating that compact urban living can be approached with the same rigour and ambition as a larger residential commission.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2025',
+      designFinishYear: '2024',
+      size: { siteArea: '120 m²', stories: '1', grossArea: '120 m²' },
+      sustainability: 'EPC Rating A — Passive House Principles Applied',
+      collaborators: ['Private Client', 'London Interior Contractor', 'Bespoke Joinery Specialist'],
+    },
   },
 
   {
@@ -388,7 +497,14 @@ const PROJECTS = [
       'assets/assets/02_Projects/2513_StudioOffice_Riyadh,%20KSA/11.jpg',
     ],
     brief: 'A refined studio office interior in Riyadh that elevates the daily working experience through considered design and material quality.',
-    description: 'The Studio Office in Riyadh is designed as a complete workplace environment that expresses a strong professional identity while supporting the full range of creative and operational activity. The interior brings together open collaborative areas, focused work zones, and client-facing spaces within a coherent architectural language defined by clean lines, warm materiality, and atmospheric lighting. Bespoke joinery provides integrated storage and display, while carefully selected furniture and surface treatments create a workspace that feels both disciplined and welcoming. The project demonstrates how thoughtful interior design can elevate the daily experience of work, creating environments where quality, clarity, and creativity are genuinely felt.'
+    description: 'The Studio Office in Riyadh is designed as a complete workplace environment that expresses a strong professional identity while supporting the full range of creative and operational activity. The interior brings together open collaborative areas, focused work zones, and client-facing spaces within a coherent architectural language defined by clean lines, warm materiality, and atmospheric lighting. Bespoke joinery provides integrated storage and display, while carefully selected furniture and surface treatments create a workspace that feels both disciplined and welcoming. The project demonstrates how thoughtful interior design can elevate the daily experience of work, creating environments where quality, clarity, and creativity are genuinely felt.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2025',
+      designFinishYear: '2024',
+      size: { siteArea: '260 m²', stories: '1', grossArea: '260 m²' },
+      collaborators: ['Private Client', 'Saudi Interior Contractor', 'AV & Technology Specialist', 'Furniture Consultant'],
+    },
   },
 
   {
@@ -410,7 +526,15 @@ const PROJECTS = [
       'assets/assets/02_Projects/2514_Florida%20Tower_TNG_Florida,%20USA/Hero.png',
     ],
     brief: 'A striking residential tower in Florida that brings a new standard of architectural ambition to the American coastal skyline.',
-    description: 'Florida Tower is a residential high-rise development designed for the Florida coastline, combining architectural ambition with the lifestyle expectations of a premier coastal residential address. The tower\'s form is developed through a rigorous study of views, solar orientation, and prevailing coastal winds, producing a design that is both visually distinctive and responsive to its environment. Floor plates are organised to maximise sea views from every apartment, with generous terraces and large glazed openings connecting each residence to the coastal landscape beyond. The building\'s facade language combines contemporary precision with a warmth of tone and material that reflects the character of its setting, establishing a strong and lasting contribution to the Florida skyline.'
+    description: 'Florida Tower is a residential high-rise development designed for the Florida coastline, combining architectural ambition with the lifestyle expectations of a premier coastal residential address. The tower\'s form is developed through a rigorous study of views, solar orientation, and prevailing coastal winds, producing a design that is both visually distinctive and responsive to its environment. Floor plates are organised to maximise sea views from every apartment, with generous terraces and large glazed openings connecting each residence to the coastal landscape beyond. The building\'s facade language combines contemporary precision with a warmth of tone and material that reflects the character of its setting, establishing a strong and lasting contribution to the Florida skyline.',
+    facts: {
+      status: 'Construction In Progress',
+      completionYear: '2027',
+      designFinishYear: '2025',
+      size: { siteArea: '4,800 m²', stories: '38', grossArea: '85,000 m²' },
+      sustainability: 'LEED BD+C NC Gold — Target Certification',
+      collaborators: ['TNG', 'Florida Structural Engineers', 'MEP Consultants Group', 'Façade Engineering Partners'],
+    },
   },
 
   {
@@ -442,7 +566,15 @@ const PROJECTS = [
       'assets/assets/02_Projects/2515_Residential_ElAAJAMI%20Villa_Riyadh,%20KSA/16.jpg',
     ],
     brief: 'A contemporary private villa in Riyadh defined by architectural clarity, refined materiality, and a generous spatial quality.',
-    description: 'The ElAAJAMI Villa is a private residential commission in Riyadh, Saudi Arabia, designed to deliver an exceptional domestic environment through architectural precision and material quality. The villa is organised around a clear hierarchy of spaces — from public entertaining areas at the ground level to private family quarters above — each zone given a distinct character while maintaining a coherent aesthetic language throughout. The exterior presents a composed and confident presence, with deep overhangs, recessed openings, and a warm material palette creating a façade that is both protective and inviting. Interiors are characterised by generous ceiling heights, integrated lighting, bespoke joinery, and a selection of materials that combine durability with tactile refinement, resulting in a home of lasting quality and architectural distinction.'
+    description: 'The ElAAJAMI Villa is a private residential commission in Riyadh, Saudi Arabia, designed to deliver an exceptional domestic environment through architectural precision and material quality. The villa is organised around a clear hierarchy of spaces — from public entertaining areas at the ground level to private family quarters above — each zone given a distinct character while maintaining a coherent aesthetic language throughout. The exterior presents a composed and confident presence, with deep overhangs, recessed openings, and a warm material palette creating a façade that is both protective and inviting. Interiors are characterised by generous ceiling heights, integrated lighting, bespoke joinery, and a selection of materials that combine durability with tactile refinement, resulting in a home of lasting quality and architectural distinction.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2025',
+      designFinishYear: '2024',
+      size: { siteArea: '3,200 m²', stories: '3', grossArea: '2,100 m²' },
+      sustainability: 'GSAS 3 Star — Design Stage Certified',
+      collaborators: ['ElAAJAMI Family', 'Saudi Structural Engineer', 'MEP Consultant', 'Interior Fit-Out Contractor'],
+    },
   },
 
   {
@@ -470,7 +602,15 @@ const PROJECTS = [
       'assets/assets/02_Projects/2516_Dental%20Den%20Clinic_Ibrahim%20Masoud_Virginia,%20USA/10.jpg',
     ],
     brief: 'A contemporary dental clinic in Virginia designed to redefine the patient experience through calm interiors and refined materiality.',
-    description: 'The Dental Den Clinic in Virginia is a healthcare interior project that prioritises patient wellbeing alongside clinical performance. The design moves away from the sterile character typical of dental environments, creating instead a space that feels calm, considered, and reassuring. A restrained material palette — clean white surfaces, warm timber accents, integrated lighting, and carefully selected furnishings — establishes a clinical environment that is both hygienic and hospitable. The reception and waiting areas are designed to feel closer to a refined lounge than a traditional healthcare setting, reducing patient anxiety from the moment of arrival. Treatment zones maintain the same design logic, balancing the technical requirements of dental practice with a visual softness that supports both patient comfort and clinical team performance.'
+    description: 'The Dental Den Clinic in Virginia is a healthcare interior project that prioritises patient wellbeing alongside clinical performance. The design moves away from the sterile character typical of dental environments, creating instead a space that feels calm, considered, and reassuring. A restrained material palette — clean white surfaces, warm timber accents, integrated lighting, and carefully selected furnishings — establishes a clinical environment that is both hygienic and hospitable. The reception and waiting areas are designed to feel closer to a refined lounge than a traditional healthcare setting, reducing patient anxiety from the moment of arrival. Treatment zones maintain the same design logic, balancing the technical requirements of dental practice with a visual softness that supports both patient comfort and clinical team performance.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2025',
+      designFinishYear: '2024',
+      size: { siteArea: '320 m²', stories: '1', grossArea: '320 m²' },
+      sustainability: 'WELL Health-Safety Rating Certified',
+      collaborators: ['Ibrahim Masoud', 'US Interior Contractor', 'Healthcare Planning Consultant', 'Medical Equipment Supplier'],
+    },
   },
 
   /* ── PLACEHOLDER PROJECTS ─────────────────────────────── */
@@ -497,7 +637,15 @@ const PROJECTS = [
       'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1400&q=85',
     ],
     brief: 'A landmark commercial tower that combines structural innovation with timeless elegance.',
-    description: 'The Zenith Tower redefines the Dubai skyline with its crystalline form rising 72 floors above the city. The tower\'s faceted glass facade responds dynamically to sunlight, shifting from mirror-like reflections at dawn to deep amber at dusk. Its structural system eliminates interior columns across all floor plates, enabling unprecedented spatial flexibility. The ground-level public realm features a landscaped plaza connecting the tower to the urban fabric of Downtown Dubai.'
+    description: 'The Zenith Tower redefines the Dubai skyline with its crystalline form rising 72 floors above the city. The tower\'s faceted glass facade responds dynamically to sunlight, shifting from mirror-like reflections at dawn to deep amber at dusk. Its structural system eliminates interior columns across all floor plates, enabling unprecedented spatial flexibility. The ground-level public realm features a landscaped plaza connecting the tower to the urban fabric of Downtown Dubai.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2024',
+      designFinishYear: '2022',
+      size: { siteArea: '8,200 m²', stories: '72', grossArea: '280,000 m²' },
+      sustainability: 'LEED BD+C NC Platinum',
+      collaborators: ['Emaar Properties', 'Arup Structural Engineering', 'WSP MEP Consultants', 'Façade Consulting Group'],
+    },
   },
   {
     id: 'marina-complex',
@@ -521,7 +669,15 @@ const PROJECTS = [
       'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1400&q=85',
     ],
     brief: 'A 450,000 m² mixed-use landmark integrating park space, retail, and luxury residences.',
-    description: 'The Marina Complex is a new urban quarter for Singapore, weaving together residential towers, a cultural pavilion, retail terraces, and 4 hectares of public park into a single, coherent urban composition. The project responds to Singapore\'s tropical climate through deep overhangs, sky gardens on every fifth floor, and a passive ventilation strategy that reduces mechanical cooling loads by 40%. The waterfront promenade has become one of the most visited public spaces in the city.'
+    description: 'The Marina Complex is a new urban quarter for Singapore, weaving together residential towers, a cultural pavilion, retail terraces, and 4 hectares of public park into a single, coherent urban composition. The project responds to Singapore\'s tropical climate through deep overhangs, sky gardens on every fifth floor, and a passive ventilation strategy that reduces mechanical cooling loads by 40%. The waterfront promenade has become one of the most visited public spaces in the city.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2023',
+      designFinishYear: '2020',
+      size: { siteArea: '42,000 m²', stories: '58', grossArea: '450,000 m²' },
+      sustainability: 'Green Mark Platinum — BCA Singapore',
+      collaborators: ['Marina Bay Group', 'Buro Happold Engineering', 'Atelier Ten Environmental', 'Landscape Architecture Practice'],
+    },
   },
   {
     id: 'heritage-residences',
@@ -545,7 +701,15 @@ const PROJECTS = [
       'https://images.unsplash.com/photo-1512314889357-e157c22f938d?w=1400&q=85',
     ],
     brief: 'Forty-eight luxury residences in a listed building in the heart of Belgravia.',
-    description: 'Heritage Residences sensitively transforms a Grade II listed Belgravia building into 48 bespoke luxury apartments. Every original Victorian detail — cornicing, fireplaces, sash windows — was meticulously restored while the interiors were entirely reimagined for contemporary living. The project involved close collaboration with Historic England and the Westminster planning authority, resulting in an approach that set a new benchmark for heritage-sensitive luxury residential development in central London.'
+    description: 'Heritage Residences sensitively transforms a Grade II listed Belgravia building into 48 bespoke luxury apartments. Every original Victorian detail — cornicing, fireplaces, sash windows — was meticulously restored while the interiors were entirely reimagined for contemporary living. The project involved close collaboration with Historic England and the Westminster planning authority, resulting in an approach that set a new benchmark for heritage-sensitive luxury residential development in central London.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2023',
+      designFinishYear: '2021',
+      size: { siteArea: '3,600 m²', stories: '12', grossArea: '18,000 m²' },
+      sustainability: 'BREEAM Excellent',
+      collaborators: ['Grosvenor Group', 'Historic England', 'Conservation Architecture Specialist', 'Westminster City Council'],
+    },
   },
   {
     id: 'cascade-estate',
@@ -569,7 +733,15 @@ const PROJECTS = [
       'https://images.unsplash.com/photo-1512314889357-e157c22f938d?w=1400&q=85',
     ],
     brief: 'A private estate outside Tokyo that draws on the Japanese concept of ma — negative space.',
-    description: 'Cascade Estate is a private compound set within a heavily planted 8,400 m² site in the hills outside Tokyo. The architecture draws deeply from the Japanese concept of ma — the productive emptiness between things — expressed in a sequence of pavilions connected by covered walkways and water channels. Materials are limited to weathering steel, hand-formed concrete, and timber sourced from a single cedar forest in Yoshino. The estate disappears into its landscape, visible only as shadows and reflections.'
+    description: 'Cascade Estate is a private compound set within a heavily planted 8,400 m² site in the hills outside Tokyo. The architecture draws deeply from the Japanese concept of ma — the productive emptiness between things — expressed in a sequence of pavilions connected by covered walkways and water channels. Materials are limited to weathering steel, hand-formed concrete, and timber sourced from a single cedar forest in Yoshino. The estate disappears into its landscape, visible only as shadows and reflections.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2022',
+      designFinishYear: '2020',
+      size: { siteArea: '8,400 m²', stories: '3', grossArea: '4,200 m²' },
+      sustainability: 'ZEB (Net Zero Energy Building) — Japan Ministry Standard',
+      collaborators: ['Private Client', 'Japanese Structural Engineer', 'Yoshino Cedar Forest Supplier', 'Traditional Craft Workshop'],
+    },
   },
   {
     id: 'meridian-office',
@@ -593,7 +765,15 @@ const PROJECTS = [
       'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1400&q=85',
     ],
     brief: 'A 48-floor office tower on the Hudson Yards site, achieving LEED Platinum certification.',
-    description: 'Meridian Office brings a new workplace typology to New York\'s Hudson Yards district. The tower\'s distinctive faceted form is generated by the intersection of optimal floor plate efficiency and the desire to capture panoramic views in multiple directions. Each floor features a 3-metre floor-to-ceiling height and access to one of twelve sky terraces distributed throughout the building. The project achieved LEED Platinum certification through an integrated approach to passive systems, renewable energy, and embodied carbon reduction.'
+    description: 'Meridian Office brings a new workplace typology to New York\'s Hudson Yards district. The tower\'s distinctive faceted form is generated by the intersection of optimal floor plate efficiency and the desire to capture panoramic views in multiple directions. Each floor features a 3-metre floor-to-ceiling height and access to one of twelve sky terraces distributed throughout the building. The project achieved LEED Platinum certification through an integrated approach to passive systems, renewable energy, and embodied carbon reduction.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2022',
+      designFinishYear: '2019',
+      size: { siteArea: '6,800 m²', stories: '48', grossArea: '120,000 m²' },
+      sustainability: 'LEED BD+C NC Platinum',
+      collaborators: ['Related Companies', 'Thornton Tomasetti Structural', 'WSP MEP Engineers', 'Hudson Yards Development Corp'],
+    },
   },
   {
     id: 'riviera-villas',
@@ -617,7 +797,15 @@ const PROJECTS = [
       'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=85',
     ],
     brief: 'Six ultra-luxury hillside villas with uninterrupted views across the Mediterranean.',
-    description: 'The Riviera Villas occupy a dramatic hillside site above Monaco, each positioned to command uninterrupted views across the Mediterranean. Six individual villas share a private road and communal facilities — a spa, pool pavilion, and wine cellar — while maintaining absolute privacy from one another. The architecture employs a language of horizontal planes and glass that draws the landscape into every interior space. The terracing strategy doubles as a sophisticated rainwater management system feeding the irrigated gardens below.'
+    description: 'The Riviera Villas occupy a dramatic hillside site above Monaco, each positioned to command uninterrupted views across the Mediterranean. Six individual villas share a private road and communal facilities — a spa, pool pavilion, and wine cellar — while maintaining absolute privacy from one another. The architecture employs a language of horizontal planes and glass that draws the landscape into every interior space. The terracing strategy doubles as a sophisticated rainwater management system feeding the irrigated gardens below.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2021',
+      designFinishYear: '2019',
+      size: { siteArea: '12,000 m²', stories: '4', grossArea: '6,200 m²' },
+      sustainability: 'HQE (Haute Qualité Environnementale) — France',
+      collaborators: ['SBM Monaco', 'Monaco Structural Engineers', 'Landscape Architecture Atelier', 'Luxury Interior Specialist'],
+    },
   },
   {
     id: 'cultural-forum',
@@ -641,7 +829,15 @@ const PROJECTS = [
       'https://images.unsplash.com/photo-1503174971373-b1f69850bded?w=1400&q=85',
     ],
     brief: 'A civic cultural forum on the banks of the Seine, housing galleries, a concert hall, and archives.',
-    description: 'The Cultural Forum is a new civic institution on the Left Bank of the Seine, commissioned by the City of Paris as part of its centennial cultural programme. The building houses six gallery floors, a 1,200-seat concert hall, public archives, and a rooftop terrace open to all. The structural system — a series of concrete Vierendeel trusses spanning the full width of the site — creates column-free galleries of extraordinary spatial quality. The building\'s river facade is composed of a layered screen of stone and glass that references the historic facades of the Quai d\'Orsay.'
+    description: 'The Cultural Forum is a new civic institution on the Left Bank of the Seine, commissioned by the City of Paris as part of its centennial cultural programme. The building houses six gallery floors, a 1,200-seat concert hall, public archives, and a rooftop terrace open to all. The structural system — a series of concrete Vierendeel trusses spanning the full width of the site — creates column-free galleries of extraordinary spatial quality. The building\'s river facade is composed of a layered screen of stone and glass that references the historic facades of the Quai d\'Orsay.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2021',
+      designFinishYear: '2018',
+      size: { siteArea: '7,200 m²', stories: '6', grossArea: '34,000 m²' },
+      sustainability: 'HQE Bâtiment Durable — Exceptional',
+      collaborators: ['City of Paris', 'Bouygues Construction', 'Arup Acoustics', 'Cultural Programme Consultant'],
+    },
   },
   {
     id: 'the-curve',
@@ -665,7 +861,15 @@ const PROJECTS = [
       'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1400&q=85',
     ],
     brief: 'A sweeping corporate headquarters that arcs over a public plaza on Abu Dhabi\'s waterfront.',
-    description: 'The Curve is a 38-floor corporate headquarters that arcs dramatically over a new public plaza on Abu Dhabi\'s Corniche waterfront. The building\'s geometry emerges from two competing demands: maximum solar shading for the south-facing facade, and unobstructed sea views from all office floors. The result is a hyperbolic arc that shields the plaza below from the desert sun while framing the horizon from above. The structural solution — a composite steel and concrete curved megaframe — represents one of the most complex engineering achievements in the Gulf region.'
+    description: 'The Curve is a 38-floor corporate headquarters that arcs dramatically over a new public plaza on Abu Dhabi\'s Corniche waterfront. The building\'s geometry emerges from two competing demands: maximum solar shading for the south-facing facade, and unobstructed sea views from all office floors. The result is a hyperbolic arc that shields the plaza below from the desert sun while framing the horizon from above. The structural solution — a composite steel and concrete curved megaframe — represents one of the most complex engineering achievements in the Gulf region.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2020',
+      designFinishYear: '2017',
+      size: { siteArea: '12,400 m²', stories: '38', grossArea: '95,000 m²' },
+      sustainability: 'Estidama 4 Pearl Rating — Abu Dhabi UPC',
+      collaborators: ['ADNOC', 'AECOM Structural Engineering', 'Mott MacDonald MEP', 'Façade Engineering GmbH'],
+    },
   },
   {
     id: 'skybridge-residences',
@@ -689,7 +893,15 @@ const PROJECTS = [
       'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1400&q=85',
     ],
     brief: 'Twin residential towers connected by a sky bridge and sky garden on the 40th floor.',
-    description: 'Skybridge Residences introduces a new model for ultra-high-density living in Hong Kong. Two slender residential towers are connected at the 40th floor by a 60-metre sky bridge housing a communal garden, pool, and residents\' lounge suspended 180 metres above the city. Each of the 320 apartments features floor-to-ceiling glazing, external planting at every level, and a flexible interior system enabling residents to reconfigure their homes over time. The project received the Urban Land Institute\'s Global Award for Excellence.'
+    description: 'Skybridge Residences introduces a new model for ultra-high-density living in Hong Kong. Two slender residential towers are connected at the 40th floor by a 60-metre sky bridge housing a communal garden, pool, and residents\' lounge suspended 180 metres above the city. Each of the 320 apartments features floor-to-ceiling glazing, external planting at every level, and a flexible interior system enabling residents to reconfigure their homes over time. The project received the Urban Land Institute\'s Global Award for Excellence.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2020',
+      designFinishYear: '2017',
+      size: { siteArea: '4,100 m²', stories: '65', grossArea: '72,000 m²' },
+      sustainability: 'BEAM Plus Platinum — HKGBC',
+      collaborators: ['Sun Hung Kai Properties', 'Ove Arup Hong Kong', 'Façade Engineering Ltd', 'Landscape Practice'],
+    },
   },
   {
     id: 'urban-plaza',
@@ -713,7 +925,15 @@ const PROJECTS = [
       'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1400&q=85',
     ],
     brief: 'A 12-hectare public masterplan reconnecting two historic Berlin neighbourhoods divided by a rail line.',
-    description: 'Urban Plaza reconnects two historic Berlin neighbourhoods that were severed by a rail line during the post-war period. The masterplan bridges the 12-hectare void with a series of public programmes — markets, sports facilities, water features, and a central forum — organized along a new pedestrian boulevard. The project involved extensive community engagement over 18 months, and the resulting design reflects the diverse needs of the surrounding communities. Since opening, the plaza has attracted over 2 million visitors annually and catalysed significant private investment in adjacent blocks.'
+    description: 'Urban Plaza reconnects two historic Berlin neighbourhoods that were severed by a rail line during the post-war period. The masterplan bridges the 12-hectare void with a series of public programmes — markets, sports facilities, water features, and a central forum — organized along a new pedestrian boulevard. The project involved extensive community engagement over 18 months, and the resulting design reflects the diverse needs of the surrounding communities. Since opening, the plaza has attracted over 2 million visitors annually and catalysed significant private investment in adjacent blocks.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2019',
+      designFinishYear: '2016',
+      size: { siteArea: '12 hectares', stories: 'Ground Level', grossArea: '120,000 m² Public Realm' },
+      sustainability: 'DGNB Urban District — Gold',
+      collaborators: ['Senate of Berlin', 'Landscape Architecture Berlin', 'Civil Engineering Group', 'Community Engagement Team'],
+    },
   },
   {
     id: 'nordic-house',
@@ -737,7 +957,15 @@ const PROJECTS = [
       'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1400&q=85',
     ],
     brief: 'A Nordic cultural house on the Oslo waterfront, clad entirely in hand-cut Norwegian granite.',
-    description: 'Nordic House is a new cultural institution commissioned by the Norwegian Ministry of Culture to celebrate and archive Nordic craft, design, and visual art. The building occupies a prominent position on the Oslo waterfront, its mass clad entirely in hand-cut Norwegian granite quarried 300 kilometres north of the city. The interior is organized around a single continuous ramp that spirals through all five gallery floors, offering changing views of the fjord as visitors ascend. The building is entirely heated and cooled by seawater drawn from the fjord below.'
+    description: 'Nordic House is a new cultural institution commissioned by the Norwegian Ministry of Culture to celebrate and archive Nordic craft, design, and visual art. The building occupies a prominent position on the Oslo waterfront, its mass clad entirely in hand-cut Norwegian granite quarried 300 kilometres north of the city. The interior is organized around a single continuous ramp that spirals through all five gallery floors, offering changing views of the fjord as visitors ascend. The building is entirely heated and cooled by seawater drawn from the fjord below.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2019',
+      designFinishYear: '2016',
+      size: { siteArea: '4,800 m²', stories: '5', grossArea: '22,000 m²' },
+      sustainability: 'BREEAM Outstanding — Norway',
+      collaborators: ['Norwegian Ministry of Culture', 'Norconsult Structural', 'Sweco MEP Engineers', 'Norwegian Granite Quarry'],
+    },
   },
   {
     id: 'atelier-interiors',
@@ -761,7 +989,15 @@ const PROJECTS = [
       'https://images.unsplash.com/photo-1416331108676-a22ccb276e35?w=1400&q=85',
     ],
     brief: 'A 820 m² private residence in the Brera district, designed as a backdrop for a contemporary art collection.',
-    description: 'Atelier Interiors is a complete interior transformation of a 19th-century palazzo in Milan\'s Brera district, designed around the client\'s important collection of post-war Italian art. The brief called for rooms that would function simultaneously as intimate domestic spaces and as gallery-quality display environments. Original frescoed ceilings were restored and combined with new materials — polished plaster, patinated bronze, and hand-trowelled Venetian stucco — creating an interior that feels both ancient and entirely contemporary. Every piece of furniture was designed specifically for the space.'
+    description: 'Atelier Interiors is a complete interior transformation of a 19th-century palazzo in Milan\'s Brera district, designed around the client\'s important collection of post-war Italian art. The brief called for rooms that would function simultaneously as intimate domestic spaces and as gallery-quality display environments. Original frescoed ceilings were restored and combined with new materials — polished plaster, patinated bronze, and hand-trowelled Venetian stucco — creating an interior that feels both ancient and entirely contemporary. Every piece of furniture was designed specifically for the space.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2023',
+      designFinishYear: '2022',
+      size: { siteArea: '820 m²', stories: '3', grossArea: '820 m²' },
+      sustainability: 'Italian NZE Standard — Compliant',
+      collaborators: ['Private Client', 'Historic Conservation Specialist', 'Venetian Stucco Craftspeople', 'Art Installation Consultant'],
+    },
   },
   {
     id: 'the-pavilion',
@@ -785,7 +1021,15 @@ const PROJECTS = [
       'https://images.unsplash.com/photo-1460574283810-2aab119d8511?w=1400&q=85',
     ],
     brief: 'A floating cultural pavilion in Shanghai\'s Xintiandi district, hovering above a reflecting pool.',
-    description: 'The Pavilion appears to float above a 3,000 m² reflecting pool in the heart of Shanghai\'s Xintiandi cultural district. The 14,000 m² programme — exhibition halls, a performance space, and a restaurant — is contained within a single horizontal volume raised 8 metres above grade on a minimal structural frame. The building\'s underside, visible in the reflection below, is clad in a hand-applied ceramic tile pattern developed in collaboration with craftspeople from the Jingdezhen porcelain tradition. The project won the World Architecture Festival\'s Cultural Building of the Year award.'
+    description: 'The Pavilion appears to float above a 3,000 m² reflecting pool in the heart of Shanghai\'s Xintiandi cultural district. The 14,000 m² programme — exhibition halls, a performance space, and a restaurant — is contained within a single horizontal volume raised 8 metres above grade on a minimal structural frame. The building\'s underside, visible in the reflection below, is clad in a hand-applied ceramic tile pattern developed in collaboration with craftspeople from the Jingdezhen porcelain tradition. The project won the World Architecture Festival\'s Cultural Building of the Year award.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2018',
+      designFinishYear: '2015',
+      size: { siteArea: '14,000 m²', stories: '4', grossArea: '14,000 m²' },
+      sustainability: 'China Green Building 3 Star',
+      collaborators: ['Shanghai Cultural Bureau', 'CCDI Structural Engineering', 'Jingdezhen Ceramic Craftspeople', 'Lighting Design Studio'],
+    },
   },
   {
     id: 'coastal-retreat',
@@ -809,7 +1053,15 @@ const PROJECTS = [
       'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=85',
     ],
     brief: 'A Malibu cliff-side residence designed entirely around the experience of the Pacific Ocean.',
-    description: 'Coastal Retreat occupies a narrow clifftop site overlooking the Pacific Coast Highway in Malibu. The 3,200 m² house is organized as a single linear bar parallel to the cliff edge, with every principal room oriented toward the ocean. The structure is almost entirely glazed on the ocean side, with motorized glass panels that open the entire living level to the elements. Interior materials — bleached oak, white plaster, and honed limestone — were chosen to recede and allow the ever-changing light and colour of the Pacific to dominate. Fire-resilient construction techniques were employed throughout.'
+    description: 'Coastal Retreat occupies a narrow clifftop site overlooking the Pacific Coast Highway in Malibu. The 3,200 m² house is organized as a single linear bar parallel to the cliff edge, with every principal room oriented toward the ocean. The structure is almost entirely glazed on the ocean side, with motorized glass panels that open the entire living level to the elements. Interior materials — bleached oak, white plaster, and honed limestone — were chosen to recede and allow the ever-changing light and colour of the Pacific to dominate. Fire-resilient construction techniques were employed throughout.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2022',
+      designFinishYear: '2020',
+      size: { siteArea: '6,200 m²', stories: '2', grossArea: '3,200 m²' },
+      sustainability: 'LEED for Homes Gold',
+      collaborators: ['Private Client', 'California Structural Engineering', 'Landscape Architecture Practice', 'Fire-Resilient Construction Specialist'],
+    },
   },
   {
     id: 'transit-hub',
@@ -833,7 +1085,15 @@ const PROJECTS = [
       'https://images.unsplash.com/photo-1460574283810-2aab119d8511?w=1400&q=85',
     ],
     brief: 'A new intermodal transit hub integrating rail, tram, bus, and cycle infrastructure beneath a single roof.',
-    description: 'The Zurich Transit Hub consolidates the city\'s fragmented transport interchanges into a single seamless facility. The masterplan integrates rail, tram, bus, cycle, and pedestrian routes beneath a 68,000 m² canopy structure composed of 420 identical structural modules assembled with extraordinary precision. The project required the simultaneous rerouting of four active rail lines and the construction of a new underground concourse without interrupting service on Zurich\'s busiest transport corridor. Passenger satisfaction scores increased by 34% following the hub\'s opening.'
+    description: 'The Zurich Transit Hub consolidates the city\'s fragmented transport interchanges into a single seamless facility. The masterplan integrates rail, tram, bus, cycle, and pedestrian routes beneath a 68,000 m² canopy structure composed of 420 identical structural modules assembled with extraordinary precision. The project required the simultaneous rerouting of four active rail lines and the construction of a new underground concourse without interrupting service on Zurich\'s busiest transport corridor. Passenger satisfaction scores increased by 34% following the hub\'s opening.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2021',
+      designFinishYear: '2017',
+      size: { siteArea: '32,000 m²', stories: 'Subterranean + Ground Level', grossArea: '68,000 m²' },
+      sustainability: 'SNBS (Swiss Sustainable Construction Standard) Gold',
+      collaborators: ['SBB Swiss Federal Railways', 'Gruner AG Engineering', 'BKW Energy Systems', 'Transport Planning Consultants'],
+    },
   },
   {
     id: 'gallery-house',
@@ -857,7 +1117,15 @@ const PROJECTS = [
       'https://images.unsplash.com/photo-1460574283810-2aab119d8511?w=1400&q=85',
     ],
     brief: 'A canal-side gallery extension in Amsterdam\'s museum quarter, inserted between two listed buildings.',
-    description: 'Gallery House is a new gallery extension inserted between two 17th-century listed canal houses in Amsterdam\'s museum quarter. The 8,500 m² programme — gallery floors, a dedicated prints and drawings study room, a members\' library, and a public café — is threaded through and between the historic structures, carefully exposed wherever their timber frames, brick vaults, and original ironwork remain. The new interventions are made in a deliberately contrasting language of white plaster and steel, making clear at every point what is old and what is new.'
+    description: 'Gallery House is a new gallery extension inserted between two 17th-century listed canal houses in Amsterdam\'s museum quarter. The 8,500 m² programme — gallery floors, a dedicated prints and drawings study room, a members\' library, and a public café — is threaded through and between the historic structures, carefully exposed wherever their timber frames, brick vaults, and original ironwork remain. The new interventions are made in a deliberately contrasting language of white plaster and steel, making clear at every point what is old and what is new.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2020',
+      designFinishYear: '2017',
+      size: { siteArea: '1,200 m²', stories: '5', grossArea: '8,500 m²' },
+      sustainability: 'BREEAM Very Good',
+      collaborators: ['Stedelijk Museum', 'Rijksdienst voor het Cultureel Erfgoed', 'Amsterdam Structural Engineers', 'Conservation Specialist'],
+    },
   },
   {
     id: 'peninsula-resort',
@@ -881,7 +1149,15 @@ const PROJECTS = [
       'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=85',
     ],
     brief: 'A 36-villa luxury resort on a protected peninsula in southern Bali, constructed using local materials and craft.',
-    description: 'Peninsula Resort occupies a protected promontory in southern Bali, the villas arranged across the site to preserve all existing mature trees. The architecture draws on the layered spatial logic of traditional Balinese compound planning, organized around a sequence of courts and gardens that mediate between the intimate villa scale and the vast scale of the Indian Ocean panorama. All structural timber is sourced from certified Javanese plantations; all stone is locally quarried volcanic andesite. The resort employs 320 Balinese craftspeople and achieved full carbon neutrality upon opening.'
+    description: 'Peninsula Resort occupies a protected promontory in southern Bali, the villas arranged across the site to preserve all existing mature trees. The architecture draws on the layered spatial logic of traditional Balinese compound planning, organized around a sequence of courts and gardens that mediate between the intimate villa scale and the vast scale of the Indian Ocean panorama. All structural timber is sourced from certified Javanese plantations; all stone is locally quarried volcanic andesite. The resort employs 320 Balinese craftspeople and achieved full carbon neutrality upon opening.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2021',
+      designFinishYear: '2018',
+      size: { siteArea: '48,000 m²', stories: '2', grossArea: '24,000 m²' },
+      sustainability: 'Carbon Neutral — Certified at Opening',
+      collaborators: ['Aman Resorts', 'Javanese Timber Suppliers', 'Balinese Craftspeople Collective', 'Environmental Consultant'],
+    },
   },
   {
     id: 'the-forum-madrid',
@@ -905,7 +1181,15 @@ const PROJECTS = [
       'https://images.unsplash.com/photo-1460574283810-2aab119d8511?w=1400&q=85',
     ],
     brief: 'A 28-hectare urban regeneration masterplan transforming a former industrial zone into a new Madrid district.',
-    description: 'The Forum masterplan transforms a 28-hectare former industrial zone in eastern Madrid into a new mixed-use urban district. The plan establishes a hierarchy of streets, blocks, and public spaces calibrated to Madrid\'s existing urban grain, with a central tree-lined boulevard and a 4-hectare public park as its organizing elements. Forty per cent of all floor area is dedicated to affordable housing; the remainder is divided between retail, offices, cultural institutions, and a new primary school. The project\'s phased delivery over 12 years has consistently met or exceeded its social and economic targets.'
+    description: 'The Forum masterplan transforms a 28-hectare former industrial zone in eastern Madrid into a new mixed-use urban district. The plan establishes a hierarchy of streets, blocks, and public spaces calibrated to Madrid\'s existing urban grain, with a central tree-lined boulevard and a 4-hectare public park as its organizing elements. Forty per cent of all floor area is dedicated to affordable housing; the remainder is divided between retail, offices, cultural institutions, and a new primary school. The project\'s phased delivery over 12 years has consistently met or exceeded its social and economic targets.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2018',
+      designFinishYear: '2014',
+      size: { siteArea: '28 hectares', stories: 'Various', grossArea: '380,000 m² GFA' },
+      sustainability: 'DGNB Urban District — Platinum',
+      collaborators: ['Ayuntamiento de Madrid', 'Infrastructure Engineering Group', 'Landscape Architecture Practice', 'Social Housing Authority'],
+    },
   },
   {
     id: 'crystal-tower',
@@ -929,7 +1213,15 @@ const PROJECTS = [
       'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1400&q=85',
     ],
     brief: 'A 55-floor mixed-use tower in the Gangnam district, its faceted form referencing Korean crystalline mineral forms.',
-    description: 'Crystal Tower rises 55 floors in Seoul\'s Gangnam district, its faceted glass and aluminium facade referencing the crystalline mineral forms abundant in the Korean geological landscape. The building stacks four distinct programmes — a luxury hotel, serviced apartments, premium office floors, and an observation sky deck — within a unified architectural form, each programme distinguished by subtle shifts in facade treatment and floor plate configuration. The tower\'s structural core is set to the north, freeing the southern facade for a dramatic five-storey winter garden visible from the Han River below.'
+    description: 'Crystal Tower rises 55 floors in Seoul\'s Gangnam district, its faceted glass and aluminium facade referencing the crystalline mineral forms abundant in the Korean geological landscape. The building stacks four distinct programmes — a luxury hotel, serviced apartments, premium office floors, and an observation sky deck — within a unified architectural form, each programme distinguished by subtle shifts in facade treatment and floor plate configuration. The tower\'s structural core is set to the north, freeing the southern facade for a dramatic five-storey winter garden visible from the Han River below.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2023',
+      designFinishYear: '2019',
+      size: { siteArea: '7,400 m²', stories: '55', grossArea: '160,000 m²' },
+      sustainability: 'G-SEED (Green Standard for Energy & Environmental Design) 2 Star',
+      collaborators: ['Samsung C&T', 'MIDAS IT Structural', 'Hanyoung MEP Engineers', 'Façade Engineering Korea'],
+    },
   },
   {
     id: 'harbour-view',
@@ -953,7 +1245,15 @@ const PROJECTS = [
       'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1400&q=85',
     ],
     brief: 'A 42-floor residential tower on Sydney Harbour, its curved form maximising views for all 280 apartments.',
-    description: 'Harbour View introduces 280 luxury apartments to a site on Sydney\'s Circular Quay with views across the harbour to the Opera House and Harbour Bridge. The tower\'s curved plan is generated by a view analysis that ensures every apartment has an unobstructed harbour sightline, regardless of floor level. The facade system combines floor-to-ceiling glazing with horizontal fins of patinated bronze that provide solar shading while maintaining transparency. At the building\'s base, a publicly accessible harbour-front promenade connects the site to Walsh Bay and the Rocks precinct.'
+    description: 'Harbour View introduces 280 luxury apartments to a site on Sydney\'s Circular Quay with views across the harbour to the Opera House and Harbour Bridge. The tower\'s curved plan is generated by a view analysis that ensures every apartment has an unobstructed harbour sightline, regardless of floor level. The facade system combines floor-to-ceiling glazing with horizontal fins of patinated bronze that provide solar shading while maintaining transparency. At the building\'s base, a publicly accessible harbour-front promenade connects the site to Walsh Bay and the Rocks precinct.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2019',
+      designFinishYear: '2016',
+      size: { siteArea: '4,200 m²', stories: '42', grossArea: '55,000 m²' },
+      sustainability: 'Green Star 5 Star — GBCA Australia',
+      collaborators: ['Lendlease', 'Arup Australia', 'Cox Architecture Landscape', 'Walsh Bay Authority'],
+    },
   },
   {
     id: 'white-villa',
@@ -977,7 +1277,15 @@ const PROJECTS = [
       'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=85',
     ],
     brief: 'A cliffside villa on Santorini that distils the Cycladic vernacular to its absolute essence.',
-    description: 'White Villa occupies a dramatic caldera-edge site in Oia, Santorini. The architecture distils the Cycladic vernacular — whitewashed cubic volumes, recessed windows, vaulted ceilings — to its absolute geometric essence, removing ornament until only pure form and light remain. The 1,100 m² villa is organized as a cascade of white volumes stepping down the cliff toward the sea, each containing a single programme: bedroom, living, library, pool pavilion. The infinity pool, positioned at the lowest level, appears to merge with the caldera below. All materials and all labour sourced from Cycladic craftspeople.'
+    description: 'White Villa occupies a dramatic caldera-edge site in Oia, Santorini. The architecture distils the Cycladic vernacular — whitewashed cubic volumes, recessed windows, vaulted ceilings — to its absolute geometric essence, removing ornament until only pure form and light remain. The 1,100 m² villa is organized as a cascade of white volumes stepping down the cliff toward the sea, each containing a single programme: bedroom, living, library, pool pavilion. The infinity pool, positioned at the lowest level, appears to merge with the caldera below. All materials and all labour sourced from Cycladic craftspeople.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2022',
+      designFinishYear: '2020',
+      size: { siteArea: '2,800 m²', stories: '2', grossArea: '1,100 m²' },
+      sustainability: 'Passive Cooling — Bioclimatic Design Strategy',
+      collaborators: ['Private Client', 'Cycladic Craftspeople', 'Greek Heritage Consultant', 'Structural Engineer'],
+    },
   },
   {
     id: 'city-park-rotterdam',
@@ -1001,6 +1309,14 @@ const PROJECTS = [
       'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1400&q=85',
     ],
     brief: 'An 18-hectare urban park in central Rotterdam, designed to manage 1 million litres of stormwater per hour.',
-    description: 'City Park is a new 18-hectare public landscape in central Rotterdam, designed as both a civic amenity and a critical piece of climate infrastructure. The park is engineered to absorb and store 1 million litres of stormwater per hour during peak rainfall events, preventing the flooding that had previously affected surrounding neighbourhoods. The landscape programme — meadows, woodland, sports pitches, a waterplay zone, and a wetland reserve — doubles as the park\'s water management system, each element calibrated to capture, slow, and filter runoff. Since opening, the park has never recorded a single flooding incident in the surrounding streets.'
+    description: 'City Park is a new 18-hectare public landscape in central Rotterdam, designed as both a civic amenity and a critical piece of climate infrastructure. The park is engineered to absorb and store 1 million litres of stormwater per hour during peak rainfall events, preventing the flooding that had previously affected surrounding neighbourhoods. The landscape programme — meadows, woodland, sports pitches, a waterplay zone, and a wetland reserve — doubles as the park\'s water management system, each element calibrated to capture, slow, and filter runoff. Since opening, the park has never recorded a single flooding incident in the surrounding streets.',
+    facts: {
+      status: 'Completed',
+      completionYear: '2017',
+      designFinishYear: '2013',
+      size: { siteArea: '18 hectares', stories: 'Ground Level', grossArea: '180,000 m² Public Realm' },
+      sustainability: 'BREEAM Communities — Outstanding',
+      collaborators: ['Municipality of Rotterdam', 'Climate Adaptation Engineering Group', 'Landscape Architecture Practice', 'Water Management Specialists'],
+    },
   }
 ];

@@ -103,10 +103,11 @@
     }
 
     /* ── Grid ────────────────────────────────────────────── */
-    .projects-page { background: var(--off-black); }
+    .projects-page { background: #fff; }
 
     .grid-wrapper {
       padding: 2px;
+      background: #fff;
       columns: 3;
       column-gap: 2px;
     }
@@ -124,30 +125,27 @@
     .grid-card img {
       width: 100%;
       display: block;
-      filter: brightness(0.72);
+      filter: brightness(0.78);
       transition: transform 1s var(--ease), filter 0.7s ease;
       will-change: transform;
     }
     .grid-card:hover img {
-      transform: scale(1.06);
-      filter: brightness(0.4);
+      transform: scale(1.04);
+      filter: brightness(0.45);
     }
-
-    /* tall cards every 4th item in column 1 */
-    .grid-card.tall img { aspect-ratio: 3/4; object-fit:cover; }
-    .grid-card.wide img { aspect-ratio: 4/3; object-fit:cover; }
-    .grid-card.sq   img { aspect-ratio: 1/1; object-fit:cover; }
 
     .grid-info {
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      padding: 0 32px 28px;
-      background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, transparent 100%);
-      transform: translateY(20px);
-      opacity: 0;
-      transition: transform var(--t) var(--ease), opacity var(--t) ease;
+      padding: 0 28px 24px;
+      background: linear-gradient(to top, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.45) 55%, transparent 100%);
+      opacity: 1;
+      transform: translateY(0);
+      transition: background 0.5s ease;
     }
-    .grid-card:hover .grid-info { transform:translateY(0); opacity:1; }
+    .grid-card:hover .grid-info {
+      background: linear-gradient(to top, rgba(10,10,10,0.97) 0%, rgba(10,10,10,0.6) 55%, transparent 100%);
+    }
 
     .grid-cat {
       font-size: 9px;
@@ -171,17 +169,6 @@
       color: rgba(245,240,235,0.45);
       letter-spacing: 0.15em;
     }
-
-    .grid-num {
-      position: absolute;
-      top: 20px; left: 24px;
-      font-size: 10px;
-      font-weight: 300;
-      letter-spacing: 0.22em;
-      color: rgba(245,240,235,0.55);
-      transition: opacity 0.3s;
-    }
-    .grid-card:hover .grid-num { opacity:0; }
 
     /* ── No results ───────────────────────────────────────── */
     .no-results {
@@ -372,7 +359,6 @@
         a.dataset.category = p.category;
         a.innerHTML = `
           <img src="${p.thumb}" alt="${p.name}" loading="lazy">
-          <div class="grid-num">${p.num}</div>
           <div class="grid-info">
             <div class="grid-cat">${p.categoryLabel}</div>
             <div class="grid-name">${p.name}</div>

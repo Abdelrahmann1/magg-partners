@@ -118,109 +118,142 @@
     }
     .proj-back:hover { color: var(--white); }
 
-    /* ── Info Strip ───────────────────────────────────────── */
-    .info-strip {
-      background: var(--off-black);
+    /* ── Overview (SOM-style: sidebar + large text) ──────── */
+    .proj-overview {
+      background: var(--black);
+      padding: 88px 64px;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 96px;
       border-bottom: 1px solid var(--border);
-      padding: 0 64px;
-      display: flex;
-      overflow-x: auto;
-      scrollbar-width: none;
     }
-    .info-strip::-webkit-scrollbar { display:none; }
-    .info-cell {
-      padding: 36px 48px 36px 0;
-      margin-right: 48px;
-      border-right: 1px solid var(--border);
-      flex-shrink: 0;
-    }
-    .info-cell:last-child { border-right:none; margin-right:0; }
-    .info-label {
+    .proj-sidebar-meta { padding-top: 4px; }
+    .proj-meta-group { margin-bottom: 30px; }
+    .proj-meta-label {
       font-size: 9px;
       font-weight: 300;
       letter-spacing: 0.35em;
       text-transform: uppercase;
-      color: rgba(245,240,235,0.35);
-      margin-bottom: 8px;
+      color: rgba(245,240,235,0.32);
+      margin-bottom: 7px;
     }
-    .info-val {
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      text-transform: uppercase;
-    }
-
-    /* ── Body ─────────────────────────────────────────────── */
-    .proj-body {
-      background: var(--black);
-      padding: 120px 64px;
-    }
-    .proj-body-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.6fr;
-      gap: 100px;
-      align-items: start;
-    }
-    .proj-brief-label {
-      font-size: 10px;
+    .proj-meta-val {
+      font-size: 13px;
       font-weight: 300;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: rgba(245,240,235,0.35);
-      margin-bottom: 32px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
+      color: var(--white);
+      line-height: 1.65;
     }
-    .proj-brief-label::before {
-      content: '';
-      display: block;
-      width: 28px; height: 1px;
-      background: var(--faint);
+    .proj-intro-text {
+      font-size: clamp(18px, 2.2vw, 26px);
+      font-weight: 300;
+      line-height: 1.7;
+      color: rgba(245,240,235,0.88);
+      letter-spacing: -0.01em;
     }
-    .proj-brief {
-      font-size: clamp(22px, 3vw, 38px);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      text-transform: uppercase;
-      line-height: 1.1;
-      position: sticky;
-      top: 120px;
-    }
-    .proj-desc {
-      font-size: 16px;
+    .proj-desc-full {
+      margin-top: 48px;
+      padding-top: 48px;
+      border-top: 1px solid var(--border);
+      font-size: 15px;
       font-weight: 300;
       line-height: 2;
-      color: rgba(245,240,235,0.72);
+      color: rgba(245,240,235,0.48);
     }
 
-    /* ── Gallery ──────────────────────────────────────────── */
-    .proj-gallery {
-      background: var(--off-black);
-      padding: 2px;
-    }
-    .gallery-grid {
+    /* ── Project Facts (SOM sidebar style) ─────────────────── */
+    .proj-facts {
+      background: var(--black);
+      border-top: 1px solid var(--border);
+      padding: 88px 64px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
+      grid-template-columns: 240px 1fr;
+      gap: 96px;
     }
-    .gallery-grid .gimg {
-      overflow: hidden;
+    .proj-facts-col {
+      position: sticky;
+      top: 100px;
+      align-self: start;
     }
-    .gallery-grid .gimg:first-child {
-      grid-column: 1 / -1;
+    .facts-section-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 40px;
+      letter-spacing: 0.01em;
     }
-    .gallery-grid img {
+    .fact-item { margin-bottom: 26px; }
+    .fact-item-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 5px;
+      letter-spacing: 0.01em;
+    }
+    .fact-item-val {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(245,240,235,0.55);
+      line-height: 1.75;
+    }
+    .fact-collab-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      cursor: pointer;
       width: 100%;
-      display: block;
-      filter: brightness(0.85);
-      transition: transform 1s var(--ease), filter 0.7s ease;
+      text-align: left;
+      letter-spacing: 0.01em;
+      margin-bottom: 5px;
     }
-    .gallery-grid .gimg:first-child img { height: 600px; object-fit:cover; }
-    .gallery-grid .gimg:not(:first-child) img { height: 380px; object-fit:cover; }
-    .gallery-grid .gimg:hover img {
-      transform: scale(1.04);
-      filter: brightness(0.7);
+    .fact-collab-btn svg {
+      width: 13px; height: 13px;
+      stroke: rgba(245,240,235,0.5);
+      fill: none;
+      stroke-width: 2;
+      transition: transform 0.35s var(--ease);
+      flex-shrink: 0;
+    }
+    .fact-collab-btn.open svg { transform: rotate(180deg); }
+    .fact-collab-list {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.45s var(--ease);
+      list-style: none;
+      padding: 0; margin: 0;
+    }
+    .fact-collab-list.open { max-height: 500px; }
+    .fact-collab-list li {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(245,240,235,0.55);
+      line-height: 1.85;
+    }
+    .proj-facts-right {}
+    .proj-facts-right img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: brightness(0.88);
+    }
+    .proj-facts-right .facts-img-caption {
+      margin-top: 16px;
+      font-size: 11px;
+      font-weight: 300;
+      color: rgba(245,240,235,0.3);
+      letter-spacing: 0.06em;
+    }
+
+    @media (max-width: 900px) {
+      .proj-overview { grid-template-columns: 1fr; gap: 48px; padding: 64px 24px; }
+      .proj-facts { grid-template-columns: 1fr; gap: 48px; padding: 64px 24px; }
+      .proj-facts-col { position: static; }
     }
 
     /* ── Related Projects ─────────────────────────────────── */
@@ -333,8 +366,7 @@
       .proj-hero-right { text-align:left; }
       .info-strip { padding:0 24px; }
       .proj-body { padding:80px 24px; }
-      .proj-body-grid { grid-template-columns:1fr; gap:48px; }
-      .proj-brief { position:static; font-size:clamp(20px,5vw,32px); }
+      .proj-intro-text { font-size: clamp(16px, 4.5vw, 22px); }
       .gallery-grid { grid-template-columns:1fr; }
       .gallery-grid .gimg:first-child { grid-column:1; }
       .related { padding:80px 24px; }
@@ -410,26 +442,34 @@
     </div>
   </div>
 
-  <!-- ── Info Strip ──────────────────────────────────────── -->
-  <div class="info-strip" id="infoStrip"></div>
-
-  <!-- ── Body ────────────────────────────────────────────── -->
-  <div class="proj-body">
-    <div class="proj-body-grid">
-      <div class="reveal">
-        <div class="proj-brief-label">Overview</div>
-        <div class="proj-brief" id="projBrief"></div>
+  <!-- ── Overview ────────────────────────────────────────── -->
+  <div class="proj-overview reveal">
+    <div class="proj-sidebar-meta">
+      <div class="proj-meta-group">
+        <div class="proj-meta-label">Client</div>
+        <div class="proj-meta-val" id="projClientVal"></div>
       </div>
-      <div class="reveal reveal-delay-2">
-        <p class="proj-desc" id="projDesc"></p>
+      <div class="proj-meta-group">
+        <div class="proj-meta-label">Expertise</div>
+        <div class="proj-meta-val" id="projTypeVal"></div>
       </div>
+      <div class="proj-meta-group">
+        <div class="proj-meta-label">Location</div>
+        <div class="proj-meta-val" id="projLocVal"></div>
+      </div>
+      <div class="proj-meta-group">
+        <div class="proj-meta-label">Year</div>
+        <div class="proj-meta-val" id="projYearVal"></div>
+      </div>
+    </div>
+    <div>
+      <p class="proj-intro-text" id="projBriefText"></p>
+      <p class="proj-desc-full" id="projDescText"></p>
     </div>
   </div>
 
-  <!-- ── Gallery ─────────────────────────────────────────── -->
-  <div class="proj-gallery reveal">
-    <div class="gallery-grid" id="gallery"></div>
-  </div>
+  <!-- ── Project Facts ──────────────────────────────────── -->
+  <div class="proj-facts" id="projFacts"></div>
 
   <!-- ── Related Projects ────────────────────────────────── -->
   <div class="related">
@@ -528,60 +568,82 @@
 
     document.title = `${project.name} — Magg+Partners`;
 
-    /* ── Hero Carousel ───────────────────────────────────── */
+    /* ── Hero Carousel (same as homepage) ───────────────── */
     const carousel   = document.getElementById('heroCarousel');
     const dotsWrap   = document.getElementById('carouselDots');
     const prevBtn2   = document.getElementById('carouselPrev');
     const nextBtn2   = document.getElementById('carouselNext');
 
-    /* Build slides: hero first, then gallery */
+    /* Build slides: hero first, then gallery — deduplicated */
     const slideImages = [project.hero, ...project.gallery.filter(s => s !== project.hero)];
-    let currentSlide  = 0;
-    let carouselTimer = null;
+    let heroIdx   = 0;
+    let heroTimer = null;
 
+    /* Build slides + dots — only first slide loads immediately */
     slideImages.forEach((src, i) => {
+      const isFirst = i === 0;
+
+      /* slide */
       const slide = document.createElement('div');
-      slide.className = 'hc-slide' + (i === 0 ? ' active' : '');
-      /* blurred background fills the bars */
+      slide.className = 'hc-slide' + (isFirst ? ' active' : '');
+      slide.dataset.src = src;
+
+      /* blurred background */
       const bg = document.createElement('div');
       bg.className = 'hc-slide-bg';
-      bg.style.backgroundImage = `url('${src}')`;
+      if (isFirst) bg.style.backgroundImage = `url('${src}')`;
       slide.appendChild(bg);
+
       /* sharp foreground — full image, no cropping */
       const im = document.createElement('img');
-      im.src = src;
+      if (isFirst) {
+        im.src = src;
+      } else {
+        im.dataset.src = src;
+      }
       im.alt = project.name + ' — image ' + (i + 1);
       slide.appendChild(im);
       carousel.appendChild(slide);
 
-      const dot = document.createElement('div');
-      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-      dot.addEventListener('click', () => goTo(i));
+      /* dot — button like homepage */
+      const dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (isFirst ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      dot.addEventListener('click', () => heroGoTo(i));
       dotsWrap.appendChild(dot);
     });
 
-    const slides = carousel.querySelectorAll('.hc-slide');
-    const dots   = dotsWrap.querySelectorAll('.carousel-dot');
-
-    function goTo(n) {
-      slides[currentSlide].classList.remove('active');
-      slides[currentSlide].classList.add('exit');
-      dots[currentSlide].classList.remove('active');
-      setTimeout(() => slides[currentSlide].classList.remove('exit'), 1200);
-      currentSlide = (n + slideImages.length) % slideImages.length;
-      slides[currentSlide].classList.add('active');
-      dots[currentSlide].classList.add('active');
-      resetTimer();
+    /* Load a slide's image on demand */
+    function loadSlide(slide) {
+      const im = slide.querySelector('img');
+      const bg = slide.querySelector('.hc-slide-bg');
+      if (im && im.dataset.src) { im.src = im.dataset.src; delete im.dataset.src; }
+      if (bg && !bg.style.backgroundImage && slide.dataset.src) {
+        bg.style.backgroundImage = `url('${slide.dataset.src}')`;
+      }
     }
 
-    function resetTimer() {
-      clearInterval(carouselTimer);
-      carouselTimer = setInterval(() => goTo(currentSlide + 1), 5000);
+    function heroGoTo(n) {
+      const allSlides = carousel.querySelectorAll('.hc-slide');
+      const allDots   = dotsWrap.querySelectorAll('.carousel-dot');
+      allSlides[heroIdx].classList.remove('active');
+      allSlides[heroIdx].classList.add('exit');
+      const exiting = heroIdx;
+      setTimeout(() => allSlides[exiting] && allSlides[exiting].classList.remove('exit'), 1300);
+      allDots[heroIdx].classList.remove('active');
+      heroIdx = ((n % slideImages.length) + slideImages.length) % slideImages.length;
+      loadSlide(allSlides[heroIdx]);
+      /* preload next */
+      loadSlide(allSlides[(heroIdx + 1) % slideImages.length]);
+      allSlides[heroIdx].classList.add('active');
+      allDots[heroIdx].classList.add('active');
+      clearInterval(heroTimer);
+      heroTimer = setInterval(() => heroGoTo(heroIdx + 1), 5500);
     }
 
-    prevBtn2.addEventListener('click', () => goTo(currentSlide - 1));
-    nextBtn2.addEventListener('click', () => goTo(currentSlide + 1));
-    resetTimer();
+    heroTimer = setInterval(() => heroGoTo(heroIdx + 1), 5500);
+    prevBtn2.addEventListener('click', () => heroGoTo(heroIdx - 1));
+    nextBtn2.addEventListener('click', () => heroGoTo(heroIdx + 1));
 
     /* ── Hero text animate ───────────────────────────────── */
     setTimeout(() => {
@@ -605,23 +667,103 @@
     document.getElementById('projLoc').textContent = project.location;
     document.getElementById('projYear').textContent = project.year;
 
-    /* ── Info strip ──────────────────────────────────────── */
-    const strip = document.getElementById('infoStrip');
-    const cells = [
-      {label:'Type',val:project.type},
-      {label:'Size',val:project.size},
-      {label:'Floors',val:project.floors},
-      {label:'Status',val:project.status},
-      {label:'Client',val:project.client},
-      {label:'Year',val:project.year},
-    ];
-    strip.innerHTML = cells.map(c =>
-      `<div class="info-cell"><div class="info-label">${c.label}</div><div class="info-val">${c.val}</div></div>`
-    ).join('');
+    /* ── Overview sidebar ────────────────────────────────── */
+    document.getElementById('projClientVal').textContent  = project.client || '—';
+    document.getElementById('projTypeVal').textContent    = project.categoryLabel || project.type || '—';
+    document.getElementById('projLocVal').textContent     = project.location || '—';
+    document.getElementById('projYearVal').textContent    = project.year || '—';
+    document.getElementById('projBriefText').textContent  = project.brief || '';
+    document.getElementById('projDescText').textContent   = project.description || '';
 
-    /* ── Body ────────────────────────────────────────────── */
-    document.getElementById('projBrief').textContent = project.brief;
-    document.getElementById('projDesc').textContent  = project.description;
+    /* ── Project Facts (SOM sidebar style) ───────────────── */
+    (function renderFacts() {
+      const f = project.facts || {};
+      const factsEl = document.getElementById('projFacts');
+
+      /* Build fact items */
+      const items = [];
+
+      const status = f.status || project.status;
+      if (status) items.push({ label: 'Status', val: status });
+
+      const cy = f.completionYear || project.year;
+      if (cy) items.push({ label: 'Completion Year', val: cy });
+
+      if (f.designFinishYear) items.push({ label: 'Design Finish Year', val: f.designFinishYear });
+
+      /* Size */
+      const sizeObj = f.size;
+      if (sizeObj && typeof sizeObj === 'object') {
+        const lines = [
+          sizeObj.siteArea  ? `Site Area: ${sizeObj.siteArea}`            : null,
+          sizeObj.stories   ? `Number of Stories: ${sizeObj.stories}`     : null,
+          sizeObj.grossArea ? `Building Gross Area: ${sizeObj.grossArea}` : null,
+        ].filter(Boolean);
+        if (lines.length) items.push({ label: 'Size', lines });
+      } else if (project.size && project.size !== '—') {
+        items.push({ label: 'Size', val: project.size });
+      }
+
+      /* Sustainability */
+      const cert = f.sustainability;
+      if (cert) {
+        const certLines = Array.isArray(cert) ? cert : [cert];
+        items.push({ label: 'Sustainability Certifications', lines: certLines });
+      }
+
+      /* Collaborators — expandable */
+      const collab = f.collaborators;
+      const hasCollab = collab && collab.length;
+
+      if (!items.length && !hasCollab) { factsEl.style.display = 'none'; return; }
+
+      /* Render left sidebar */
+      const sidebarHTML = `
+        <div class="proj-facts-col">
+          <div class="facts-section-title">Project Facts</div>
+          ${items.map(item => `
+            <div class="fact-item">
+              <div class="fact-item-label">${item.label}</div>
+              <div class="fact-item-val">
+                ${item.lines
+                  ? item.lines.join('<br>')
+                  : (item.val || '')}
+              </div>
+            </div>
+          `).join('')}
+          ${hasCollab ? `
+            <div class="fact-item">
+              <button class="fact-collab-btn" id="collabToggle">
+                Collaborators
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <ul class="fact-collab-list" id="collabList">
+                ${collab.map(c => `<li>${c}</li>`).join('')}
+              </ul>
+            </div>
+          ` : ''}
+        </div>`;
+
+      /* Render right image */
+      const rightHTML = `
+        <div class="proj-facts-right">
+          <img src="${project.hero}" alt="${project.name}" loading="lazy">
+          <div class="facts-img-caption">${project.location} — ${project.year}</div>
+        </div>`;
+
+      factsEl.innerHTML = sidebarHTML + rightHTML;
+
+      /* Wire collaborators toggle */
+      const togBtn  = factsEl.querySelector('#collabToggle');
+      const togList = factsEl.querySelector('#collabList');
+      if (togBtn && togList) {
+        togBtn.addEventListener('click', () => {
+          const open = togList.classList.toggle('open');
+          togBtn.classList.toggle('open', open);
+        });
+        addHover(togBtn);
+      }
+    })();
 
     /* ── Gallery ─────────────────────────────────────────── */
     const gal = document.getElementById('gallery');
