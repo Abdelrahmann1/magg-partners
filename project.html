@@ -5,794 +5,267 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Project — Magg+Partners</title>
   <link rel="icon" type="image/png" href="assets/assets/Logo/260403_Logo_Magg+Partners_Website_Icon.png">
-  <link rel="shortcut icon" type="image/jpeg" href="assets/assets/Logo/favicon.jpg">
-  <link rel="apple-touch-icon" href="assets/assets/Logo/260403_Logo_Magg+Partners_Website_Icon.png">
   <link rel="stylesheet" href="styles.css">
-  <style>
-    /* ── Project Detail Page ─────────────────────────────── */
-    .proj-hero {
-      position: relative;
-      height: 100vh;
-      min-height: 640px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 0 64px 80px;
-    }
-    .proj-hero-bg {
-      position: absolute;
-      inset: 0;
-      background: center/cover no-repeat;
-      transform: scale(1.06);
-      transition: transform 10s var(--ease);
-    }
-    .proj-hero-bg.ready { transform: scale(1); }
-    .proj-hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(10,10,10,0.15) 0%,
-        rgba(10,10,10,0.05) 35%,
-        rgba(10,10,10,0.75) 100%
-      );
-    }
-    .proj-hero-content {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 60px;
-    }
-    .proj-hero-left {}
-    .proj-hero-eyebrow {
-      font-size: 10px;
-      font-weight: 300;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 24px;
-      opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 0.8s ease 0.6s, transform 0.8s ease 0.6s;
-    }
-    .proj-hero-bg.ready ~ .proj-hero-overlay + .proj-hero-content .proj-hero-eyebrow,
-    .ph-animate .proj-hero-eyebrow { opacity:1; transform:translateY(0); }
-
-    .proj-hero-title {
-      font-size: clamp(52px, 8vw, 130px);
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      text-transform: uppercase;
-      line-height: 0.9;
-      color: var(--white);
-    }
-    .proj-hero-title .h1-line { display:block; overflow:hidden; }
-    .proj-hero-title .h1-inner {
-      display: block;
-      transform: translateY(110%);
-      transition: transform 1.1s var(--ease);
-    }
-    .proj-hero-title .h1-inner.out { transform: translateY(0); }
-    .proj-hero-title .h1-line:nth-child(1) .h1-inner { transition-delay: 0.65s; }
-    .proj-hero-title .h1-line:nth-child(2) .h1-inner { transition-delay: 0.82s; }
-
-    .proj-hero-right {
-      flex-shrink: 0;
-      text-align: right;
-      opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 0.9s ease 1.2s, transform 0.9s ease 1.2s;
-    }
-    .proj-hero-right.show { opacity:1; transform:translateY(0); }
-    .proj-hero-loc {
-      font-size: 13px;
-      font-weight: 300;
-      letter-spacing: 0.08em;
-      color: rgba(245,240,235,0.7);
-      margin-bottom: 4px;
-    }
-    .proj-hero-year {
-      font-size: 11px;
-      font-weight: 300;
-      letter-spacing: 0.25em;
-      color: var(--muted);
-    }
-
-    /* ── Back Button ──────────────────────────────────────── */
-    .proj-back {
-      position: absolute;
-      top: 120px; left: 64px;
-      z-index: 10;
-      font-size: 10px;
-      font-weight: 300;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: rgba(245,240,235,0.65);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transition: color var(--tf);
-    }
-    .proj-back:hover { color: var(--white); }
-
-    /* ── Overview (SOM-style: sidebar + large text) ──────── */
-    .proj-overview {
-      background: var(--black);
-      padding: 88px 64px;
-      display: grid;
-      grid-template-columns: 240px 1fr;
-      gap: 96px;
-      border-bottom: 1px solid var(--border);
-    }
-    .proj-sidebar-meta { padding-top: 4px; }
-    .proj-meta-group { margin-bottom: 30px; }
-    .proj-meta-label {
-      font-size: 9px;
-      font-weight: 300;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: rgba(245,240,235,0.32);
-      margin-bottom: 7px;
-    }
-    .proj-meta-val {
-      font-size: 13px;
-      font-weight: 300;
-      color: var(--white);
-      line-height: 1.65;
-    }
-    .proj-intro-text {
-      font-size: clamp(18px, 2.2vw, 26px);
-      font-weight: 300;
-      line-height: 1.7;
-      color: rgba(245,240,235,0.88);
-      letter-spacing: -0.01em;
-    }
-    .proj-desc-full {
-      margin-top: 48px;
-      padding-top: 48px;
-      border-top: 1px solid var(--border);
-      font-size: 15px;
-      font-weight: 300;
-      line-height: 2;
-      color: rgba(245,240,235,0.48);
-    }
-
-    /* ── Project Facts (SOM sidebar style) ─────────────────── */
-    .proj-facts {
-      background: var(--black);
-      border-top: 1px solid var(--border);
-      padding: 88px 64px;
-      display: grid;
-      grid-template-columns: 240px 1fr;
-      gap: 96px;
-    }
-    .proj-facts-col {
-      position: sticky;
-      top: 100px;
-      align-self: start;
-    }
-    .facts-section-title {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--white);
-      margin-bottom: 40px;
-      letter-spacing: 0.01em;
-    }
-    .fact-item { margin-bottom: 26px; }
-    .fact-item-label {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--white);
-      margin-bottom: 5px;
-      letter-spacing: 0.01em;
-    }
-    .fact-item-val {
-      font-size: 14px;
-      font-weight: 300;
-      color: rgba(245,240,235,0.55);
-      line-height: 1.75;
-    }
-    .fact-collab-btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: none;
-      border: none;
-      padding: 0;
-      font-family: var(--font);
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--white);
-      cursor: pointer;
-      width: 100%;
-      text-align: left;
-      letter-spacing: 0.01em;
-      margin-bottom: 5px;
-    }
-    .fact-collab-btn svg {
-      width: 13px; height: 13px;
-      stroke: rgba(245,240,235,0.5);
-      fill: none;
-      stroke-width: 2;
-      transition: transform 0.35s var(--ease);
-      flex-shrink: 0;
-    }
-    .fact-collab-btn.open svg { transform: rotate(180deg); }
-    .fact-collab-list {
-      overflow: hidden;
-      max-height: 0;
-      transition: max-height 0.45s var(--ease);
-      list-style: none;
-      padding: 0; margin: 0;
-    }
-    .fact-collab-list.open { max-height: 500px; }
-    .fact-collab-list li {
-      font-size: 14px;
-      font-weight: 300;
-      color: rgba(245,240,235,0.55);
-      line-height: 1.85;
-    }
-    .proj-facts-right {}
-    .proj-facts-right img {
-      width: 100%;
-      height: auto;
-      display: block;
-      filter: brightness(0.88);
-    }
-    .proj-facts-right .facts-img-caption {
-      margin-top: 16px;
-      font-size: 11px;
-      font-weight: 300;
-      color: rgba(245,240,235,0.3);
-      letter-spacing: 0.06em;
-    }
-
-    @media (max-width: 900px) {
-      .proj-overview { grid-template-columns: 1fr; gap: 48px; padding: 64px 24px; }
-      .proj-facts { grid-template-columns: 1fr; gap: 48px; padding: 64px 24px; }
-      .proj-facts-col { position: static; }
-    }
-
-    /* ── Related Projects ─────────────────────────────────── */
-    .related {
-      background: var(--black);
-      padding: 120px 64px;
-      border-top: 1px solid var(--border);
-    }
-    .related-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 72px;
-    }
-    .related-head h2 {
-      font-size: clamp(36px, 5vw, 64px);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      text-transform: uppercase;
-      line-height: 0.95;
-    }
-    .related-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-    }
-    .related-card {
-      position: relative;
-      overflow: hidden;
-      display: block;
-    }
-    .related-card img {
-      width: 100%;
-      height: 340px;
-      object-fit: cover;
-      filter: brightness(0.7);
-      transition: transform 0.9s var(--ease), filter 0.7s ease;
-      display: block;
-    }
-    .related-card:hover img { transform:scale(1.06); filter:brightness(0.4); }
-    .related-info {
-      position: absolute;
-      bottom:0; left:0; right:0;
-      padding: 0 28px 24px;
-      background: linear-gradient(to top, rgba(10,10,10,0.92) 0%, transparent 100%);
-      transform: translateY(16px);
-      opacity: 0;
-      transition: transform var(--t) var(--ease), opacity var(--t) ease;
-    }
-    .related-card:hover .related-info { transform:translateY(0); opacity:1; }
-    .related-loc {
-      font-size: 9px;
-      font-weight: 300;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-    .related-name {
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
-    }
-
-    /* ── Bottom Nav ───────────────────────────────────────── */
-    .proj-nav-strip {
-      background: var(--off-black);
-      border-top: 1px solid var(--border);
-      padding: 0 64px;
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-    }
-    .proj-nav-btn {
-      padding: 40px 0;
-      font-size: 11px;
-      font-weight: 300;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      transition: color var(--tf);
-    }
-    .proj-nav-btn:hover { color:var(--white); }
-    .proj-nav-btn.right { justify-content:flex-end; text-align:right; }
-    .proj-nav-center {
-      text-align: center;
-      padding: 40px 32px;
-      border-left: 1px solid var(--border);
-      border-right: 1px solid var(--border);
-    }
-    .proj-nav-center a {
-      font-size: 10px;
-      font-weight: 300;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: rgba(245,240,235,0.35);
-      transition: color var(--tf);
-    }
-    .proj-nav-center a:hover { color:var(--white); }
-
-    /* ── Responsive ───────────────────────────────────────── */
-    @media (max-width: 900px) {
-      .proj-hero { padding:0 24px 60px; }
-      .proj-back { left:24px; top:100px; }
-      .proj-hero-content { flex-direction:column; align-items:flex-start; gap:16px; }
-      .proj-hero-right { text-align:left; }
-      .info-strip { padding:0 24px; }
-      .proj-body { padding:80px 24px; }
-      .proj-intro-text { font-size: clamp(16px, 4.5vw, 22px); }
-      .gallery-grid { grid-template-columns:1fr; }
-      .gallery-grid .gimg:first-child { grid-column:1; }
-      .related { padding:80px 24px; }
-      .related-grid { grid-template-columns:1fr; }
-      .proj-nav-strip { padding:0 24px; }
-    }
-  </style>
 </head>
 <body>
 
-  <!-- ── Custom Cursor ───────────────────────────────────── -->
   <div class="c-dot" id="cDot"></div>
   <div class="c-ring" id="cRing"></div>
 
-  <!-- ── Navigation ──────────────────────────────────────── -->
   <nav id="nav">
-    <a href="index.html" class="nav-logo">
-      <img src="assets/assets/Logo/260403_Logo_Magg+Partners_White.png" alt="Magg+Partners">
-    </a>
-    <div class="nav-right">
+    <a href="index.html" class="nav-logo"><img src="assets/assets/Logo/260403_Logo_Magg+Partners_White.png" alt="Magg+Partners"></a>
+    <ul class="nav-links">
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="index.html#studio">Studio</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="careers.html">Careers</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
       <button class="nav-search-btn" id="searchBtn" aria-label="Search">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
       </button>
-      <button class="nav-hamburger" id="ham" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="nav-hamburger" id="hamBtn" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
 
-  <!-- ── Overlay Menu ────────────────────────────────────── -->
-  <div class="mobile-menu" id="mob">
+  <div class="mob-menu" id="mobMenu">
     <ul>
-      <li><a href="projects.html"    class="mob-link">Projects</a></li>
-      <li><a href="index.html#people" class="mob-link">Studio</a></li>
-      <li><a href="news.html"        class="mob-link">News</a></li>
-      <li><a href="careers.html"     class="mob-link">Careers</a></li>
-      <li><a href="index.html#contact" class="mob-link">Contact</a></li>
+      <li><a href="projects.html"     class="mob-lnk">Projects</a></li>
+      <li><a href="index.html#studio" class="mob-lnk">Studio</a></li>
+      <li><a href="news.html"         class="mob-lnk">News</a></li>
+      <li><a href="careers.html"      class="mob-lnk">Careers</a></li>
+      <li><a href="contact.html"      class="mob-lnk">Contact</a></li>
     </ul>
   </div>
 
-  <!-- ── Search Overlay ─────────────────────────────────── -->
   <div class="search-overlay" id="searchOverlay">
-    <div class="search-input-wrap">
+    <div class="search-wrap">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
-      <input type="text" id="searchInput" placeholder="Search projects, locations, services…" autocomplete="off">
-      <button class="search-close" id="searchClose">ESC</button>
+      <input type="text" id="searchInput" placeholder="Search projects, locations…" autocomplete="off">
+      <button class="search-esc" id="searchClose">ESC</button>
     </div>
-    <div class="search-results" id="searchResults"></div>
+    <div class="search-results-wrap" id="searchResults"></div>
   </div>
 
-  <!-- ── Hero with Carousel ──────────────────────────────── -->
-  <div class="proj-hero" id="projHero">
-    <a href="projects.html" class="proj-back">← All Projects</a>
-    <!-- carousel container — slides injected by JS -->
-    <div class="hero-carousel" id="heroCarousel"></div>
-    <div class="proj-hero-overlay"></div>
-    <!-- dots -->
-    <div class="carousel-dots" id="carouselDots"></div>
-    <!-- arrows -->
-    <div class="carousel-arrows">
-      <button class="carousel-arrow" id="carouselPrev">&#8592;</button>
-      <button class="carousel-arrow" id="carouselNext">&#8594;</button>
-    </div>
-    <div class="proj-hero-content">
-      <div class="proj-hero-left">
-        <div class="proj-hero-eyebrow" id="projEyebrow"></div>
-        <div class="proj-hero-title" id="projTitle"></div>
-      </div>
-      <div class="proj-hero-right" id="projHeroRight">
-        <div class="proj-hero-loc" id="projLoc"></div>
-        <div class="proj-hero-year" id="projYear"></div>
-      </div>
+  <!-- ── Hero ── -->
+  <div class="pd-hero" id="pdHero">
+    <div class="pd-hero-bg" id="pdHeroBg"></div>
+    <div class="pd-hero-overlay"></div>
+    <div class="pd-hero-bottom">
+      <span class="pd-hero-name" id="pdHeroName"></span>
     </div>
   </div>
 
-  <!-- ── Overview ────────────────────────────────────────── -->
-  <div class="proj-overview reveal">
-    <div class="proj-sidebar-meta">
-      <div class="proj-meta-group">
-        <div class="proj-meta-label">Client</div>
-        <div class="proj-meta-val" id="projClientVal"></div>
-      </div>
-      <div class="proj-meta-group">
-        <div class="proj-meta-label">Expertise</div>
-        <div class="proj-meta-val" id="projTypeVal"></div>
-      </div>
-      <div class="proj-meta-group">
-        <div class="proj-meta-label">Location</div>
-        <div class="proj-meta-val" id="projLocVal"></div>
-      </div>
-      <div class="proj-meta-group">
-        <div class="proj-meta-label">Year</div>
-        <div class="proj-meta-val" id="projYearVal"></div>
-      </div>
+  <!-- ── Gallery Pair (top 2 images) ── -->
+  <div class="pd-pair" id="pdPair"></div>
+
+  <!-- ── Overview: narrow meta left + brief right ── -->
+  <div class="pd-overview" id="pdOverview">
+    <div class="pd-ov-left">
+      <h1 class="pd-ov-title" id="pdOvTitle"></h1>
+      <div class="pd-meta-list" id="pdMetaList"></div>
     </div>
-    <div>
-      <p class="proj-intro-text" id="projBriefText"></p>
-      <p class="proj-desc-full" id="projDescText"></p>
+    <div class="pd-ov-right">
+      <p class="pd-brief" id="pdBrief"></p>
     </div>
   </div>
 
-  <!-- ── Project Facts ──────────────────────────────────── -->
-  <div class="proj-facts" id="projFacts"></div>
-
-  <!-- ── Related Projects ────────────────────────────────── -->
-  <div class="related">
-    <div class="related-head reveal">
-      <h2>Related<br>Projects</h2>
-      <a href="projects.html" class="view-all">View All →</a>
-    </div>
-    <div class="related-grid reveal" id="related"></div>
+  <!-- ── Content: facts left + heading/text/images right ── -->
+  <div class="pd-content" id="pdContent">
+    <div class="pd-facts-col" id="pdFactsCol"></div>
+    <div class="pd-body-col" id="pdBodyCol"></div>
   </div>
 
-  <!-- ── Bottom Navigation ───────────────────────────────── -->
-  <div class="proj-nav-strip">
-    <a class="proj-nav-btn" id="prevBtn" href="#">← Previous</a>
-    <div class="proj-nav-center">
-      <a href="projects.html">All Projects</a>
-      <div class="social-links" style="margin-top:16px; justify-content:center;">
-        <a href="#" class="social-link" aria-label="Instagram" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-        </a>
-        <a href="#" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        </a>
-        <a href="#" class="social-link" aria-label="X / Twitter" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.736l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </a>
-        <a href="#" class="social-link" aria-label="Facebook" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        </a>
+  <!-- ── More Projects and News ── -->
+  <div class="more-work">
+    <div class="section-head">
+      <span class="section-label">More Projects and News</span>
+      <a href="projects.html" class="section-link">All Projects →</a>
+    </div>
+    <div class="pd-more-grid" id="pdMoreGrid"></div>
+  </div>
+
+  <!-- ── Newsletter ── -->
+  <section id="newsletter">
+    <p class="nl-head">Stay up to date with our latest projects and news.</p>
+    <form class="nl-form" onsubmit="return false;">
+      <input class="nl-input" type="email" placeholder="Email address">
+      <button class="nl-btn" type="submit">Subscribe</button>
+    </form>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="f-top">
+      <img class="f-logo" src="assets/assets/Logo/260403_Logo_Magg+Partners_White.png" alt="Magg+Partners">
+      <div class="f-socials">
+        <a class="f-soc" href="#" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a class="f-soc" href="#" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
       </div>
     </div>
-    <a class="proj-nav-btn right" id="nextBtn" href="#">Next →</a>
-  </div>
+    <div class="f-nav-row">
+      <a href="projects.html">Projects</a>
+      <a href="index.html#studio">Studio</a>
+      <a href="news.html">News</a>
+      <a href="careers.html">Careers</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="f-bottom">
+      <span class="f-copy">© 2025 Magg+Partners. All rights reserved.</span>
+      <span class="f-copy">London · Dubai · Singapore · Tokyo</span>
+    </div>
+  </footer>
 
   <script src="projects-data.js"></script>
   <script>
-    /* ── Cursor ──────────────────────────────────────────── */
-    const cDot=document.getElementById('cDot'),cRing=document.getElementById('cRing');
-    let mx=0,my=0,rx=0,ry=0;
-    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cDot.style.left=mx+'px';cDot.style.top=my+'px';});
-    document.addEventListener('mousedown',()=>document.body.classList.add('c-click'));
-    document.addEventListener('mouseup',()=>document.body.classList.remove('c-click'));
-    (function loop(){rx+=(mx-rx)*0.11;ry+=(my-ry)*0.11;cRing.style.left=rx+'px';cRing.style.top=ry+'px';requestAnimationFrame(loop);})();
+  /* ── Cursor ── */
+  const dot=document.getElementById('cDot'),ring=document.getElementById('cRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+  document.addEventListener('mousedown',()=>document.body.classList.add('c-click'));
+  document.addEventListener('mouseup',()=>document.body.classList.remove('c-click'));
+  (function loop(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+  function addHover(el){el.addEventListener('mouseenter',()=>document.body.classList.add('c-hover'));el.addEventListener('mouseleave',()=>document.body.classList.remove('c-hover'));}
+  document.querySelectorAll('a,button').forEach(addHover);
 
-    /* ── Nav scroll ──────────────────────────────────────── */
-    const navEl=document.getElementById('nav');
-    window.addEventListener('scroll',()=>navEl.classList.toggle('scrolled',window.scrollY>72),{passive:true});
+  /* ── Nav ── */
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60),{passive:true});
+  const hamBtn=document.getElementById('hamBtn'),mobMenu=document.getElementById('mobMenu');
+  let mobOpen=false;
+  function closeMob(){mobOpen=false;hamBtn.classList.remove('open');mobMenu.classList.remove('open');document.body.style.overflow='';}
+  hamBtn.addEventListener('click',()=>{mobOpen=!mobOpen;hamBtn.classList.toggle('open',mobOpen);mobMenu.classList.toggle('open',mobOpen);document.body.style.overflow=mobOpen?'hidden':'';});
+  document.querySelectorAll('.mob-lnk').forEach(a=>a.addEventListener('click',closeMob));
 
-    /* ── Overlay Menu ────────────────────────────────────── */
-    const ham=document.getElementById('ham'),mob=document.getElementById('mob');
-    let mobOpen=false;
-    function closeMenu(){mobOpen=false;ham.classList.remove('open');mob.classList.remove('open');document.body.style.overflow='';}
-    ham.addEventListener('click',()=>{mobOpen=!mobOpen;ham.classList.toggle('open',mobOpen);mob.classList.toggle('open',mobOpen);document.body.style.overflow=mobOpen?'hidden':'';});
-    document.querySelectorAll('.mob-link').forEach(a=>a.addEventListener('click',closeMenu));
+  /* ── Search ── */
+  const so=document.getElementById('searchOverlay'),sb=document.getElementById('searchBtn'),sc=document.getElementById('searchClose'),si=document.getElementById('searchInput'),sr=document.getElementById('searchResults');
+  function openSearch(){closeMob();so.classList.add('open');document.body.style.overflow='hidden';setTimeout(()=>si.focus(),60);renderSearch('');}
+  function closeSearch(){so.classList.remove('open');document.body.style.overflow='';si.value='';}
+  sb.addEventListener('click',openSearch);sc.addEventListener('click',closeSearch);
+  so.addEventListener('click',e=>{if(e.target===so)closeSearch();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();openSearch();}});
+  si.addEventListener('input',()=>renderSearch(si.value));
+  function renderSearch(q){
+    q=q.trim().toLowerCase();sr.innerHTML='';
+    const matched=q.length<1?PROJECTS.slice(0,8):PROJECTS.filter(pp=>pp.name.toLowerCase().includes(q)||pp.location.toLowerCase().includes(q)||pp.categoryLabel.toLowerCase().includes(q)).slice(0,10);
+    if(!matched.length){sr.innerHTML='<p class="search-empty">No results found.</p>';return;}
+    const grp=document.createElement('div');grp.className='search-grp';grp.innerHTML='<div class="search-grp-label">Projects</div>';
+    matched.forEach(pp=>{const a=document.createElement('a');a.className='search-item';a.href='project.html?id='+pp.id;a.innerHTML=`<span class="s-name">${pp.name}</span><span class="s-meta">${pp.location} · ${pp.year}</span>`;a.addEventListener('click',closeSearch);addHover(a);grp.appendChild(a);});
+    sr.appendChild(grp);
+  }
 
-    /* ── Search ──────────────────────────────────────────── */
-    const searchOverlay=document.getElementById('searchOverlay');
-    const searchBtn=document.getElementById('searchBtn');
-    const searchClose=document.getElementById('searchClose');
-    const searchInput=document.getElementById('searchInput');
-    const searchResults=document.getElementById('searchResults');
-    const PAGES=[
-      {name:'Projects Gallery',meta:'All Projects',href:'projects.html'},
-      {name:'Careers',meta:'Join The Team',href:'careers.html'},
-      {name:'News & Press',meta:'Latest Articles & Awards',href:'news.html'},
-      {name:'Studio',meta:'About Magg+Partners',href:'index.html#people'},
-      {name:'Contact',meta:'Get In Touch',href:'index.html#contact'},
-    ];
-    function openSearch(){closeMenu();searchOverlay.classList.add('open');document.body.style.overflow='hidden';setTimeout(()=>searchInput.focus(),100);runSearch('');}
-    function closeSearch(){searchOverlay.classList.remove('open');document.body.style.overflow='';searchInput.value='';}
-    searchBtn.addEventListener('click',openSearch);
-    searchClose.addEventListener('click',closeSearch);
-    searchOverlay.addEventListener('click',e=>{if(e.target===searchOverlay)closeSearch();});
-    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();openSearch();}});
-    searchInput.addEventListener('input',()=>runSearch(searchInput.value));
-    function runSearch(q){
-      q=q.trim().toLowerCase();searchResults.innerHTML='';
-      const matched=q.length<1?PROJECTS.slice(0,8):PROJECTS.filter(p=>p.name.toLowerCase().includes(q)||p.location.toLowerCase().includes(q)||p.categoryLabel.toLowerCase().includes(q)||(p.type&&p.type.toLowerCase().includes(q))||p.year.includes(q)).slice(0,10);
-      const matchedP=q.length<1?PAGES:PAGES.filter(p=>p.name.toLowerCase().includes(q)||p.meta.toLowerCase().includes(q));
-      if(!matched.length&&!matchedP.length){searchResults.innerHTML='<p class="search-empty">No results for "'+searchInput.value+'"</p>';return;}
-      if(matched.length){const g=document.createElement('div');g.className='search-group';g.innerHTML='<div class="search-group-label">Projects</div>';matched.forEach(p=>{const a=document.createElement('a');a.className='search-result-item';a.href='project.html?id='+p.id;a.innerHTML=`<span class="sri-name">${p.name}</span><span class="sri-meta">${p.location} · ${p.year}</span>`;a.addEventListener('click',closeSearch);searchResults.appendChild(a);});searchResults.appendChild(g);}
-      if(matchedP.length){const g=document.createElement('div');g.className='search-group';g.innerHTML='<div class="search-group-label">Pages</div>';matchedP.forEach(p=>{const a=document.createElement('a');a.className='search-result-item';a.href=p.href;a.innerHTML=`<span class="sri-name">${p.name}</span><span class="sri-meta">${p.meta}</span>`;a.addEventListener('click',closeSearch);g.appendChild(a);});searchResults.appendChild(g);}
-    }
+  /* ── Load Project ── */
+  const params=new URLSearchParams(window.location.search);
+  const id=params.get('id');
+  const idx=PROJECTS.findIndex(pp=>pp.id===id);
+  const p=idx!==-1?PROJECTS[idx]:PROJECTS[0];
 
-    /* ── Cursor hover ────────────────────────────────────── */
-    function addHover(el){el.addEventListener('mouseenter',()=>document.body.classList.add('c-hover'));el.addEventListener('mouseleave',()=>document.body.classList.remove('c-hover'));}
+  document.title=p.name+' — Magg+Partners';
 
-    /* ── Scroll Reveal ───────────────────────────────────── */
-    const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:0.08,rootMargin:'0px 0px -48px 0px'});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  /* Hero */
+  document.getElementById('pdHeroBg').style.backgroundImage=`url('${p.hero}')`;
+  document.getElementById('pdHeroName').textContent=p.name;
 
-    /* ── Load Project ────────────────────────────────────── */
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
-    const idx = PROJECTS.findIndex(p => p.id === id);
-    const project = idx !== -1 ? PROJECTS[idx] : PROJECTS[0];
-
-    document.title = `${project.name} — Magg+Partners`;
-
-    /* ── Hero Carousel (same as homepage) ───────────────── */
-    const carousel   = document.getElementById('heroCarousel');
-    const dotsWrap   = document.getElementById('carouselDots');
-    const prevBtn2   = document.getElementById('carouselPrev');
-    const nextBtn2   = document.getElementById('carouselNext');
-
-    /* Build slides: hero first, then gallery — deduplicated */
-    const slideImages = [project.hero, ...project.gallery.filter(s => s !== project.hero)];
-    let heroIdx   = 0;
-    let heroTimer = null;
-
-    /* Build slides + dots — only first slide loads immediately */
-    slideImages.forEach((src, i) => {
-      const isFirst = i === 0;
-
-      /* slide */
-      const slide = document.createElement('div');
-      slide.className = 'hc-slide' + (isFirst ? ' active' : '');
-      slide.dataset.src = src;
-
-      /* blurred background */
-      const bg = document.createElement('div');
-      bg.className = 'hc-slide-bg';
-      if (isFirst) bg.style.backgroundImage = `url('${src}')`;
-      slide.appendChild(bg);
-
-      /* sharp foreground — full image, no cropping */
-      const im = document.createElement('img');
-      if (isFirst) {
-        im.src = src;
-      } else {
-        im.dataset.src = src;
-      }
-      im.alt = project.name + ' — image ' + (i + 1);
-      slide.appendChild(im);
-      carousel.appendChild(slide);
-
-      /* dot — button like homepage */
-      const dot = document.createElement('button');
-      dot.className = 'carousel-dot' + (isFirst ? ' active' : '');
-      dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-      dot.addEventListener('click', () => heroGoTo(i));
-      dotsWrap.appendChild(dot);
+  /* Gallery pair — first 2 images */
+  const imgs=p.gallery&&p.gallery.length?p.gallery:[p.hero];
+  const pairEl=document.getElementById('pdPair');
+  if(imgs.length>=2){
+    [imgs[0],imgs[1]].forEach((src,i)=>{
+      const img=document.createElement('img');
+      img.src=src; img.alt=p.name+' '+(i+1); img.loading='lazy';
+      pairEl.appendChild(img);
     });
+  } else {
+    pairEl.style.display='none';
+  }
 
-    /* Load a slide's image on demand */
-    function loadSlide(slide) {
-      const im = slide.querySelector('img');
-      const bg = slide.querySelector('.hc-slide-bg');
-      if (im && im.dataset.src) { im.src = im.dataset.src; delete im.dataset.src; }
-      if (bg && !bg.style.backgroundImage && slide.dataset.src) {
-        bg.style.backgroundImage = `url('${slide.dataset.src}')`;
-      }
-    }
+  /* Overview */
+  document.getElementById('pdOvTitle').textContent=p.name;
+  document.getElementById('pdBrief').textContent=p.brief||'';
+  const metaItems=[
+    {l:'Status',    v:p.status||'—'},
+    {l:'Expertise', v:p.categoryLabel||'—'},
+    {l:'Location',  v:p.location||'—'},
+    {l:'Size',      v:p.size||'—'},
+    {l:'Year',      v:p.year||'—'},
+  ];
+  document.getElementById('pdMetaList').innerHTML=metaItems.map(m=>
+    `<div class="pd-meta-row"><span class="pd-meta-lbl">${m.l}</span><span class="pd-meta-val">${m.v}</span></div>`
+  ).join('');
 
-    function heroGoTo(n) {
-      const allSlides = carousel.querySelectorAll('.hc-slide');
-      const allDots   = dotsWrap.querySelectorAll('.carousel-dot');
-      allSlides[heroIdx].classList.remove('active');
-      allSlides[heroIdx].classList.add('exit');
-      const exiting = heroIdx;
-      setTimeout(() => allSlides[exiting] && allSlides[exiting].classList.remove('exit'), 1300);
-      allDots[heroIdx].classList.remove('active');
-      heroIdx = ((n % slideImages.length) + slideImages.length) % slideImages.length;
-      loadSlide(allSlides[heroIdx]);
-      /* preload next */
-      loadSlide(allSlides[(heroIdx + 1) % slideImages.length]);
-      allSlides[heroIdx].classList.add('active');
-      allDots[heroIdx].classList.add('active');
-      clearInterval(heroTimer);
-      heroTimer = setInterval(() => heroGoTo(heroIdx + 1), 5500);
-    }
+  /* Content — facts left */
+  const f=p.facts||{};
+  const factsItems=[];
+  if(p.type) factsItems.push({l:'Project Focus',v:p.type});
+  if(p.client) factsItems.push({l:'Client',v:p.client});
+  if(f.completionYear||p.year) factsItems.push({l:'Completion Year',v:f.completionYear||p.year});
+  if(f.designFinishYear) factsItems.push({l:'Design Finish Year',v:f.designFinishYear});
+  if(f.size){
+    const s=f.size;
+    if(s.siteArea) factsItems.push({l:'Site Area',v:s.siteArea});
+    if(s.grossArea) factsItems.push({l:'Gross Area',v:s.grossArea});
+    if(s.stories) factsItems.push({l:'Stories',v:s.stories});
+  } else if(p.size) factsItems.push({l:'Size',v:p.size});
+  if(f.status||p.status) factsItems.push({l:'Status',v:f.status||p.status});
+  if(f.sustainability) factsItems.push({l:'Sustainability',v:Array.isArray(f.sustainability)?f.sustainability.join(', '):f.sustainability});
 
-    heroTimer = setInterval(() => heroGoTo(heroIdx + 1), 5500);
-    prevBtn2.addEventListener('click', () => heroGoTo(heroIdx - 1));
-    nextBtn2.addEventListener('click', () => heroGoTo(heroIdx + 1));
+  const factsCol=document.getElementById('pdFactsCol');
+  factsCol.innerHTML=factsItems.map(item=>
+    `<div class="pd-fact-row"><div class="pd-fact-lbl">${item.l}</div><div class="pd-fact-val">${item.v}</div></div>`
+  ).join('');
 
-    /* ── Hero text animate ───────────────────────────────── */
-    setTimeout(() => {
-      document.getElementById('projHeroRight').classList.add('show');
-      const eyebrow = document.getElementById('projEyebrow');
-      eyebrow.textContent = `${project.categoryLabel} — ${project.num}`;
-      eyebrow.style.opacity = '1';
-      eyebrow.style.transform = 'translateY(0)';
-      const titleEl = document.getElementById('projTitle');
-      const words = project.name.split(' ');
-      titleEl.innerHTML = words.map(w =>
-        `<span class="h1-line"><span class="h1-inner">${w}</span></span>`
-      ).join('');
-      setTimeout(() => {
-        titleEl.querySelectorAll('.h1-inner').forEach((el, i) => {
-          setTimeout(() => el.classList.add('out'), i * 150);
-        });
-      }, 50);
-    }, 300);
+  /* Collaborators */
+  if(f.collaborators&&f.collaborators.length){
+    const collabWrap=document.createElement('div');collabWrap.className='pd-fact-row';
+    collabWrap.innerHTML=`<div class="pd-fact-lbl">Collaborators</div><div class="pd-fact-val">${f.collaborators.join('<br>')}</div>`;
+    factsCol.appendChild(collabWrap);
+  }
 
-    document.getElementById('projLoc').textContent = project.location;
-    document.getElementById('projYear').textContent = project.year;
+  /* Content — body right */
+  const bodyCol=document.getElementById('pdBodyCol');
+  const locationTitle=p.location?p.location.split(',')[0]:'';
+  const heading=document.createElement('h2');
+  heading.className='pd-body-h';
+  heading.textContent=`${p.type||'New Project'} in the heart of ${locationTitle}`;
+  bodyCol.appendChild(heading);
 
-    /* ── Overview sidebar ────────────────────────────────── */
-    document.getElementById('projClientVal').textContent  = project.client || '—';
-    document.getElementById('projTypeVal').textContent    = project.categoryLabel || project.type || '—';
-    document.getElementById('projLocVal').textContent     = project.location || '—';
-    document.getElementById('projYearVal').textContent    = project.year || '—';
-    document.getElementById('projBriefText').textContent  = project.brief || '';
-    document.getElementById('projDescText').textContent   = project.description || '';
+  if(p.description){
+    const desc=document.createElement('p');
+    desc.className='pd-body-p';
+    desc.textContent=p.description;
+    bodyCol.appendChild(desc);
+  }
 
-    /* ── Project Facts (SOM sidebar style) ───────────────── */
-    (function renderFacts() {
-      const f = project.facts || {};
-      const factsEl = document.getElementById('projFacts');
+  /* remaining gallery images */
+  imgs.slice(2).forEach((src,i)=>{
+    const wrap=document.createElement('div');wrap.className='pd-body-img';
+    const img=document.createElement('img');
+    img.src=src;img.alt=p.name+' '+(i+3);img.loading='lazy';
+    wrap.appendChild(img);
+    const cap=document.createElement('div');
+    cap.className='pd-body-cap';
+    cap.textContent=p.name+' — '+p.location+', '+p.year;
+    wrap.appendChild(cap);
+    bodyCol.appendChild(wrap);
+  });
 
-      /* Build fact items */
-      const items = [];
-
-      const status = f.status || project.status;
-      if (status) items.push({ label: 'Status', val: status });
-
-      const cy = f.completionYear || project.year;
-      if (cy) items.push({ label: 'Completion Year', val: cy });
-
-      if (f.designFinishYear) items.push({ label: 'Design Finish Year', val: f.designFinishYear });
-
-      /* Size */
-      const sizeObj = f.size;
-      if (sizeObj && typeof sizeObj === 'object') {
-        const lines = [
-          sizeObj.siteArea  ? `Site Area: ${sizeObj.siteArea}`            : null,
-          sizeObj.stories   ? `Number of Stories: ${sizeObj.stories}`     : null,
-          sizeObj.grossArea ? `Building Gross Area: ${sizeObj.grossArea}` : null,
-        ].filter(Boolean);
-        if (lines.length) items.push({ label: 'Size', lines });
-      } else if (project.size && project.size !== '—') {
-        items.push({ label: 'Size', val: project.size });
-      }
-
-      /* Sustainability */
-      const cert = f.sustainability;
-      if (cert) {
-        const certLines = Array.isArray(cert) ? cert : [cert];
-        items.push({ label: 'Sustainability Certifications', lines: certLines });
-      }
-
-      /* Collaborators — expandable */
-      const collab = f.collaborators;
-      const hasCollab = collab && collab.length;
-
-      if (!items.length && !hasCollab) { factsEl.style.display = 'none'; return; }
-
-      /* Render left sidebar */
-      const sidebarHTML = `
-        <div class="proj-facts-col">
-          <div class="facts-section-title">Project Facts</div>
-          ${items.map(item => `
-            <div class="fact-item">
-              <div class="fact-item-label">${item.label}</div>
-              <div class="fact-item-val">
-                ${item.lines
-                  ? item.lines.join('<br>')
-                  : (item.val || '')}
-              </div>
-            </div>
-          `).join('')}
-          ${hasCollab ? `
-            <div class="fact-item">
-              <button class="fact-collab-btn" id="collabToggle">
-                Collaborators
-                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
-              <ul class="fact-collab-list" id="collabList">
-                ${collab.map(c => `<li>${c}</li>`).join('')}
-              </ul>
-            </div>
-          ` : ''}
-        </div>`;
-
-      /* Render right image */
-      const rightHTML = `
-        <div class="proj-facts-right">
-          <img src="${project.hero}" alt="${project.name}" loading="lazy">
-          <div class="facts-img-caption">${project.location} — ${project.year}</div>
-        </div>`;
-
-      factsEl.innerHTML = sidebarHTML + rightHTML;
-
-      /* Wire collaborators toggle */
-      const togBtn  = factsEl.querySelector('#collabToggle');
-      const togList = factsEl.querySelector('#collabList');
-      if (togBtn && togList) {
-        togBtn.addEventListener('click', () => {
-          const open = togList.classList.toggle('open');
-          togBtn.classList.toggle('open', open);
-        });
-        addHover(togBtn);
-      }
-    })();
-
-    /* ── Gallery ─────────────────────────────────────────── */
-    const gal = document.getElementById('gallery');
-    gal.innerHTML = project.gallery.map((src, i) =>
-      `<div class="gimg"><img src="${src}" alt="${project.name} ${i+1}" loading="${i===0?'eager':'lazy'}"></div>`
-    ).join('');
-
-    /* ── Related ─────────────────────────────────────────── */
-    const others = PROJECTS.filter(p => p.id !== project.id && p.category === project.category).slice(0,3);
-    const related = others.length >= 3 ? others :
-      [...others, ...PROJECTS.filter(p => p.id !== project.id && !others.includes(p))].slice(0,3);
-    document.getElementById('related').innerHTML = related.map(p =>
-      `<a class="related-card" href="project.html?id=${p.id}">
-        <img src="${p.thumb}" alt="${p.name}" loading="lazy">
-        <div class="related-info">
-          <div class="related-loc">${p.location}</div>
-          <div class="related-name">${p.name}</div>
-        </div>
-      </a>`).join('');
-    document.querySelectorAll('.related-card').forEach(addHover);
-
-    /* ── Prev / Next ─────────────────────────────────────── */
-    const prevP = PROJECTS[(idx - 1 + PROJECTS.length) % PROJECTS.length];
-    const nextP = PROJECTS[(idx + 1) % PROJECTS.length];
-    document.getElementById('prevBtn').href = `project.html?id=${prevP.id}`;
-    document.getElementById('prevBtn').innerHTML = `← ${prevP.name}`;
-    document.getElementById('nextBtn').href = `project.html?id=${nextP.id}`;
-    document.getElementById('nextBtn').innerHTML = `${nextP.name} →`;
-    [document.getElementById('prevBtn'), document.getElementById('nextBtn')].forEach(addHover);
+  /* More Projects */
+  const moreGrid=document.getElementById('pdMoreGrid');
+  const others=PROJECTS.filter(pp=>pp.id!==p.id);
+  const sameCat=others.filter(pp=>pp.category===p.category);
+  const picks=[...sameCat,...others.filter(pp=>pp.category!==p.category)].slice(0,4);
+  picks.forEach(pp=>{
+    const a=document.createElement('a');a.className='pd-more-card';a.href='project.html?id='+pp.id;
+    a.innerHTML=`
+      <div class="pd-more-img"><img src="${pp.thumb}" alt="${pp.name}" loading="lazy"></div>
+      <div class="pd-more-info">
+        <div class="pd-more-cat">${pp.categoryLabel}</div>
+        <div class="pd-more-name">${pp.name}</div>
+        <div class="pd-more-loc">${pp.location}</div>
+      </div>`;
+    addHover(a);moreGrid.appendChild(a);
+  });
   </script>
 </body>
 </html>

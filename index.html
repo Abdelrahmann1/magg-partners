@@ -3,295 +3,342 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Magg+Partners</title>
+  <title>Magg+Partners — Architecture &amp; Design</title>
   <link rel="icon" type="image/png" href="assets/assets/Logo/260403_Logo_Magg+Partners_Website_Icon.png">
-  <link rel="shortcut icon" type="image/jpeg" href="assets/assets/Logo/favicon.jpg">
-  <link rel="apple-touch-icon" href="assets/assets/Logo/260403_Logo_Magg+Partners_Website_Icon.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- ── Loader ──────────────────────────────────────────── -->
-  <div id="loader">
-    <img class="loader-logo" src="assets/assets/Logo/260403_Logo_Magg+Partners_White.png" alt="Magg+Partners">
-    <div class="loader-bar"><div class="loader-bar-fill"></div></div>
-    <div class="loader-pct" id="lPct">0%</div>
-  </div>
-
-  <!-- ── Custom Cursor ───────────────────────────────────── -->
   <div class="c-dot" id="cDot"></div>
   <div class="c-ring" id="cRing"></div>
 
-  <!-- ── Navigation ──────────────────────────────────────── -->
+  <!-- ── Nav ── -->
   <nav id="nav">
-    <a href="#" class="nav-logo"><img src="assets/assets/Logo/260403_Logo_Magg+Partners_White.png" alt="Magg+Partners"></a>
-    <div class="nav-right">
+    <a href="index.html" class="nav-logo"><img src="assets/assets/Logo/260403_Logo_Magg+Partners_White.png" alt="Magg+Partners"></a>
+    <ul class="nav-links">
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="index.html#studio">Studio</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="careers.html">Careers</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
       <button class="nav-search-btn" id="searchBtn" aria-label="Search">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
       </button>
-      <button class="nav-hamburger" id="ham" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="nav-hamburger" id="hamBtn" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
 
-  <!-- ── Overlay Menu ────────────────────────────────────── -->
-  <div class="mobile-menu" id="mob">
+  <!-- ── Mobile Menu ── -->
+  <div class="mob-menu" id="mobMenu">
     <ul>
-      <li><a href="#projects"    class="mob-link">Projects</a></li>
-      <li><a href="#people"      class="mob-link">Studio</a></li>
-      <li><a href="news.html"    class="mob-link">News</a></li>
-      <li><a href="careers.html" class="mob-link">Careers</a></li>
-      <li><a href="#contact"     class="mob-link">Contact</a></li>
+      <li><a href="projects.html"     class="mob-lnk">Projects</a></li>
+      <li><a href="index.html#studio" class="mob-lnk">Studio</a></li>
+      <li><a href="news.html"         class="mob-lnk">News</a></li>
+      <li><a href="careers.html"      class="mob-lnk">Careers</a></li>
+      <li><a href="contact.html"      class="mob-lnk">Contact</a></li>
     </ul>
   </div>
 
-  <!-- ── Search Overlay ─────────────────────────────────── -->
+  <!-- ── Search Overlay ── -->
   <div class="search-overlay" id="searchOverlay">
-    <div class="search-input-wrap">
+    <div class="search-wrap">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
-      <input type="text" id="searchInput" placeholder="Search projects, locations, services…" autocomplete="off">
-      <button class="search-close" id="searchClose">ESC</button>
+      <input type="text" id="searchInput" placeholder="Search projects, locations…" autocomplete="off">
+      <button class="search-esc" id="searchClose">ESC</button>
     </div>
-    <div class="search-results" id="searchResults"></div>
+    <div class="search-results-wrap" id="searchResults"></div>
   </div>
 
-  <!-- ── HERO ────────────────────────────────────────────── -->
+  <!-- ── Hero ── -->
   <section id="hero">
-    <div class="hero-carousel" id="heroCarousel"></div>
+    <div class="hero-slides" id="heroSlides"></div>
     <div class="hero-overlay"></div>
-    <div class="carousel-dots" id="heroDots"></div>
-    <div class="carousel-arrows">
-      <button class="carousel-arrow" id="heroPrev" aria-label="Previous">&#8592;</button>
-      <button class="carousel-arrow" id="heroNext" aria-label="Next">&#8594;</button>
-    </div>
-    <div class="hero-content">
-      <h1 class="hero-h1">We are a multidisciplinary global practice shaping better spaces, stronger environments, and a more forward-thinking built future.</h1>
-      <p class="hero-sub">Through a collaborative and multidisciplinary approach, the practice delivers high-quality projects that combine design excellence, technical intelligence, and strategic thinking.</p>
-    </div>
-    <div class="hero-scroll-ind">
-      <span>Scroll</span>
-      <div class="scroll-track"><div class="scroll-runner"></div></div>
+    <div class="hero-bottom">
+      <div class="hero-bottom-left">
+        <div class="hero-eyebrow" id="heroEyebrow">Featured Project</div>
+        <div class="hero-title" id="heroTitle"></div>
+        <div class="hero-dots" id="heroDots"></div>
+      </div>
     </div>
   </section>
 
-  <!-- ── EXPERTISE ───────────────────────────────────────── -->
+  <!-- ── Recent Work ── -->
+  <section id="recent">
+    <div class="section-head">
+      <span class="section-label">Recent Work</span>
+      <a class="section-link" href="projects.html">View all projects →</a>
+    </div>
+    <div class="recent-grid" id="recentGrid"></div>
+  </section>
+
+  <!-- ── Vision ── -->
+  <section id="vision">
+    <div class="vision-inner">
+      <div class="vision-left">
+        <span class="vision-label">Our Vision</span>
+      </div>
+      <div class="vision-right">
+        <p class="vision-text" id="visionText">We design buildings, interiors, and urban spaces that are precise in craft, generous in spirit, and built to endure. Every project is a collaboration — between disciplines, between cultures, and between the ambitions of our clients and the needs of the world they inhabit.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Expertise ── -->
   <section id="expertise">
-    <div class="exp-top">
-      <h2 class="s-heading reveal">What<br>We Do</h2>
-      <p class="reveal reveal-delay-1">We operate across eleven disciplines, each informed by the same commitment to excellence, innovation, and human-centred design.</p>
+    <div class="section-head" style="padding:48px 64px 32px;">
+      <span class="section-label">Expertise</span>
+      <a class="section-link" href="projects.html">Explore disciplines →</a>
     </div>
     <div class="exp-grid">
-      <div class="exp-item reveal reveal-delay-1">
-        <div class="exp-img-wrap">
-          <img class="exp-img" src="assets/assets/02_Projects/2514_Florida%20Tower_TNG_Florida,%20USA/Hero.png" alt="Architecture" loading="lazy">
+      <a class="exp-card" href="projects.html?cat=architecture">
+        <img src="assets/assets/02_Projects/2514_Florida%20Tower_TNG_Florida,%20USA/Hero.png" alt="Architecture" loading="lazy">
+        <div class="exp-label">
+          <div class="exp-title">Architecture</div>
+          <div class="exp-sub">Towers · Civic · Cultural</div>
         </div>
-        <div class="exp-title">Architecture</div>
-        <p class="exp-desc">From concept to completion, we deliver extraordinary buildings that define the skylines of tomorrow.</p>
-      </div>
-      <div class="exp-item reveal reveal-delay-2">
-        <div class="exp-img-wrap">
-          <img class="exp-img" src="assets/assets/02_Projects/2218_Office_HQ,%20Kuwait/Final%202_HERO_01.jpg" alt="Master Planning" loading="lazy">
+      </a>
+      <a class="exp-card" href="projects.html?cat=interiors">
+        <img src="assets/assets/02_Projects/2115_Dens%20Dental%20Center,%20Alexandria,%20EGY/Hero.jpg" alt="Interiors" loading="lazy">
+        <div class="exp-label">
+          <div class="exp-title">Interiors</div>
+          <div class="exp-sub">Residential · Commercial · Hospitality</div>
         </div>
-        <div class="exp-title">Master Planning</div>
-        <p class="exp-desc">Strategic visions for cities, campuses, and mixed-use developments at every scale of the built environment.</p>
-      </div>
-      <div class="exp-item reveal reveal-delay-3">
-        <div class="exp-img-wrap">
-          <img class="exp-img" src="assets/assets/02_Projects/2316_O%2BA%20Office,%20Riyadh/2.jpg" alt="Urban Design" loading="lazy">
+      </a>
+      <a class="exp-card" href="projects.html?cat=engineering">
+        <img src="assets/assets/02_Projects/2218_Office_HQ,%20Kuwait/Final%202_HERO_01.jpg" alt="Engineering" loading="lazy">
+        <div class="exp-label">
+          <div class="exp-title">Engineering</div>
+          <div class="exp-sub">Structural · MEP · Facade</div>
         </div>
-        <div class="exp-title">Urban Design</div>
-        <p class="exp-desc">Reimagining cities through public spaces, transit corridors, and sustainable urban frameworks.</p>
-      </div>
-      <div class="exp-item reveal reveal-delay-4">
-        <div class="exp-img-wrap">
-          <img class="exp-img" src="assets/assets/02_Projects/2311_GAZELI%20Villa,%20Alamin,%20Egypt/03.jpg" alt="Landscape Design" loading="lazy">
+      </a>
+      <a class="exp-card" href="projects.html?cat=urban">
+        <img src="assets/assets/02_Projects/2213_Go%20Green%20Office,%20Riyadh,%20KSA/Hero.jpg" alt="Urban &amp; Landscape" loading="lazy">
+        <div class="exp-label">
+          <div class="exp-title">Urban &amp; Landscape</div>
+          <div class="exp-sub">Masterplanning · Public Realm</div>
         </div>
-        <div class="exp-title">Landscape Design</div>
-        <p class="exp-desc">Designing outdoor environments that harmonise nature, culture, and the built form into unified experiences.</p>
-      </div>
-      <div class="exp-item reveal reveal-delay-1">
-        <div class="exp-img-wrap">
-          <img class="exp-img" src="assets/assets/02_Projects/2212_Mayfair%20Studio%20Apartment,%20London,%20UK/2212_01.jpg" alt="Interior Design" loading="lazy">
+      </a>
+      <a class="exp-card" href="projects.html?cat=architecture">
+        <img src="assets/assets/02_Projects/2215_Dr.%20Mona%20Elharoun,%20Zayed%20City,%20EGY/Hero.png" alt="Residential" loading="lazy">
+        <div class="exp-label">
+          <div class="exp-title">Residential</div>
+          <div class="exp-sub">Villas · Apartments · Mixed-use</div>
         </div>
-        <div class="exp-title">Interior Design</div>
-        <p class="exp-desc">Crafting immersive interior environments that are both functionally precise and aesthetically profound.</p>
-      </div>
-      <div class="exp-item reveal reveal-delay-2">
-        <div class="exp-img-wrap">
-          <img class="exp-img" src="assets/assets/02_Projects/2311_2_Kitchen%20Design_New%20Cairo,%20Egypt/Final1.jpg" alt="Product Design" loading="lazy">
+      </a>
+      <a class="exp-card" href="projects.html">
+        <img src="assets/assets/02_Projects/2513_StudioOffice_Riyadh,%20KSA/02.jpg" alt="Workplace" loading="lazy">
+        <div class="exp-label">
+          <div class="exp-title">Workplace</div>
+          <div class="exp-sub">Offices · Studios · Creative Spaces</div>
         </div>
-        <div class="exp-title">Product Design</div>
-        <p class="exp-desc">Bespoke objects and furniture that extend our architectural language into the texture of everyday life.</p>
-      </div>
-      <div class="exp-item reveal reveal-delay-3">
-        <div class="exp-img-wrap">
-          <img class="exp-img" src="assets/assets/02_Projects/2213_Go%20Green%20Office,%20Riyadh,%20KSA/F1%20(02).jpg" alt="Sustainability Consulting" loading="lazy">
-        </div>
-        <div class="exp-title">Sustainability Consulting</div>
-        <p class="exp-desc">Embedding environmental intelligence into every project — from initial brief through to handover.</p>
-      </div>
-      <div class="exp-item reveal reveal-delay-4">
-        <div class="exp-img-wrap">
-          <img class="exp-img" src="assets/assets/02_Projects/2513_StudioOffice_Riyadh,%20KSA/02.jpg" alt="AI Innovation" loading="lazy">
-        </div>
-        <div class="exp-title">AI Innovation</div>
-        <p class="exp-desc">Leveraging artificial intelligence to transform design processes and redefine built environment outcomes.</p>
-      </div>
+      </a>
     </div>
   </section>
 
-  <!-- ── PROJECTS ─────────────────────────────────────────── -->
-  <section id="projects">
-    <div class="proj-head reveal">
-      <h2 class="s-heading">Projects</h2>
-      <a href="projects.html" class="view-all">View All →</a>
+  <!-- ── Projects Strip ── -->
+  <section id="proj-strip">
+    <div class="section-head">
+      <span class="section-label">Selected Projects</span>
+      <a class="section-link" href="projects.html">All projects →</a>
     </div>
-
-    <div class="proj-scroll" id="projScroll">
-      <div class="proj-track" id="projTrack">
-
-        <a class="proj-card lg" href="project.html?id=dens-dental-center">
-          <img src="assets/assets/02_Projects/2115_Dens%20Dental%20Center,%20Alexandria,%20EGY/Hero.jpg" alt="Dens Dental Center" class="proj-img" loading="lazy">
-          <div class="proj-info">
-            <div class="proj-loc">Alexandria, Egypt</div>
-            <div class="proj-name">Dens Dental Center</div>
-            <div class="proj-year">2021</div>
-          </div>
-        </a>
-
-        <a class="proj-card" href="project.html?id=mayfair-studio-apartment">
-          <img src="assets/assets/02_Projects/2212_Mayfair%20Studio%20Apartment,%20London,%20UK/Hero.jpg" alt="Mayfair Studio Apartment" class="proj-img" loading="lazy">
-          <div class="proj-info">
-            <div class="proj-loc">Mayfair, London, UK</div>
-            <div class="proj-name">Mayfair Studio Apartment</div>
-            <div class="proj-year">2022</div>
-          </div>
-        </a>
-
-        <a class="proj-card" href="project.html?id=go-green-office">
-          <img src="assets/assets/02_Projects/2213_Go%20Green%20Office,%20Riyadh,%20KSA/Hero.jpg" alt="Go Green Office" class="proj-img" loading="lazy">
-          <div class="proj-info">
-            <div class="proj-loc">Riyadh, Saudi Arabia</div>
-            <div class="proj-name">Go Green Office</div>
-            <div class="proj-year">2022</div>
-          </div>
-        </a>
-
-        <a class="proj-card lg" href="project.html?id=office-hq-kuwait">
-          <img src="assets/assets/02_Projects/2218_Office_HQ,%20Kuwait/Final%202_HERO_01.jpg" alt="Office HQ" class="proj-img" loading="lazy">
-          <div class="proj-info">
-            <div class="proj-loc">Kuwait City, Kuwait</div>
-            <div class="proj-name">Office HQ</div>
-            <div class="proj-year">2022</div>
-          </div>
-        </a>
-
-        <a class="proj-card" href="project.html?id=gazeli-villa">
-          <img src="assets/assets/02_Projects/2311_GAZELI%20Villa,%20Alamin,%20Egypt/03.jpg" alt="GAZELI Villa" class="proj-img" loading="lazy">
-          <div class="proj-info">
-            <div class="proj-loc">Alamin, Egypt</div>
-            <div class="proj-name">GAZELI Villa</div>
-            <div class="proj-year">2023</div>
-          </div>
-        </a>
-
-        <a class="proj-card" href="project.html?id=el-zawad-villa">
-          <img src="assets/assets/02_Projects/2411_Hussien%20El%20Zawad_Villa_Jeddah,%20KSA/Hero.jpg" alt="Hussien El Zawad Villa" class="proj-img" loading="lazy">
-          <div class="proj-info">
-            <div class="proj-loc">Jeddah, Saudi Arabia</div>
-            <div class="proj-name">Hussien El Zawad Villa</div>
-            <div class="proj-year">2024</div>
-          </div>
-        </a>
-
-      </div>
-    </div>
-
-    <div class="proj-progress">
-      <div class="p-track"><div class="p-fill" id="pFill"></div></div>
-      <span class="p-hint">Drag to explore</span>
-    </div>
+    <div class="pstrip-grid" id="pstripGrid"></div>
   </section>
 
-  <!-- ── CONTACT ───────────────────────────────────────────── -->
-  <section id="contact">
-    <div class="contact-grid">
-      <div class="contact-left reveal">
-        <h2>Start A<br>Conversation</h2>
-        <div class="contact-details">
-          <div class="cd-item">
-            <div class="cd-label">Headquarters</div>
-            <div class="cd-val">The Shard, 32 London Bridge St<br>London, SE1 9SG, United Kingdom</div>
-          </div>
-          <div class="cd-item">
-            <div class="cd-label">Global Offices</div>
-            <div class="cd-val">Dubai — Singapore — Tokyo<br>New York — Monaco</div>
-          </div>
-          <div class="cd-item">
-            <div class="cd-label">Contact</div>
-            <div class="cd-val">studio@thetopglobal.com<br>+44 20 7123 4567</div>
-          </div>
-        </div>
-      </div>
-      <div class="reveal reveal-delay-2">
-        <form class="contact-form" onsubmit="return false;">
-          <div class="fg">
-            <label>Full Name</label>
-            <input type="text" placeholder="Your name">
-          </div>
-          <div class="fg">
-            <label>Email Address</label>
-            <input type="email" placeholder="your@email.com">
-          </div>
-          <div class="fg">
-            <label>Subject</label>
-            <input type="text" placeholder="Project inquiry, collaboration...">
-          </div>
-          <div class="fg">
-            <label>Message</label>
-            <textarea placeholder="Tell us about your project..."></textarea>
-          </div>
-          <button type="submit" class="btn-submit">Send Message →</button>
-        </form>
-      </div>
-    </div>
+  <!-- ── Culture ── -->
+  <section id="culture">
+    <h2 class="culture-h">Culture</h2>
+    <p class="culture-p">Through a collaborative and multidisciplinary approach, the studio combines design excellence, technical intelligence, and strategic thinking. We believe the best environments emerge when diverse minds work toward a shared vision — spaces that are not only beautiful, but purposeful and enduring.</p>
+    <div class="culture-divider"></div>
   </section>
 
-  <!-- ── FOOTER ────────────────────────────────────────────── -->
+  <!-- ── Newsletter ── -->
+  <section id="newsletter">
+    <p class="nl-head">Stay informed with our latest projects and ideas.</p>
+    <form class="nl-form" onsubmit="return false;">
+      <input class="nl-input" type="email" placeholder="Your email address">
+      <button class="nl-btn" type="submit">Subscribe</button>
+    </form>
+  </section>
+
+  <!-- ── Footer ── -->
   <footer>
-    <div>
+    <div class="f-top">
       <img class="f-logo" src="assets/assets/Logo/260403_Logo_Magg+Partners_White.png" alt="Magg+Partners">
-      <div class="f-tagline">Designing the World Since 2005</div>
-      <div class="social-links">
-        <a href="#" class="social-link" aria-label="Instagram" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-        </a>
-        <a href="#" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        </a>
-        <a href="#" class="social-link" aria-label="X / Twitter" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.736l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </a>
-        <a href="#" class="social-link" aria-label="Facebook" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        </a>
+      <div class="f-socials">
+        <a class="f-soc" href="#" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a class="f-soc" href="#" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
       </div>
     </div>
-    <div class="f-links">
-      <a href="#projects">Projects</a>
-      <a href="#studio">Studio</a>
-      <a href="#people">People</a>
+    <div class="f-nav-row">
+      <a href="projects.html">Projects</a>
+      <a href="index.html#studio">Studio</a>
       <a href="news.html">News</a>
       <a href="careers.html">Careers</a>
-      <a href="#contact">Contact</a>
+      <a href="contact.html">Contact</a>
     </div>
-    <div class="f-right">
-      <p class="f-copy">© 2024 The Top Global Architecture.<br>All rights reserved.<br>London · Dubai · Singapore · Tokyo</p>
+    <div class="f-bottom">
+      <span class="f-copy">© 2025 Magg+Partners. All rights reserved.</span>
+      <span class="f-copy">London · Dubai · Singapore · Tokyo</span>
     </div>
   </footer>
 
   <script src="projects-data.js"></script>
-  <script src="script.js"></script>
+  <script>
+  /* ── Custom Cursor ── */
+  const dot=document.getElementById('cDot'),ring=document.getElementById('cRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+  document.addEventListener('mousedown',()=>document.body.classList.add('c-click'));
+  document.addEventListener('mouseup',()=>document.body.classList.remove('c-click'));
+  (function loop(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+  function addHover(el){el.addEventListener('mouseenter',()=>document.body.classList.add('c-hover'));el.addEventListener('mouseleave',()=>document.body.classList.remove('c-hover'));}
+  document.querySelectorAll('a,button').forEach(addHover);
+
+  /* ── Nav scroll ── */
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60),{passive:true});
+
+  /* ── Mobile menu ── */
+  const hamBtn=document.getElementById('hamBtn'),mobMenu=document.getElementById('mobMenu');
+  let mobOpen=false;
+  function closeMob(){mobOpen=false;hamBtn.classList.remove('open');mobMenu.classList.remove('open');document.body.style.overflow='';}
+  hamBtn.addEventListener('click',()=>{mobOpen=!mobOpen;hamBtn.classList.toggle('open',mobOpen);mobMenu.classList.toggle('open',mobOpen);document.body.style.overflow=mobOpen?'hidden':'';});
+  document.querySelectorAll('.mob-lnk').forEach(a=>a.addEventListener('click',closeMob));
+
+  /* ── Search ── */
+  const so=document.getElementById('searchOverlay'),sb=document.getElementById('searchBtn'),sc=document.getElementById('searchClose'),si=document.getElementById('searchInput'),sr=document.getElementById('searchResults');
+  function openSearch(){closeMob();so.classList.add('open');document.body.style.overflow='hidden';setTimeout(()=>si.focus(),60);renderSearch('');}
+  function closeSearch(){so.classList.remove('open');document.body.style.overflow='';si.value='';}
+  sb.addEventListener('click',openSearch);sc.addEventListener('click',closeSearch);
+  so.addEventListener('click',e=>{if(e.target===so)closeSearch();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();openSearch();}});
+  si.addEventListener('input',()=>renderSearch(si.value));
+  function renderSearch(q){
+    q=q.trim().toLowerCase();sr.innerHTML='';
+    const matched=q.length<1?PROJECTS.slice(0,8):PROJECTS.filter(p=>p.name.toLowerCase().includes(q)||p.location.toLowerCase().includes(q)||p.categoryLabel.toLowerCase().includes(q)).slice(0,10);
+    if(!matched.length){sr.innerHTML='<p class="search-empty">No results found.</p>';return;}
+    const grp=document.createElement('div');grp.className='search-grp';grp.innerHTML='<div class="search-grp-label">Projects</div>';
+    matched.forEach(p=>{const a=document.createElement('a');a.className='search-item';a.href='project.html?id='+p.id;a.innerHTML=`<span class="s-name">${p.name}</span><span class="s-meta">${p.location} · ${p.year}</span>`;a.addEventListener('click',closeSearch);addHover(a);grp.appendChild(a);});
+    sr.appendChild(grp);
+  }
+
+  /* ── Hero Carousel ── */
+  const HERO_PROJECTS=PROJECTS.slice(0,6);
+  let cur=0,timer=null;
+  const slidesEl=document.getElementById('heroSlides');
+  const dotsEl=document.getElementById('heroDots');
+  const titleEl=document.getElementById('heroTitle');
+  const eyebrowEl=document.getElementById('heroEyebrow');
+
+  HERO_PROJECTS.forEach((p,i)=>{
+    const slide=document.createElement('div');
+    slide.className='hero-slide'+(i===0?' active':'');
+    slide.innerHTML=`<img src="${p.hero||p.thumb}" alt="${p.name}" loading="${i===0?'eager':'lazy'}">`;
+    slidesEl.appendChild(slide);
+  });
+
+  HERO_PROJECTS.forEach((_,i)=>{
+    const btn=document.createElement('button');
+    btn.className='hero-dot'+(i===0?' on':'');
+    btn.setAttribute('aria-label','Slide '+(i+1));
+    btn.addEventListener('click',()=>{goTo(i);resetTimer();});
+    addHover(btn);
+    dotsEl.appendChild(btn);
+  });
+
+  function updateInfo(idx){
+    const p=HERO_PROJECTS[idx];
+    titleEl.textContent=p.name;
+    eyebrowEl.textContent=p.categoryLabel+' · '+p.location;
+  }
+  function goTo(idx){
+    const slides=slidesEl.querySelectorAll('.hero-slide');
+    const dots=dotsEl.querySelectorAll('.hero-dot');
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('on');
+    cur=idx;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('on');
+    updateInfo(cur);
+  }
+  function next(){goTo((cur+1)%HERO_PROJECTS.length);}
+  function resetTimer(){clearInterval(timer);timer=setInterval(next,5000);}
+
+  updateInfo(0);
+  resetTimer();
+
+  /* ── Recent Grid ── */
+  const RECENT_DATES=['March 2024','January 2024','September 2023','July 2023'];
+  const recentGrid=document.getElementById('recentGrid');
+  PROJECTS.slice(0,4).forEach((p,i)=>{
+    const a=document.createElement('a');
+    a.className='recent-card';
+    a.href='project.html?id='+p.id;
+    a.innerHTML=`
+      <div class="recent-card-img"><img src="${p.thumb}" alt="${p.name}" loading="lazy"></div>
+      <div class="recent-info">
+        <div class="recent-cat">${p.categoryLabel}</div>
+        <div class="recent-name">${p.name}</div>
+        <div class="recent-date">${RECENT_DATES[i]||p.year}</div>
+      </div>`;
+    addHover(a);
+    recentGrid.appendChild(a);
+  });
+
+  /* ── Vision word animation ── */
+  const visionEl=document.getElementById('visionText');
+  const raw=visionEl.textContent;
+  visionEl.innerHTML=raw.split(' ').map(w=>`<span class="word">${w}</span>`).join(' ');
+  const words=visionEl.querySelectorAll('.word');
+  const ioV=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){words.forEach((w,i)=>setTimeout(()=>w.classList.add('in'),i*28));ioV.disconnect();}
+    });
+  },{threshold:0.2});
+  ioV.observe(visionEl);
+
+  /* ── Stats counter ── */
+  function animateCount(el,target){
+    let start=null;const dur=1400;
+    function step(ts){
+      if(!start)start=ts;
+      const prog=Math.min((ts-start)/dur,1);
+      const ease=1-Math.pow(1-prog,3);
+      el.textContent=Math.round(ease*target)+(target<=4?'':'+');
+      if(prog<1)requestAnimationFrame(step);
+      else el.textContent=target+(target<=4?'':'+');
+    }
+    requestAnimationFrame(step);
+  }
+  const ioS=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        document.querySelectorAll('.stat-num').forEach(el=>animateCount(el,parseInt(el.dataset.target,10)));
+        ioS.disconnect();
+      }
+    });
+  },{threshold:0.4});
+  const statsEl=document.getElementById('visionStats');
+  if(statsEl)ioS.observe(statsEl);
+
+  /* ── Projects Strip ── */
+  const pstripGrid=document.getElementById('pstripGrid');
+  PROJECTS.slice(4,8).forEach(p=>{
+    const a=document.createElement('a');
+    a.className='pstrip-card';
+    a.href='project.html?id='+p.id;
+    a.innerHTML=`
+      <div class="pstrip-card-img"><img src="${p.thumb}" alt="${p.name}" loading="lazy"></div>
+      <div class="pstrip-info">
+        <div class="pstrip-cat">${p.categoryLabel}</div>
+        <div class="pstrip-name">${p.name}</div>
+        <div class="pstrip-loc">${p.location} · ${p.year}</div>
+      </div>`;
+    addHover(a);
+    pstripGrid.appendChild(a);
+  });
+  </script>
 </body>
 </html>

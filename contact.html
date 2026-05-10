@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Careers — Magg+Partners</title>
+  <title>Contact — Magg+Partners</title>
   <link rel="icon" type="image/png" href="assets/assets/Logo/260403_Logo_Magg+Partners_Website_Icon.png">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -49,36 +49,82 @@
   </div>
 
   <div class="page-header">
-    <h1 class="page-title">Join the Studio</h1>
-    <p class="page-sub">We are always looking for talented people to join our global team</p>
+    <h1 class="page-title">Get In Touch</h1>
+    <p class="page-sub">We would love to hear about your project</p>
   </div>
 
-  <div class="careers-intro-grid">
-    <div class="ci-text">
-      <h2 class="ci-h">We Believe in People-First Design</h2>
-      <p class="ci-p">Magg+Partners attracts ambitious thinkers, curious designers, and skilled engineers who share a belief that exceptional environments can change lives. We invest in our people, creating the conditions for individual growth alongside collective achievement. If you are driven by craft, motivated by impact, and energised by collaboration — we want to hear from you.</p>
+  <div class="contact-layout">
+    <!-- Offices -->
+    <div class="offices">
+      <h2 class="offices-h">Our Offices</h2>
+      <div class="offices-grid">
+        <div class="office-card">
+          <div class="office-city">London</div>
+          <div class="office-detail">
+            25 Old Burlington Street<br>London W1S 3AN<br>United Kingdom<br><br>
+            <a href="mailto:hello@maggpartners.com">hello@maggpartners.com</a><br>
+            <a href="tel:+442071234567">+44 20 7123 4567</a>
+          </div>
+        </div>
+        <div class="office-card">
+          <div class="office-city">Dubai</div>
+          <div class="office-detail">
+            Unit 402, DIFC Gate Village<br>Dubai, UAE<br><br>
+            <a href="mailto:dubai@maggpartners.com">dubai@maggpartners.com</a><br>
+            <a href="tel:+97143216789">+971 4 321 6789</a>
+          </div>
+        </div>
+        <div class="office-card">
+          <div class="office-city">Singapore</div>
+          <div class="office-detail">
+            1 Raffles Place #20-61<br>Singapore 048616<br><br>
+            <a href="mailto:sg@maggpartners.com">sg@maggpartners.com</a><br>
+            <a href="tel:+6561234567">+65 6123 4567</a>
+          </div>
+        </div>
+        <div class="office-card">
+          <div class="office-city">Tokyo</div>
+          <div class="office-detail">
+            Roppongi Hills Mori Tower<br>Tokyo 106-6108, Japan<br><br>
+            <a href="mailto:tokyo@maggpartners.com">tokyo@maggpartners.com</a><br>
+            <a href="tel:+81312345678">+81 3 1234 5678</a>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="ci-img">
-      <img src="assets/assets/02_Projects/2513_StudioOffice_Riyadh,%20KSA/02.jpg" alt="Studio" loading="lazy">
+
+    <!-- Form -->
+    <div class="contact-form-col">
+      <h2 class="cf-h">Send a Message</h2>
+      <form class="cf-form" id="contactForm" onsubmit="handleSubmit(event)">
+        <div class="cf-field">
+          <label class="cf-label" for="cfName">Name</label>
+          <input class="cf-input" id="cfName" type="text" placeholder="Your full name" required>
+        </div>
+        <div class="cf-field">
+          <label class="cf-label" for="cfEmail">Email</label>
+          <input class="cf-input" id="cfEmail" type="email" placeholder="your@email.com" required>
+        </div>
+        <div class="cf-field">
+          <label class="cf-label" for="cfSubject">Subject</label>
+          <select class="cf-select cf-input" id="cfSubject">
+            <option value="" disabled selected>Select a topic</option>
+            <option>New Project Enquiry</option>
+            <option>Partnership</option>
+            <option>Press &amp; Media</option>
+            <option>Careers</option>
+            <option>General Enquiry</option>
+          </select>
+        </div>
+        <div class="cf-field">
+          <label class="cf-label" for="cfMsg">Message</label>
+          <textarea class="cf-textarea" id="cfMsg" placeholder="Tell us about your project or enquiry…" required></textarea>
+        </div>
+        <button class="cf-submit" type="submit">Send Message</button>
+        <p class="cf-success" id="cfSuccess">Thank you — we'll be in touch shortly.</p>
+      </form>
     </div>
   </div>
-
-  <div class="jobs-section">
-    <div class="section-head" style="padding:48px 0 24px;">
-      <span class="section-label">Open Positions</span>
-      <span class="section-label" id="jobCount"></span>
-    </div>
-    <div class="jobs-list" id="jobsList"></div>
-  </div>
-
-  <!-- Newsletter -->
-  <section id="newsletter">
-    <p class="nl-head">Don't see a role? Send us your portfolio.</p>
-    <form class="nl-form" onsubmit="return false;">
-      <input class="nl-input" type="email" placeholder="Your email address">
-      <button class="nl-btn" type="submit">Get in Touch</button>
-    </form>
-  </section>
 
   <footer>
     <div class="f-top">
@@ -101,7 +147,6 @@
     </div>
   </footer>
 
-  <script src="projects-data.js"></script>
   <script>
   const dot=document.getElementById('cDot'),ring=document.getElementById('cRing');
   let mx=0,my=0,rx=0,ry=0;
@@ -119,39 +164,18 @@
   hamBtn.addEventListener('click',()=>{mobOpen=!mobOpen;hamBtn.classList.toggle('open',mobOpen);mobMenu.classList.toggle('open',mobOpen);document.body.style.overflow=mobOpen?'hidden':'';});
   document.querySelectorAll('.mob-lnk').forEach(a=>a.addEventListener('click',closeMob));
   const so=document.getElementById('searchOverlay'),sb=document.getElementById('searchBtn'),sc=document.getElementById('searchClose'),si=document.getElementById('searchInput'),sr=document.getElementById('searchResults');
-  function openSearch(){closeMob();so.classList.add('open');document.body.style.overflow='hidden';setTimeout(()=>si.focus(),60);renderSearch('');}
+  function openSearch(){closeMob();so.classList.add('open');document.body.style.overflow='hidden';setTimeout(()=>si.focus(),60);sr.innerHTML='';}
   function closeSearch(){so.classList.remove('open');document.body.style.overflow='';si.value='';}
   sb.addEventListener('click',openSearch);sc.addEventListener('click',closeSearch);
   so.addEventListener('click',e=>{if(e.target===so)closeSearch();});
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();openSearch();}});
-  si.addEventListener('input',()=>renderSearch(si.value));
-  function renderSearch(q){
-    q=q.trim().toLowerCase();sr.innerHTML='';
-    const matched=q.length<1?PROJECTS.slice(0,8):PROJECTS.filter(p=>p.name.toLowerCase().includes(q)||p.location.toLowerCase().includes(q)||p.categoryLabel.toLowerCase().includes(q)).slice(0,10);
-    if(!matched.length){sr.innerHTML='<p class="search-empty">No results found.</p>';return;}
-    const grp=document.createElement('div');grp.className='search-grp';grp.innerHTML='<div class="search-grp-label">Projects</div>';
-    matched.forEach(p=>{const a=document.createElement('a');a.className='search-item';a.href='project.html?id='+p.id;a.innerHTML=`<span class="s-name">${p.name}</span><span class="s-meta">${p.location} · ${p.year}</span>`;a.addEventListener('click',closeSearch);addHover(a);grp.appendChild(a);});
-    sr.appendChild(grp);
-  }
+  si.addEventListener('input',()=>{ sr.innerHTML='<p class="search-empty">Search not available on this page. <a href="projects.html" style="color:var(--white);text-decoration:underline;">Browse Projects →</a></p>'; });
 
-  const JOBS=[
-    {title:'Senior Architect',     dept:'Architecture',  loc:'London, UK'},
-    {title:'Interior Designer',    dept:'Interiors',     loc:'Dubai, UAE'},
-    {title:'Structural Engineer',  dept:'Engineering',   loc:'Singapore'},
-    {title:'Urban Planner',        dept:'Urban & Landscape',loc:'London, UK'},
-    {title:'Project Manager',      dept:'Operations',    loc:'Dubai, UAE'},
-  ];
-
-  const list=document.getElementById('jobsList'), countEl=document.getElementById('jobCount');
-  countEl.textContent=JOBS.length+' position'+(JOBS.length!==1?'s':'')+' open';
-  if(JOBS.length){
-    JOBS.forEach(j=>{
-      const div=document.createElement('div');div.className='job-row';
-      div.innerHTML=`<div class="job-title">${j.title}</div><div class="job-dept">${j.dept}</div><div class="job-loc">${j.loc}</div><div class="job-arrow">→</div>`;
-      addHover(div);list.appendChild(div);
-    });
-  } else {
-    list.innerHTML='<div class="no-jobs">No open positions at this time. Send your CV to hello@maggpartners.com</div>';
+  function handleSubmit(e){
+    e.preventDefault();
+    document.getElementById('cfSuccess').classList.add('show');
+    document.getElementById('contactForm').style.opacity='0.5';
+    document.getElementById('contactForm').style.pointerEvents='none';
   }
   </script>
 </body>
