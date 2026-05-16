@@ -27,14 +27,14 @@
 
 /* ── Variables ────────────────────────────────────────── */
 :root {
-  --black:  #0C0C0C;
-  --off:    #141414;
+  --black:  #000000;
+  --off:    #000000;
   --dark:   #1C1C1C;
   --white:  #F2EDE8;
-  --muted:  rgba(242,237,232,0.52);
+  --muted:  rgba(242, 237, 232, 0.842);
   --faint:  rgba(242,237,232,0.10);
   --border: rgba(242,237,232,0.10);
-  --font:   'AkzidGroSt', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* --font:   'AkzidGroSt', 'Helvetica Neue', Helvetica, Arial, sans-serif; */
   --ease:   cubic-bezier(0.16,1,0.3,1);
   --soft:   cubic-bezier(0.25,0.46,0.45,0.94);
   --fast:   0.25s ease;
@@ -46,7 +46,7 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { font-size: 16px; scroll-behavior: smooth; }
 body {
-  font-family: var(--font);
+  /* font-family: var(--font); */
   background: var(--black);
   color: var(--white);
   overflow-x: hidden;
@@ -57,7 +57,9 @@ img  { display: block; max-width: 100%; }
 a    { text-decoration: none; color: inherit; }
 button { font-family: var(--font); cursor: none; border: none; outline: none; }
 input, textarea, select { font-family: var(--font); outline: none; }
-
+.mt-5{
+  margin-top: 40px;
+}
 /* ── Custom Cursor ────────────────────────────────────── */
 .c-dot {
   position: fixed; z-index: 99999;
@@ -88,6 +90,15 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
   padding: 0 48px;
   transition: background 0.4s ease, border-color 0.4s ease;
   border-bottom: 1px solid transparent;
+  /* 1. التعديل هنا: خلفية رمادية ناعمة وشفافة عشان تكسر بياض الصور */
+  background: rgba(30, 30, 30, 0.45); 
+  
+  /* 2. تأثير ضبابي (Blur) بيخلي شكل الهيدر ورا الصور سينمائي وممتاز */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  /* حركنا الـ transition تحت عشان يلقط تغيير الخلفية بسلاسة */
+  transition: background 0.4s ease, border-color 0.4s ease;
 }
 #nav.scrolled {
   background: rgba(12,12,12,0.96);
@@ -206,9 +217,11 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
 
 /* ── Hero ─────────────────────────────────────────────── */
 #hero {
-  position: relative; width: 100%; height: 100vh; min-height: 600px;
+  position: sticky; top: 0;
+  width: 100%; height: 100vh; min-height: 600px;
   overflow: hidden; background: var(--black);
   display: flex; flex-direction: column;
+  z-index: 0;
 }
 .hero-slides {
   position: absolute; inset: 0;
@@ -222,7 +235,8 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
 .hero-slide.active { opacity: 1; }
 .hero-slide img {
   width: 100%; height: 100%;
-  object-fit: contain; object-position: center;
+object-fit: cover; 
+  object-position: center;
   display: block;
 }
 .hero-overlay {
@@ -260,20 +274,31 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
   transition: background 0.3s;
 }
 .hero-dot.on { background: var(--white); }
+.hero-bg-reveal {
+  position: absolute; inset: 0; z-index: 0;
+  background: var(--black);
+  opacity: 0;
+  transition: opacity 0.05s linear;
+  pointer-events: none;
+}
 
 /* ── Recent Strip ─────────────────────────────────────── */
 #recent {
-  background: var(--off);
-  border-top: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.144);
+  /* border-top: 1px solid var(--border); */
   padding: 0;
+  position: relative;
+  z-index: 1;
 }
 .section-head {
   display: flex; align-items: center; justify-content: space-between;
   padding: 28px 64px 20px;
 }
 .section-label {
-  font-size: 10px; font-weight: 500; letter-spacing: 0.4em;
-  text-transform: uppercase; color: var(--muted);
+  font-size: 10px; 
+  /* font-weight: 500;  */
+  /* letter-spacing: 0.4em; */
+  text-transform: uppercase; color: white;
 }
 .section-link {
   font-size: 11px; font-weight: 400; letter-spacing: 0.1em;
@@ -284,12 +309,28 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
 
 .recent-grid {
   display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 16px; border-top: 1px solid var(--border);
+  gap: 16px; 
+  /* border-top: 1px solid var(--border); */
   padding: 20px 64px 40px;
 }
 .recent-card {
-  position: relative; overflow: hidden; display: block;
+  position: relative; 
+   display: block;
   background: var(--off);
+}
+/* استهدفنا الكروت كلها ما عدا الكارت الرابع في كل صف (4n) */
+.recent-card:not(:nth-child(4n))::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0.5px;
+  background: rgba(255, 255, 255, 0.35);
+  z-index: 2;
+
+  /* ── الحل السحري هنا ── */
+  /* بنقوله أقف على الحافة اليمين للكارت (100%) وزود عليها نص مسافة الـ gap بالظبط */
+  left: calc(100% + 8px); 
 }
 .recent-card-img {
   overflow: hidden;
@@ -303,7 +344,7 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
 .recent-card:hover .recent-card-img img { transform: scale(1.04); filter: brightness(0.90); }
 .recent-info {
   padding: 12px 14px 16px;
-  border-top: 1px solid var(--border);
+  /* border-top: 1px solid var(--border); */
 }
 .recent-cat  { font-size: 9px; font-weight: 400; letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
 .recent-name { font-size: 14px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3; margin-bottom: 10px; }
@@ -321,8 +362,9 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
 
 /* ── Vision / Statement 2-col ─────────────────────────── */
 #vision {
+  position: relative; z-index: 1;
   background: var(--black);
-  border-top: 1px solid var(--border);
+  /* border-top: 1px solid var(--border); */
   padding: 0;
 }
 .vision-inner {
@@ -331,12 +373,13 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
 }
 .vision-left {
   padding: 36px 32px 36px 64px;
-  border-right: 1px solid var(--border);
-  display: flex; flex-direction: column; justify-content: space-between;
+  /* border-right: 1px solid var(--border); */
+  display: flex; flex-direction: column; justify-content: center;
 }
 .vision-label {
-  font-size: 9px; font-weight: 500; letter-spacing: 0.45em;
-  text-transform: uppercase; color: var(--muted);
+  font-size: 9px; font-weight: 500; 
+  /* letter-spacing: 0.45em; */
+  text-transform: uppercase; color: white;
 }
 .vision-stats { display: flex; flex-direction: column; gap: 32px; margin-top: 40px; }
 .stat-num { font-size: 44px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; }
@@ -346,9 +389,9 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
   display: flex; align-items: center;
 }
 .vision-text {
-  font-size: clamp(13px, 1.1vw, 16px); font-weight: 300;
+  font-size: clamp(25px, 1.1vw, 16px); font-weight: 300;
   line-height: 1.8; letter-spacing: 0;
-  color: rgba(242,237,232,0.72);
+  color: rgba(242, 237, 232, 0.973);
 }
 .vision-text .word {
   display: inline-block;
@@ -364,8 +407,9 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
 
 /* ── Expertise ────────────────────────────────────────── */
 #expertise {
+  position: relative; z-index: 1;
   background: var(--black);
-  border-top: 1px solid var(--border);
+  /* border-top: 1px solid var(--border); */
 }
 .exp-grid {
   display: grid; grid-template-columns: repeat(3, 1fr);
@@ -374,10 +418,10 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
 }
 .exp-card {
   position: relative; overflow: hidden; display: block;
-  background: var(--off);
+  background: white;
 }
 .exp-card img {
-  width: 100%; aspect-ratio: 4/3; object-fit: cover;
+  width: 100%; aspect-ratio: 2/3; object-fit: cover;
   filter: brightness(0.65);
   transition: transform 0.8s var(--soft), filter 0.5s ease;
   display: block;
@@ -393,16 +437,29 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
 
 /* ── Projects Strip ───────────────────────────────────── */
 #proj-strip {
+  position: relative; z-index: 1;
   background: var(--off);
-  border-top: 1px solid var(--border);
+  /* border-top: 1px solid var(--border); */
 }
 .pstrip-grid {
   display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 16px; border-top: 1px solid var(--border);
+  gap: 16px; 
+  /* border-top: 1px solid var(--border); */
   padding: 20px 64px 40px;
 }
 .pstrip-card {
   display: block; background: var(--off);
+  position: relative; /* عشان يحدد مكان الخط المطلق جواه */
+}
+.pstrip-card:not(:nth-child(4n))::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0.5px;
+  background: rgba(255, 255, 255, 0.35);
+  z-index: 2;
+  left: calc(100% + 8px); 
 }
 .pstrip-card-img { overflow: hidden; }
 .pstrip-card-img img {
@@ -448,6 +505,7 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
 
 /* ── Studio ───────────────────────────────────────────── */
 #studio {
+  position: relative; z-index: 1;
   background: var(--off);
   border-top: 1px solid var(--border);
   padding: 0;
@@ -477,7 +535,7 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
 /* ── Culture ──────────────────────────────────────────── */
 #culture {
   background: var(--black);
-  border-top: 1px solid var(--border);
+  /* border-top: 1px solid var(--border); */
   padding: 48px 64px 40px;
 }
 .culture-h {
@@ -493,78 +551,131 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
   font-weight: 300;
   line-height: 1.7;
   color: rgba(242,237,232,0.72);
-  max-width: 760px;
+  max-width: 60%;
   letter-spacing: -0.01em;
 }
 .culture-divider {
   margin-top: 36px;
-  border-top: 1px solid var(--border);
+  /* border-top: 1px solid var(--border); */
 }
 
 /* ── Newsletter ───────────────────────────────────────── */
 #newsletter {
-  background: var(--dark); border-top: 1px solid var(--border);
+  position: relative; z-index: 1;
+  background: var(--black); 
+  border-top: 1px solid var(--border);
   padding: 48px 64px;
   display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
 }
-.nl-head { font-size: clamp(14px, 1.4vw, 18px); font-weight: 300; line-height: 1.55; max-width: 320px; color: var(--white); }
+.nl-head { font-size: clamp(31px, 1.4vw, 18px); font-weight: 300; line-height: 1.55; max-width: 75%; color: var(--white); }
 .nl-form { display: flex; flex-direction: column; }
-.nl-input {
-  background: none; border: none; border-bottom: 1px solid var(--border);
-  padding: 14px 0; font-size: 14px; font-weight: 300; color: var(--white);
+.nl-input ,.nl-input:focus{
+  background: var(--dark);
+  border: none ; 
+  padding: 14px 15px; font-size: 14px; font-weight: 300; 
+  border-radius: 30px;
   transition: border-color var(--fast);
+}
+.nl-input::placeholder {
+  color: var(--white) !important;
+  font-weight: 800;
+  font-size: 15px;
+
 }
 .nl-input:focus { border-color: rgba(242,237,232,0.5); }
 .nl-input::placeholder { color: rgba(242,237,232,0.28); }
 .nl-btn {
-  margin-top: 24px; align-self: flex-start;
-  background: var(--white); color: var(--black);
-  font-size: 10px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase;
+  margin-top: 24px; 
+  align-self: center;
+  background: var(--black); color: var(--white);
+  font-size: 15px; font-weight: 300; letter-spacing: 0.0em; 
   padding: 14px 36px; cursor: pointer;
   transition: background var(--fast), color var(--fast), letter-spacing var(--fast);
 }
 .nl-btn:hover { background: transparent; color: var(--white); letter-spacing: 0.35em; border: 1px solid var(--border); padding: 13px 35px; }
-
 /* ── Footer ───────────────────────────────────────────── */
 footer {
+  position: relative; z-index: 1;
   background: var(--black);
   border-top: 1px solid var(--border);
-  padding: 48px 64px 36px;
+  padding: 60px 64px 40px; /* تظبيط الـ padding ليتناسق مع الجريد فوق */
+  display: flex; 
+  flex-direction: row;
+  justify-content: space-between; /* الحل السحري: رمي الكتلتين على أطراف الشاشة */
+  align-items: flex-end; /* محاذاة السطر السفلي للجهتين معاً */
 }
+
 .f-top {
-  display: flex; align-items: center; justify-content: space-between;
-  padding-bottom: 40px; border-bottom: 1px solid var(--border);
+  display: flex; 
+  flex-direction: column;
+  gap: 24px; /* مسافة ثابتة ومحترفة بين اللوجو والروابط */
+  width: auto; /* سيب المتصفح يحسب المساحة بناءً على المحتوى */
 }
-.f-logo { height: 22px; width: auto; display: block; }
-.f-socials { display: flex; gap: 20px; align-items: center; }
-.f-soc {
-  display: flex; align-items: center; justify-content: center;
-  color: rgba(242,237,232,0.45);
-  transition: color var(--fast);
-}
-.f-soc svg { width: 16px; height: 16px; fill: currentColor; }
-.f-soc:hover { color: var(--white); }
+
+.f-logo {     height: 28px;
+    width: 13rem;
+    display: block; }
 
 .f-nav-row {
   display: flex;
-  border-bottom: 1px solid var(--border);
+  gap: 24px; /* مسافة ثابتة أفضل من النسبة المئوية عشان الـ Layout ميتكسرش */
 }
+
 .f-nav-row a {
-  flex: 1; display: block; padding: 20px 0;
-  font-size: 11px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--muted); border-right: 1px solid var(--border);
-  transition: color var(--fast), background var(--fast);
-  text-align: center;
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--muted);
+  transition: color var(--fast);
+  text-decoration: none;
 }
-.f-nav-row a:last-child { border-right: none; }
-.f-nav-row a:hover { color: var(--white); background: rgba(242,237,232,0.03); }
 
+.f-nav-row a:hover { 
+  color: var(--white); 
+}
+
+/* ── الجزء الأيمن المعدل بالكامل ── */
 .f-bottom {
-  display: flex; align-items: center; justify-content: space-between;
-  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* إجبار السوشيال ميديا والحقوق يروحوا أقصى اليمين */
+  justify-content: flex-end;
+  gap: 20px; /* مسافة رأسية متناسقة بين السوشيال ميديا والحقوق */
+  width: auto;
+  padding-top: 0; /* شيلنا الـ padding القديم عشان المحاذاة مع left تظبط */
 }
-.f-copy { font-size: 10px; font-weight: 300; color: rgba(242,237,232,0.28); letter-spacing: 0.06em; }
 
+.f-socials { 
+  display: flex; 
+  gap: 16px; /* مسافة بين الأيقونات */
+  align-items: center; 
+}
+
+.f-soc {
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  color: rgba(242,237,232,0.45);
+  transition: color var(--fast), transform 0.2s ease;
+}
+
+.f-soc svg { 
+  width: 16px; 
+  height: 16px; 
+  fill: currentColor; 
+}
+
+.f-soc:hover { 
+  color: var(--white); 
+  transform: translateY(-2px); /* حركة خفيفة للأعلى عند الـ Hover */
+}
+
+.f-copy { 
+  font-size: 10px; 
+  font-weight: 300; 
+  color: rgba(242,237,232,0.28); 
+  letter-spacing: 0.06em; 
+}
 /* ── Projects Gallery Page ────────────────────────────── */
 .page-header {
   padding: 120px 64px 40px;
@@ -614,7 +725,7 @@ footer {
 
 /* ── Project Detail Page ──────────────────────────────── */
 .pd-hero {
-  position: relative; width: 100%; height: 100vh; min-height: 560px; overflow: hidden;
+  position: relative; width: 100%; height: 90vh; min-height: 560px; overflow: hidden;
 }
 .pd-hero-bg { position: absolute; inset: 0; background: center/cover no-repeat; }
 .pd-hero-overlay {
@@ -632,23 +743,49 @@ footer {
 
 /* Gallery pair */
 .pd-pair {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  display: grid; grid-template-columns: 60fr 40fr; gap: 2px;
   background: var(--black); border-top: 1px solid var(--border);
+  position: relative;
 }
 .pd-pair img {
   width: 100%; height: 420px; object-fit: cover;
   display: block; filter: brightness(1);
+    transform: scale(0.85);
+  opacity: 0.4;
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.9s ease;
+  will-change: transform, opacity;
 }
-
+.pd-pair img.in-view {
+  transform: scale(1);
+  opacity: 1;
+}
+#pd-gallery-name{
+  position: absolute;
+  bottom: 10%;
+  left: 3%;
+  font-size: 30px;
+}
+.pd-pair img:nth-last-child(1) {
+  width: 100%; height: 80vh; object-fit: cover;
+  display: block; filter: brightness(1);
+}
+.pd-pair img:nth-last-child(2) {
+  margin-left: 10%;
+  margin-top: 5%;
+  width: 80%; height: 40vh; object-fit: cover;
+  display: block; filter: brightness(1);
+}
 /* Overview */
 .pd-overview {
-  display: grid; grid-template-columns: 220px 1fr; gap: 0;
-  border-top: 1px solid var(--border);
+  display: grid; grid-template-columns: 2fr 20fr 60fr; gap: 0;
+  /* border-top: 1px solid var(--border); */
   background: var(--black);
 }
 .pd-ov-left {
-  padding: 20px 20px 20px 48px;
-  border-right: 1px solid var(--border);
+  padding: 20px 20px 20px 20px;
+  flex-shrink: 0;              /* يمنع الكلمة من الانضغاط أو الالتواء */
+  /* border-right: 1px solid var(--border); */
   background: var(--black);
 }
 .pd-ov-title {
@@ -658,57 +795,94 @@ footer {
 }
 .pd-meta-list { display: flex; flex-direction: column; }
 .pd-meta-row {
-  display: flex; flex-direction: column; gap: 2px;
-  padding: 6px 0; border-bottom: 1px solid var(--border);
+  display: flex; 
+   gap: 3%;
+  padding: 6px 0;
+   /* border-bottom: 1px solid var(--border); */
+}
+.f-socials-pd {
+ display: flex; 
+  gap: 16px; /* مسافة بين الأيقونات */
+  align-items: center; 
+  margin-top: 12px;
+  
 }
 .pd-meta-lbl {
-  font-size: 9px; font-weight: 400; letter-spacing: 0.28em;
-  text-transform: uppercase; color: rgba(242,237,232,0.35);
-}
-.pd-meta-val {
-  font-size: 11px; font-weight: 300; color: var(--white); line-height: 1.4;
+  width: 120px;                /* حل السحر: عرض ثابت يضمن محاذاة جميع القيم بدقة */
+  flex-shrink: 0;              /* يمنع الكلمة من الانضغاط أو الالتواء */
+  font-size: 11px;
+  text-transform: uppercase;   /* يجعل الحروف الكبيرة إن كانت إنجليزية */
+  letter-spacing: 0.1em;
+  color: var(--muted);         /* لون رمادي خافت أو مائل للشفافية */
+} .pd-meta-val {
+  flex-grow: 1;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--white);         /* لون أبيض واضح للمحتوى الأساسي */
+  padding-left: 10px;          /* مسافة أمان صغيرة بعد العنوان */
 }
 .pd-ov-right {
   padding: 20px 48px 20px 32px;
   background: var(--black);
 }
 .pd-brief {
-  font-size: 13px; font-weight: 300; line-height: 1.85;
-  color: rgba(242,237,232,0.7);
+  font-size: 23px; font-weight: 300; line-height: 1.85;
+  color: white;
 }
 
 /* Content section */
 .pd-content {
-  display: grid; grid-template-columns: 220px 1fr; gap: 0;
+  display: grid; grid-template-columns:20fr 80fr; gap: 0;
   border-top: 1px solid var(--border);
   background: var(--black);
+  padding-top: 2%;
+
+}
+.pd-fact-row:nth-child(1) .pd-fact-lbl {
+  font-size: 18px !important;
+}
+.pd-fact-row:nth-child(1) .pd-fact-val {
+  display: none !important;
 }
 .pd-facts-col {
   padding: 36px 28px 48px 48px;
   border-right: 1px solid var(--border);
   background: var(--black);
+  position: sticky;
+top: 10%;
+align-self: start;    /* ضروري عشان الـ grid يسمح بالـ sticky */
+max-height: 100vh;
+overflow-y: auto;     /* لو المحتوى أطول من الشاشة يتسكرول */
 }
 .pd-fact-row { margin-bottom: 18px; }
 .pd-fact-lbl {
-  font-size: 9px; font-weight: 400; letter-spacing: 0.28em;
-  text-transform: uppercase; color: rgba(242,237,232,0.35); margin-bottom: 3px;
+  font-size: 13px;
+   font-weight: 400;
+   /* letter-spacing: 0.28em; */
+  /* text-transform: uppercase; */
+  color: white; 
+  margin-bottom: 3px;
 }
 .pd-fact-val {
-  font-size: 11px; font-weight: 300;
-  color: rgba(242,237,232,0.7); line-height: 1.55;
+  font-size: 13px; font-weight: 300;
+  color: rgba(242,237,232,0.35); 
+  line-height: 1.55;
 }
 .pd-body-col {
   padding: 36px 64px 64px 48px;
   background: var(--black);
 }
 .pd-body-h {
-  font-size: clamp(18px, 2vw, 26px); font-weight: 400;
+  font-size: clamp(18px, 2vw, 35px); font-weight: 400;
   letter-spacing: -0.02em; line-height: 1.25;
   color: var(--white); margin-bottom: 24px;
 }
 .pd-body-p {
-  font-size: 13px; font-weight: 300; line-height: 1.85;
-  color: rgba(242,237,232,0.6); margin-bottom: 36px;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.85;
+    color: rgb(242 237 232 / 86%);
+    margin-bottom: 36px;
 }
 .pd-body-img { margin: 0 -48px 0 0; }
 .pd-body-img img {
@@ -722,17 +896,35 @@ footer {
 
 /* More grid */
 .more-work { background: #ffffff; border-top: 1px solid rgba(0,0,0,0.08); padding: 0; }
-.more-work .section-head { border-bottom: 1px solid rgba(0,0,0,0.08); }
-.more-work .section-label { color: rgba(0,0,0,0.4); }
+.more-work .section-head { border-bottom:none; }
+.more-work .section-label {
+   color: black;
+  font-size: 23px;
+  }
 .more-work .section-link  { color: rgba(0,0,0,0.4); }
 .more-work .section-link:hover { color: #000; }
 .pd-more-grid {
   display: grid; grid-template-columns: repeat(4, 1fr);
   gap: 16px; padding: 20px 48px 48px;
-  border-top: 1px solid rgba(0,0,0,0.08);
+  /* border-top: 1px solid rgba(0,0,0,0.08); */
   background: #ffffff;
 }
-.pd-more-card { display: block; }
+
+.pd-more-card { display: block; 
+position: relative;}
+.pd-more-card:not(:nth-child(4n))::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.486);
+  z-index: 2;
+
+  /* ── الحل السحري هنا ── */
+  /* بنقوله أقف على الحافة اليمين للكارت (100%) وزود عليها نص مسافة الـ gap بالظبط */
+  left: calc(100% + 8px); 
+}
 .pd-more-img { overflow: hidden; }
 .pd-more-img img {
   width: 100%; aspect-ratio: 4/3; object-fit: cover; filter: brightness(1);
@@ -740,9 +932,10 @@ footer {
 }
 .pd-more-card:hover .pd-more-img img { transform: scale(1.04); }
 .pd-more-info { padding: 10px 0 4px; border-top: 1px solid rgba(0,0,0,0.08); margin-top: 1px; }
-.pd-more-cat  { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(0,0,0,0.4); margin-bottom: 4px; }
-.pd-more-name { font-size: 12px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3; margin-bottom: 3px; color: #000; }
-.pd-more-loc  { font-size: 10px; color: rgba(0,0,0,0.45); }
+.pd-more-cat  { font-size: 13px; font-weight: 900;
+  color: black; margin-bottom: 4px; }
+.pd-more-name { font-size: 14px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3; margin-bottom: 3px; color: #000; }
+.pd-more-loc  { font-size: 12px; color: rgba(0,0,0,0.65); }
 
 /* ── News Page ────────────────────────────────────────── */
 .news-featured {
@@ -928,4 +1121,101 @@ footer {
   .f-nav-row a   { flex: none; width: 50%; text-align: left; padding: 14px 0; }
   .gal-pair      { grid-template-columns: 1fr; }
   .proj-grid     { grid-template-columns: 1fr; }
+}
+
+/* 2. خدعة الـ CSS لترتيب الـ Size (الأسطر 6 و 7 و 8) */
+/* السطر رقم 6 (Site Area) سنتركه يظهر ونلغي الهامش السفلي منه */
+.pd-facts-col .pd-fact-row:nth-child(6) {
+  margin-bottom: 4px;
+}
+/* السطر رقم 7 (Gross Area): سنخفي العنوان ونترك القيمة فقط تندمج تحت السطر السابق */
+.pd-facts-col .pd-fact-row:nth-child(7) {
+  margin-bottom: 4px;
+}
+.pd-facts-col .pd-fact-row:nth-child(7) .pd-fact-lbl {
+  display: none;
+}
+.pd-facts-col .pd-fact-row:nth-child(7) .pd-fact-val::before {
+  content: "Gross Area: "; /* إضافة التمييز بالـ CSS */
+}
+.pd-facts-col .pd-fact-row:nth-child(6) .pd-fact-val::before {
+  content: "Site Area: ";
+}
+/* السطر رقم 8 (Stories): نخفي العنوان ونترك القيمة */
+.pd-facts-col .pd-fact-row:nth-child(8) {
+  margin-bottom: 24px; /* نرجع الهامش الطبيعي بعد انتهاء تجميعة الـ Size */
+}
+.pd-facts-col .pd-fact-row:nth-child(8) .pd-fact-lbl {
+  display: none;
+}
+.pd-facts-col .pd-fact-row:nth-child(8) .pd-fact-val::before {
+  content: "Stories: ";
+}
+
+/* 3. خدعة الـ CSS لحل تكرار الـ Collaborators (الأسطر 11 و 12 و 13) */
+/* السطور 11 و 12 مكررة وبها قيم مفردة، سنقوم بإخفائها تماماً بالـ CSS */
+.pd-facts-col .pd-fact-row:nth-child(11),
+.pd-facts-col .pd-fact-row:nth-child(12) {
+  display: none;
+}
+
+/* السطر رقم 13 يحتوي على القائمة الكاملة المجمعة بداخلها <br>، سننسقها لتظهر كقائمة عمودية */
+.pd-facts-col .pd-fact-row:nth-child(13) .pd-fact-val {
+  line-height: 1.7; /* إعطاء مساحة مريحة بين الأسطر المكسورة بـ <br> */
+}
+
+
+/* ── العمود الأيمن (النص والصور) ── */
+.pd-body-col {
+  padding: 48px 64px 64px 64px; 
+  background: var(--black);
+}
+
+.pd-body-h {
+  font-size: clamp(22px, 2.5vw, 32px); 
+  font-weight: 400;
+  letter-spacing: -0.01em; 
+  line-height: 1.2;
+  color: var(--white); 
+  margin-bottom: 32px;
+}
+
+.pd-body-p {
+  font-size: 14px; 
+  font-weight: 300; 
+  line-height: 1.75;
+  color: rgba(242, 237, 232, 0.7); 
+  margin-bottom: 48px;
+  max-width: 90%; 
+}
+
+.pd-body-img { 
+  margin: 0 0 40px 0; /* إلغاء المارجن السالب لجعل الصور تحاذي الهامش الأيمن النظيف */
+}
+
+.pd-body-img img {
+  width: 100%; 
+  height: auto; 
+  display: block; 
+  filter: brightness(0.95);
+}
+
+.pd-body-cap {
+  font-size: 10px; 
+  font-weight: 300; 
+  color: rgba(242, 237, 232, 0.4);
+  letter-spacing: 0.04em; 
+  padding: 12px 0 0;
+}
+.last-gallery-img-2 {
+  width: 90vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.last-gallery-img-2 img{
+width: 80vw;
+}.last-gallery-img-2 {
+  grid-column: 1 / -1; /* يخلي الصورة تفرش من أول الشاشة لآخرها تحت العمودين */
+  width: 100%;
 }
