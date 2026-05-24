@@ -9,6 +9,16 @@
 </head>
 <body>
 
+  <!-- ── Page Loader ── -->
+  <div id="page-loader">
+    <div class="ld-scene">
+      <div class="ld-dot"></div>
+      <div class="ld-ring"></div>
+      <div class="ld-ring"></div>
+      <div class="ld-ring"></div>
+    </div>
+  </div>
+
   <div class="c-dot" id="cDot"></div>
   <div class="c-ring" id="cRing"></div>
 
@@ -58,11 +68,15 @@
     <div class="hero-bg-reveal" id="heroBgReveal"></div>
     <div class="hero-bottom">
       <div class="hero-bottom-left">
-        <div class="hero-eyebrow" id="heroEyebrow">Featured Project</div>
+        <div class="hero-eyebrow" id="heroEyebrow"></div>
         <div class="hero-title" id="heroTitle"></div>
         <div class="hero-dots" id="heroDots"></div>
       </div>
     </div>
+    <!-- pause button -->
+    <button class="hero-pause" id="heroPause" aria-label="Pause slideshow">
+      <svg id="heroPauseIcon" viewBox="0 0 10 12"><rect x="0" y="0" width="3" height="12"/><rect x="6" y="0" width="3" height="12"/></svg>
+    </button>
   </section>
 
   <!-- ── Recent Work ── -->
@@ -81,9 +95,7 @@
         <span class="vision-label">Our Vision</span>
       </div>
       <div class="vision-right">
-        <p class="vision-text" id="visionText">We are a multidisciplinary global practice shaping
-better spaces, stronger environments, and a more
-forward-thinking built future</p>
+        <p class="vision-text" id="visionText">We are a multidisciplinary global practice shaping better spaces, stronger environments, and a more forward-thinking built future.</p>
       </div>
     </div>
   </section>
@@ -152,13 +164,13 @@ forward-thinking built future</p>
   <!-- ── Culture ── -->
   <section id="culture">
     <h2 class="culture-h">Culture</h2>
-    <p class="culture-p">Through a collaborative and multidisciplinary approach, the studio combines design excellence, technical intelligence, and strategic thinking. We believe the best environments emerge when diverse minds work toward a shared vision — spaces that are not only beautiful, but purposeful and enduring.</p>
+    <p class="culture-p">Through a collaborative and multidisciplinary approach, the practice delivers high-quality projects that combine design excellence, technical intelligence, and strategic thinking.</p>
     <div class="culture-divider"></div>
   </section>
 
   <!-- ── Newsletter ── -->
   <section id="newsletter">
-    <p class="nl-head">Stay informed with our latest projects and ideas.</p>
+    <p class="nl-head">Stay up to date with our latest projects and news.</p>
     <form class="nl-form" onsubmit="return false;">
       <input class="nl-input" type="email" placeholder="Email address">
       <button class="nl-btn" type="submit">Subscribe</button>
@@ -168,9 +180,10 @@ forward-thinking built future</p>
   <!-- ── Footer ── -->
   <footer>
     <div class="f-top">
-      <img class="f-logo" src="assets/assets/Logo/260403_Logo_Magg+Partners_White.png" alt="Magg+Partners">
+      <div class="f-brand">Magg + Partners</div>
       <div class="f-nav-row">
         <a href="projects.html">Projects</a>
+        <a href="index.html#expertise">Expertise</a>
         <a href="index.html#studio">Studio</a>
         <a href="news.html">News</a>
         <a href="careers.html">Careers</a>
@@ -250,6 +263,8 @@ forward-thinking built future</p>
 
   /* ── Hero Carousel ── */
   const HERO_PROJECTS=PROJECTS.slice(0,6);
+  const SLIDE_DURATION=5000;
+  const CIRCUMFERENCE=2*Math.PI*8; // r=8 → ~50.27
   let cur=0,timer=null;
   const slidesEl=document.getElementById('heroSlides');
   const dotsEl=document.getElementById('heroDots');
@@ -267,15 +282,28 @@ forward-thinking built future</p>
     const btn=document.createElement('button');
     btn.className='hero-dot'+(i===0?' on':'');
     btn.setAttribute('aria-label','Slide '+(i+1));
-    btn.addEventListener('click',()=>{goTo(i);resetTimer();});
+    btn.innerHTML=`
+      <span class="hd-core"></span>
+      <svg class="hd-ring" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <circle class="hd-track" cx="10" cy="10" r="8"/>
+        <circle class="hd-fill"  cx="10" cy="10" r="8"/>
+      </svg>`;
+    btn.addEventListener('click',()=>{ if(i===cur){restartRing(btn);} goTo(i); resetTimer(); });
     addHover(btn);
     dotsEl.appendChild(btn);
   });
 
+  function restartRing(btn){
+    const fill=btn.querySelector('.hd-fill');
+    if(!fill) return;
+    fill.style.animation='none';
+    void fill.offsetWidth;
+    fill.style.animation='';
+  }
   function updateInfo(idx){
     const p=HERO_PROJECTS[idx];
+    eyebrowEl.textContent=p.categoryLabel;
     titleEl.textContent=p.name;
-    eyebrowEl.textContent=p.categoryLabel+' · '+p.location;
   }
   function goTo(idx){
     const slides=slidesEl.querySelectorAll('.hero-slide');
@@ -285,10 +313,25 @@ forward-thinking built future</p>
     cur=idx;
     slides[cur].classList.add('active');
     dots[cur].classList.add('on');
+    restartRing(dots[cur]);
     updateInfo(cur);
   }
   function next(){goTo((cur+1)%HERO_PROJECTS.length);}
-  function resetTimer(){clearInterval(timer);timer=setInterval(next,5000);}
+  function resetTimer(){clearInterval(timer);timer=setInterval(next,SLIDE_DURATION);}
+
+  /* Pause / play */
+  const pauseBtn=document.getElementById('heroPause');
+  const pauseIcon=document.getElementById('heroPauseIcon');
+  const PAUSE_SVG='<rect x="0" y="0" width="3" height="12"/><rect x="6" y="0" width="3" height="12"/>';
+  const PLAY_SVG='<polygon points="0,0 10,6 0,12"/>';
+  let paused=false;
+  pauseBtn.addEventListener('click',()=>{
+    paused=!paused;
+    pauseIcon.innerHTML=paused?PLAY_SVG:PAUSE_SVG;
+    if(paused){ clearInterval(timer); }
+    else{ resetTimer(); }
+  });
+  addHover(pauseBtn);
 
   updateInfo(0);
   resetTimer();
@@ -377,6 +420,17 @@ forward-thinking built future</p>
     const progress = Math.min(1, Math.max(0, (scrolled - revealStart) / (revealEnd - revealStart)));
     heroBgReveal.style.opacity = progress;
   }, { passive: true });
+
+  /* ── Page Loader ── */
+  (function(){
+    const loader = document.getElementById('page-loader');
+    function hideLoader(){
+      loader.classList.add('done');
+      setTimeout(()=>{ if(loader.parentNode) loader.parentNode.removeChild(loader); }, 1100);
+    }
+    window.addEventListener('load', ()=>{ setTimeout(hideLoader, 300); });
+    setTimeout(hideLoader, 4000); // fallback
+  })();
   </script>
 </body>
 </html>

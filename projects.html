@@ -9,9 +9,18 @@
       type="image/png"
       href="assets/assets/Logo/260403_Logo_Magg+Partners_Website_Icon.png"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="nstyles.css" />
   </head>
   <body>
+    <!-- ── Page Loader ── -->
+    <div id="page-loader">
+      <div class="ld-scene">
+        <div class="ld-dot"></div>
+        <div class="ld-ring"></div>
+        <div class="ld-ring"></div>
+        <div class="ld-ring"></div>
+      </div>
+    </div>
     <div class="c-dot" id="cDot"></div>
     <div class="c-ring" id="cRing"></div>
 
@@ -287,6 +296,14 @@
         });
       }
       renderGrid();
+
+      /* ── Page Loader ── */
+      (function(){
+        const loader=document.getElementById('page-loader');
+        function hideLoader(){loader.classList.add('done');setTimeout(()=>{if(loader.parentNode)loader.parentNode.removeChild(loader);},1100);}
+        window.addEventListener('load',()=>{setTimeout(hideLoader,300);});
+        setTimeout(hideLoader,4000);
+      })();
     </script>
   </body>
 </html>
