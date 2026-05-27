@@ -84,7 +84,35 @@
     <div class="section-head">
       <span class="section-label">Projects</span>
     </div>
-    <div class="pstrip-grid" id="pstripGrid"></div>
+    <div class="pstrip-grid" id="pstripGrid">
+       <div class="pstrip-card">
+       <div class="pstrip-card-img">
+        <img src="assets/assets/02_Projects/2218_Office_HQ,%20Kuwait/Final%202_HERO_01.jpg"  loading="lazy"></div>
+        <div class="pstrip-info">
+          <div class="pstrip-cat">  London</div>
+          <div class="pstrip-name">United Kingdom</div>
+          <div class="pstrip-loc">+44 7341 970896 </div>
+        </div>
+        </div>
+         <div class="pstrip-card">
+       <div class="pstrip-card-img">
+        <img src="assets/assets/02_Projects/2218_Office_HQ,%20Kuwait/Final%202_HERO_01.jpg"  loading="lazy"></div>
+        <div class="pstrip-info">
+          <div class="pstrip-cat">  Cairo</div>
+          <div class="pstrip-name"> Egypt</div>
+          <div class="pstrip-loc">+20 114 171 8788 </div>
+        </div>
+        </div>
+         <div class="pstrip-card">
+       <div class="pstrip-card-img">
+        <img src="assets/assets/02_Projects/2218_Office_HQ,%20Kuwait/Final%202_HERO_01.jpg"  loading="lazy"></div>
+        <div class="pstrip-info">
+          <div class="pstrip-cat">  Riyadh</div>
+          <div class="pstrip-name">Saudi Arabia</div>
+          <div class="pstrip-loc">+966 50 570 5829</div>
+        </div>
+        </div>
+    </div>
   </section>
 
   <!-- ── Contact ── -->
@@ -257,21 +285,21 @@ projects and news.</p>
     }
 
     /* ── Projects Strip ── */
-    const pstripGrid = document.getElementById('pstripGrid');
-    PROJECTS.slice(4, 8).forEach(p => {
-      const a = document.createElement('a');
-      a.className = 'pstrip-card';
-      a.href = 'project.html?id=' + p.id;
-      a.innerHTML = `
-        <div class="pstrip-card-img"><img src="${p.thumb}" alt="${p.name}" loading="lazy"></div>
-        <div class="pstrip-info">
-          <div class="pstrip-cat">${p.categoryLabel}</div>
-          <div class="pstrip-name">${p.name}</div>
-          <div class="pstrip-loc">${p.location} · ${p.year}</div>
-        </div>`;
-      addHover(a);
-      pstripGrid.appendChild(a);
-    });
+    // const pstripGrid = document.getElementById('pstripGrid');
+    // PROJECTS.slice(4, 8).forEach(p => {
+    //   const a = document.createElement('a');
+    //   a.className = 'pstrip-card';
+    //   a.href = 'project.html?id=' + p.id;
+    //   a.innerHTML = `
+    //     <div class="pstrip-card-img"><img src="${p.thumb}" alt="${p.name}" loading="lazy"></div>
+    //     <div class="pstrip-info">
+    //       <div class="pstrip-cat"> <p> ${p.categoryLabel}</p></div>
+    //       <div class="pstrip-name">${p.name}</div>
+    //       <div class="pstrip-loc">${p.location} · ${p.year}</div>
+    //     </div>`;
+    //   addHover(a);
+    //   pstripGrid.appendChild(a);
+    // });
 
     /* ── Hero scroll-reveal ── */
     const heroEl = document.getElementById('hero');
