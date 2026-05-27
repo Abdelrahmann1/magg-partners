@@ -130,20 +130,14 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
   position: fixed; top: 0; left: 0; right: 0; z-index: 900;
   height: 91px;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 39px 0 183px;
-  transition: background 0.4s ease, border-color 0.4s ease;
-  border-bottom: 1px solid transparent;
-  background: rgba(30, 30, 30, 0.45);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  padding: 0 59px 0 40px;
+  background: var(--black);
+  border-bottom: 1px solid #3a3a3a;
 }
 #nav.scrolled {
-  background: rgba(12,12,12,0.96);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom-color: var(--border);
+  background: var(--black);
 }
-.nav-logo img { height: 35px; width: auto; display: block; }
+.nav-logo img { height: auto; width: 183px; display: block; }
 .nav-logo { opacity: 1; transition: opacity var(--fast); }
 .nav-logo:hover { opacity: 0.65; }
 
@@ -160,18 +154,18 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
 
 .nav-actions { display: flex; align-items: center; gap: 41px; }
 .nav-search-btn {
-  background: none; padding: 6px; color: rgba(242,237,232,0.72);
+  background: none; padding: 36px 0; color: rgba(242,237,232,0.72);
   display: flex; align-items: center;
   transition: color var(--fast);
 }
 .nav-search-btn:hover { color: var(--white); }
-.nav-search-btn svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.75; }
+.nav-search-btn svg { width: 19px; height: 19px; stroke: currentColor; fill: none; stroke-width: 1.75; }
 
 .nav-links { display: none; }
 
 .nav-hamburger {
   display: flex; flex-direction: column; gap: 5px;
-  background: none; padding: 6px;
+  background: none; padding: 39px 0;
 }
 .nav-hamburger span {
   display: block; width: 22px; height: 1px;
@@ -261,8 +255,9 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
 
 /* ── Hero ─────────────────────────────────────────────── */
 #hero {
-  position: sticky; top: 0;
-  width: 100%; height: min(927px, 100vh); min-height: 600px;
+  position: relative;
+  margin-top: 91px;
+  width: 100%; height: min(836px, calc(100vh - 91px)); min-height: 600px;
   overflow: hidden; background: var(--black);
   display: flex; flex-direction: column;
   z-index: 0;
@@ -295,7 +290,7 @@ object-fit: cover;
 /* ── Hero Bottom ──────────────────────────────────────── */
 .hero-bottom {
   position: absolute; bottom: 0; left: 0; right: 0; z-index: 10;
-  padding: 0 59px 59px;
+  padding: 0 59px 55px;
 }
 /* Pause/play button — bottom-right of hero */
 .hero-pause {
@@ -346,7 +341,7 @@ object-fit: cover;
 }
 .hero-dot {
   position: relative;
-  width: 18px; height: 18px;
+  width: 11px; height: 11px;
   background: none; border: none; padding: 0;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
@@ -382,15 +377,15 @@ object-fit: cover;
   stroke: transparent;
   stroke-width: 1;
   stroke-linecap: round;
-  stroke-dasharray: 43.98;
-  stroke-dashoffset: 43.98;
+  stroke-dasharray: 28.27;
+  stroke-dashoffset: 28.27;
 }
 .hero-dot.on .hd-fill {
   stroke: var(--white);
   animation: hdSpin 5s linear forwards;
 }
 @keyframes hdSpin {
-  from { stroke-dashoffset: 43.98; }
+  from { stroke-dashoffset: 28.27; }
   to   { stroke-dashoffset: 0; }
 }
 .hero-bg-reveal {
@@ -405,7 +400,7 @@ object-fit: cover;
 #recent {
   background: rgba(0, 0, 0, 0.144);
   /* border-top: 1px solid var(--border); */
-  padding: 0;
+  padding: 85px 0 0;
   position: relative;
   z-index: 1;
 }

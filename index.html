@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Magg+Partners — Architecture &amp; Design</title>
-  <link rel="icon" type="image/png" href="assets/assets/Logo/260403_Logo_Magg+Partners_Website_Icon.png">
+  <title>Magg + Partners</title>
+  <link rel="icon" type="image/png" href="assets/assets/Logo/favicon.png">
   <link rel="stylesheet" href="nstyles.css">
 </head>
 <body>
@@ -284,9 +284,9 @@
     btn.setAttribute('aria-label','Slide '+(i+1));
     btn.innerHTML=`
       <span class="hd-core"></span>
-      <svg class="hd-ring" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-        <circle class="hd-track" cx="10" cy="10" r="8"/>
-        <circle class="hd-fill"  cx="10" cy="10" r="8"/>
+      <svg class="hd-ring" viewBox="0 0 11 11" xmlns="http://www.w3.org/2000/svg">
+        <circle class="hd-track" cx="5.5" cy="5.5" r="4.5"/>
+        <circle class="hd-fill"  cx="5.5" cy="5.5" r="4.5"/>
       </svg>`;
     btn.addEventListener('click',()=>{ if(i===cur){restartRing(btn);} goTo(i); resetTimer(); });
     addHover(btn);
