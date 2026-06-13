@@ -587,24 +587,24 @@ object-fit: cover;
 .pstrip-grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  padding: 20px 20px 40px 20px;
+  justify-content: space-between;
+  /* gap: 20px; */
+  padding: 20px 59px 40px 59px;
 }
 .pstrip-card {
   display: block; background: var(--off);
   position: relative;
   width: 428px;
-  height: 442px;
+  /* height: 442px; */
 }
 .pstrip-card:not(:nth-child(4n))::after {
   content: "";
   position: absolute;
   top: 0; bottom: 0;
   width: 1px;
-  background: #3a3a3a;
+  background: #3a3a3a8a;
   z-index: 2;
-  left: calc(100% + 10px);
+  left: calc(103% + 10px);
 }
 .pstrip-card-img { overflow: hidden; }
 .pstrip-card-img img {
@@ -614,7 +614,7 @@ object-fit: cover;
   display: block;
 }
 .pstrip-card:hover .pstrip-card-img img { transform: scale(1.04); filter: brightness(0.90); }
-.pstrip-info { padding: 25px 14px 73px; }
+.pstrip-info { padding: 25px 14px 17px; }
 .pstrip-cat  { font-family: 'AkzidGroSt', 'Helvetica Neue', Arial, sans-serif; font-size: 14px; font-weight: 700; font-stretch: normal; letter-spacing: 0; color: var(--white); margin-bottom: 16px; }
 .pstrip-name { font-family: 'AkzidGroSt', 'Helvetica Neue', Arial, sans-serif; font-size: 18px; font-weight: 300; font-stretch: normal; letter-spacing: 0; line-height: 40px; margin-bottom: 12px; color: var(--white); }
 .pstrip-loc  { font-family: 'AkzidGroSt', 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 300; font-stretch: normal; letter-spacing: 0; color: #585653; }
@@ -883,7 +883,15 @@ footer {
 .pp-filter-bar {
   display: flex; align-items: center; gap: 14px;
   background: var(--black);
-  padding: 20px;
+  padding: 50px 59px;
+  /* margin: 30px 0; */
+  margin-bottom: 20px;
+  position: relative;
+}
+.pp-filter-bar::after {
+  position: absolute; left: 59px; right: 59px; bottom: 0;
+  padding: 0 59px;
+  content: ""; flex: 1; height: 1px; background: #3a3a3a8a;
 }
 .pp-search-wrap {
   flex: 1; display: flex; align-items: center; gap: 12px;
@@ -920,7 +928,7 @@ footer {
 }
 
 /* Grid — reuses homepage .pstrip-card styles */
-.pp-strip-grid { padding: 20px; }
+.pp-strip-grid { padding: 20px 59px; }
 
 /* Contact section — white background */
 .pp-contact {
