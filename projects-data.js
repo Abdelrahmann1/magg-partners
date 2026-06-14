@@ -20,7 +20,7 @@ const PROJECTS = [
     gallery: [
       'assets/assets/02_Projects/2115_Dens%20Dental%20Center,%20Alexandria,%20EGY/2115_01.jpg',
       'assets/assets/02_Projects/2115_Dens%20Dental%20Center,%20Alexandria,%20EGY/2115_02.jpg',
-      'assets/assets/02_Projects/2115_Dens%20Dental%20Center,%20Alexandria,%20EGY/2115_03.jpg',
+      'assets/assets/02_Projects/2115_Dens%20Dental%20Center,%20Alexandria,%20EGY/2115_02.jpg',
       'assets/assets/02_Projects/2115_Dens%20Dental%20Center,%20Alexandria,%20EGY/2115_04.jpg',
       'assets/assets/02_Projects/2115_Dens%20Dental%20Center,%20Alexandria,%20EGY/2115_06.jpg',
       'assets/assets/02_Projects/2115_Dens%20Dental%20Center,%20Alexandria,%20EGY/2115_07.jpg',

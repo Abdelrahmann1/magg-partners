@@ -5,21 +5,18 @@
   font-weight: 700;
   font-display: swap;
 }
-
 @font-face {
   font-family: 'AkzidGroSt';
   src: url('fonts/AkzidGroStdReg.otf') format('opentype');
   font-weight: 400;
   font-display: swap;
 }
-
 @font-face {
   font-family: 'AkzidGroSt';
   src: url('fonts/AkzidGroStdLig.otf') format('opentype');
   font-weight: 300;
   font-display: swap;
 }
-
 @font-face {
   font-family: 'AkzidGroSt';
   src: url('fonts/AkzidGroStdLigIta.otf') format('opentype');
@@ -30,21 +27,20 @@
 
 /* ── Variables ────────────────────────────────────────── */
 :root {
-  --black: #000000;
-  --off: #000000;
-  --dark: #1C1C1C;
-  --white: #F2EDE8;
-  --muted: rgba(242, 237, 232, 0.842);
-  --faint: rgba(242, 237, 232, 0.10);
-  --border: rgba(242, 237, 232, 0.10);
-  --font: 'AkzidGroSt', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --ease: cubic-bezier(0.16, 1, 0.3, 1);
-  --soft: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --fast: 0.25s ease;
-  --mid: 0.5s var(--soft);
-  --slow: 0.8s var(--soft);
+  --black:  #000000;
+  --off:    #000000;
+  --dark:   #1C1C1C;
+  --white:  #F2EDE8;
+  --muted:  rgba(242, 237, 232, 0.842);
+  --faint:  rgba(242,237,232,0.10);
+  --border: rgba(242,237,232,0.10);
+  --font:   'AkzidGroSt', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --ease:   cubic-bezier(0.16,1,0.3,1);
+  --soft:   cubic-bezier(0.25,0.46,0.45,0.94);
+  --fast:   0.25s ease;
+  --mid:    0.5s var(--soft);
+  --slow:   0.8s var(--soft);
 }
-
 /* ── Reset ────────────────────────────────────────────── */
 *,
 *::before,
@@ -65,6 +61,7 @@ body {
   overflow-x: hidden;
   cursor: none;
   -webkit-font-smoothing: antialiased;
+  font-family: var(--font) !important;
 }
 
 img {
@@ -472,7 +469,7 @@ body.c-click .c-dot {
 }
 
 .hero-title {
-  font-size: clamp(18px, 2.2vw, 28px);
+  font-size: 44px;
   font-weight: 500;
   letter-spacing: -0.01em;
   line-height: 1.25;
@@ -528,21 +525,22 @@ body.c-click .c-dot {
 }
 
 .about-inner {
-  padding-bottom: 157px;
-  padding-top: 73px;
-  padding-left: 376px;
-  padding-right: 365px;
+
   max-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+.withp .about-text {
+  padding-bottom: 157px;
 
+}
 .about-text {
-  width: 100%;
   font-size: 36px;
   max-width: 90%;
-
+  padding-top: 73px;
+  padding-left: 376px;
+  padding-right: 365px;
   font-weight: 300;
   line-height: 1.75;
   color: black;
@@ -552,7 +550,6 @@ body.c-click .c-dot {
 
 .about-img-link {
   display: block;
-  width: 100%;
   text-decoration: none;
   display: flex;
   justify-content: center;
@@ -561,12 +558,11 @@ body.c-click .c-dot {
 .about-img-wrap {
   position: relative;
   overflow: hidden;
-  width: 100%;
 }
 
 .about-img-wrap img {
-  width: 100%;
-  height: 520px;
+  width: 1507px;
+  height: 793px;
   object-fit: cover;
   display: block;
   transition: transform 0.8s var(--soft);
@@ -587,7 +583,7 @@ body.c-click .c-dot {
   position: absolute;
   bottom: 24px;
   left: 28px;
-  font-size: 14px;
+  font-size: 40px;
   font-weight: 400;
   letter-spacing: 0.04em;
   color: #fff;
@@ -605,8 +601,8 @@ body.c-click .c-dot {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 28px;
-  padding: 20px 59px;
+  /* gap: 28px; */
+  padding: 0px 59px;
 }
 
 .pstrip-card {
@@ -649,8 +645,8 @@ body.c-click .c-dot {
 }
 
 .pstrip-info {
-  padding: 12px 14px 16px;
-  border-top: 1px solid var(--border);
+  /* padding: 12px 14px 16px; */
+  /* border-top: 1px solid var(--border); */
 }
 
 
@@ -659,24 +655,23 @@ body.c-click .c-dot {
   font-size: 18px;
   font-weight: 500; /* سمك الخط مطابق للصورة (نصف سميك) */
   color: #000;
-  margin-top: 16px;
+  margin-top: 16px;    width: fit-content;
   margin-bottom: 6px;
-  /* font-family: sans-serif; /* أو استخدم متغير الخط الخاص بك */
 }
 
 /* اسم الدولة */
 .pstrip-name {
   font-size: 18px;
   font-weight: 400; /* سمك الخط عادي */
-  color: #000;
+  color: #000;    margin-top: 8px;
   margin-bottom: 14px;
-  line-height: 1.4;
+  line-height: 1.4;    width: fit-content;
   /* font-family: sans-serif; */
 }
 
 /* رقم الهاتف */
 .pstrip-loc {
-  font-size: 15px;
+  font-size: 15px;    width: fit-content;
   font-weight: 400;
   color: #7f7f7f; /* لون رمادي فاتح كما في الصورة */
   /* font-family: akzidenz,light; */
@@ -699,75 +694,53 @@ body.c-click .c-dot {
     border-bottom: none; /* إزالة الخط من آخر عنصر */
   }
 }
-
-/* ── Newsletter ───────────────────────────────────────── */
 #newsletter {
-  position: relative;
-  z-index: 1;
+  position: relative; z-index: 1;
   background: var(--black);
-  border-top: 1px solid var(--border);
-  padding: 48px 64px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: center;
+  border-top: 1px solid #3a3a3a;
+  padding: 70px 59px 58px;
+  display: grid; grid-template-columns: 499px 1fr; gap: 8%; align-items: start;
 }
-
 .nl-head {
-  font-size: 40px;
-  font-weight: 300;
-  line-height: 1.55;
-  max-width: 75%;
-  color: var(--white);
+  font-family: var(--font);
+  font-size: 40px; font-weight: 300;
+  font-stretch: normal; letter-spacing: 0;
+  line-height: 1.2; color: var(--white);
+  max-width: 499px;
 }
-
-.nl-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.nl-input,
-.nl-input:focus {
-  background: var(--dark);
-  border: none;
-  padding: 14px 15px;
-  font-size: 14px;
-  font-weight: 300;
-  border-radius: 30px;
+.nl-form { display: flex; flex-direction: column; gap: 0; padding-top: 0; align-items: center;}
+.nl-input {
+  background: #1a1a1a;
+  border: 1px solid #3a3a3a;
+  border-radius: 38px;
+  padding: 16px 24px 16px 26px;
+  font-size: 20px; font-weight: 700; font-stretch: normal;
+  letter-spacing: 0;
   color: var(--white);
+  max-width: 903px;
+  width:100%;
+  font-family: var(--font);
   transition: border-color var(--fast);
 }
-
 .nl-input::placeholder {
-  color: white;
-  font-weight: 600;
-}
-
-.nl-input:focus {
-  border-color: rgba(242, 237, 232, 0.5);
-}
-
-.nl-btn {
-  margin-top: 24px;
-  align-self: center;
-  background: var(--black);
   color: var(--white);
-  font-size: 15px;
-  font-weight: 300;
+  font-weight: 700;
+  font-size: 20px;
+  font-stretch: normal;
   letter-spacing: 0;
-  padding: 14px 36px;
-  cursor: pointer;
-  transition: background var(--fast), color var(--fast), letter-spacing var(--fast);
-  border: 1px solid transparent;
+  font-family: var(--font);
 }
-
-.nl-btn:hover {
-  background: transparent;
-  color: var(--white);
-  letter-spacing: 0.35em;
-  border-color: var(--border);
-  padding: 13px 35px;
+.nl-input:focus { border-color: rgba(242,237,232,0.5); outline: none; }
+.nl-btn {
+  margin-top: 40px;
+  align-self: center;
+  background: transparent; color: var(--white);
+  font-size: 20px; font-weight: 700; letter-spacing: 0; font-stretch: normal;
+  padding: 0; cursor: pointer; border: none;
+  font-family: var(--font);
+  transition: opacity var(--fast);
 }
+.nl-btn:hover { opacity: 0.55; }
 
 /* ── Contact Section ──────────────────────────────────── */
 #contact {
@@ -843,7 +816,7 @@ body.c-click .c-dot {
   font-size: 20px;
 }
 
-.cf-select.filled {
+.cf-select.filled  {
   color: #1a1a1a;
 }
 
@@ -851,7 +824,7 @@ body.c-click .c-dot {
   color: #1a1a1a;
 }
 
-.cf-row-select {
+.cf-row-select ,.ccf-row-select {
   display: flex;
   align-items: center;
 }
@@ -860,9 +833,7 @@ body.c-click .c-dot {
   position: absolute;
   display: flex;
   right: 10px;
-  /* top: 50%; */
-      transform: translate(0,-50%);
-
+  transform: translate(0, -50%);
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
@@ -871,6 +842,9 @@ body.c-click .c-dot {
   color: #aaa;
   pointer-events: none;
   margin-right: 4px;
+  
+  /* جعل حركة لف السهم ناعمة وسلسة */
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); 
 }
 
 .cf-arrow svg {
@@ -878,6 +852,10 @@ body.c-click .c-dot {
   height: 28px;
 }
 
+/* عندما يتم الضغط على الـ select، السهم المالي له مباشرة يلف 180 درجة */
+.cf-select:focus ~ .cf-arrow {
+  transform: translate(0, -50%) rotate(180deg);
+}
 .cf-row-textarea .cf-textarea {
   min-height: 264px;
   padding-top: 18px;
@@ -911,7 +889,7 @@ body.c-click .c-dot {
   border-radius: 30px;
   border: none;
   transition: background var(--fast), color var(--fast), border-color var(--fast);
-   color: #6d6f71;
+   color: #a4a4a4;
   font-size: 20px;
 }
 
@@ -1114,4 +1092,310 @@ footer {
     text-align: left;
     padding: 14px 0;
   }
+}
+.carrer-job-cont{
+  position: relative;
+background-color: #000 !important;
+     padding: 20px 59px;
+
+}
+.carrer-desc-parent{
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 40px;
+  padding-top: 40px;
+}
+.carrer-desc{
+color: white;
+font-size: 20px;
+    width: 70%;
+    font-weight: 100;
+  font-family: var(--font);
+
+}
+.pp-select-arrow {
+    width: 16px;
+    height: 16px;
+    stroke: rgba(255,255,255,0.7); /* لون السهم */
+    fill: none;
+    stroke-width: 2;
+    transition: transform var(--fast); /* لإضافة حركة الانعكاس */
+  }
+
+  /* تأثير انعكاس السهم عند التركيز على القائمة */
+  .pp-select:focus + .pp-select-arrow-wrap .pp-select-arrow {
+    transform: rotate(180deg); /* تدوير السهم 180 درجة */
+  }
+
+  /* تأثير الدائرة عند التركيز */
+  .pp-select:focus + .pp-select-arrow-wrap {
+    background: rgba(255,255,255,0.15); /* تفتيح الدائرة قليلاً */
+  }
+
+  /* قائمة الوظائف */
+  .jobs-desc {
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+.ccf-arrow {
+  position: absolute;
+  display: flex;
+  right: 10px;
+  /* transform: translate(0, -50%); */
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  color: #aaa;
+  pointer-events: none;
+  margin-right: 4px;
+  
+  /* جعل حركة لف السهم ناعمة وسلسة */
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); 
+}
+
+.ccf-arrow svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* عندما يتم الضغط على الـ select، السهم المالي له مباشرة يلف 180 درجة */
+.ccf-select:focus ~ .ccf-arrow {
+  transform: translate(0, -50%) rotate(180deg);
+}
+/* العناوين والخطوط الرئيسية */
+.fitler-title {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-size: 30px;
+  font-family: var(--font);
+  font-weight: 700;
+}
+
+/* شريط الفلتر كاملاً */
+.pp-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--black);
+  padding: 20px 0 30px 0; /* تم تصفير البادنج الجانبي ليتطابق الهيكل بالكامل عمودياً */
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+
+/* حقل البحث */
+.pp-search-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #1a1a1a;
+  border: 1px solid #3a3a3a;
+  border-radius: 38px;
+  padding: 14px 24px;
+}
+
+.pp-search {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: var(--font);
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--white);
+}
+.pp-search::placeholder { 
+  color: rgba(255, 255, 255, 0.7); 
+}
+
+/* غلاف الـ Select */
+.pp-select-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* عنصر الـ Select نفسه */
+.pp-select {
+  background: #1a1a1a;
+  border: 1px solid #3a3a3a;
+  border-radius: 38px;
+  padding: 14px 55px 14px 24px; /* مساحة يمين كافية لحماية الدائرة والسهم */
+  font-family: var(--font);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--white);
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  min-width: 250px;
+  outline: none;
+  transition: border-color var(--fast);
+}
+.pp-select option { 
+  background: var(--black); 
+  color: var(--white);
+}
+.pp-select:focus {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* الدائرة حول السهم */
+.pp-select-arrow-bg {
+  position: absolute;
+  right: 14px;
+  pointer-events: none;
+  width: 28px;
+  height: 28px;
+  /* background: rgba(255, 255, 255, 0.1); خلفية الدائرة الهادئة */
+  border: 1px solid #3a3a3a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--fast);
+}
+
+/* أيقونة السهم داخل الدائرة */
+.pp-select-arrow {
+  width: 14px;
+  height: 14px;
+  stroke: rgba(242, 237, 232, 0.7);
+  fill: none;
+  stroke-width: 2;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* تأثير قلب السهم وتفتيح الدائرة عند الفتح (:focus) */
+.pp-select:focus + .pp-select-arrow-bg {
+  /* background: rgba(255, 255, 255, 0.2); */
+}
+.pp-select:focus + .pp-select-arrow-bg .pp-select-arrow {
+  transform: rotate(180deg);
+}
+
+/* حاوية قائمة الوظائف */
+.jobs-desc {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 10px 0;
+}
+
+/* عناصر الوظيفة المفردة */
+.job {
+  display: flex;
+  align-items: center;
+  gap: 14px; /* متطابق تماماً مع الفلتر */
+  padding: 24px 0;
+  width: 100%;
+  border-bottom: 1px solid rgba(58, 58, 58, 0.3);
+}
+
+/* محاذاة عناصر الوظيفة لتطابق الفلتر */
+.job-title {
+  flex: 1; /* يأخذ نفس توزيع عرض البحث */
+  margin: 0;
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--white); /* أو var(--black) حسب ثيم الصفحة لديك */
+}
+
+.job-type, .job-location {
+  min-width: 250px; /* نفس عرض الـ select بالظبط */
+  margin: 0;
+  padding-left: 24px; /* تبدأ محاذاة النص مع الكلمة الفوقية */
+  font-family: var(--font);
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.6);
+  box-sizing: border-box;
+}
+
+/* قسم حديثي التخرج */
+.early-carrer {
+  margin: 60px 0;
+  padding: 40px 0;
+  border-top: 1px solid var(--border);
+}
+
+.title-ec {
+  font-family: var(--font);
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.5;
+  width: 70%;
+}
+
+/* زر التسجيل */
+.Registerbtncarrer {
+  margin-top: 30px;
+  background: #1a1a1a;
+  border: 1px solid #3a3a3a;
+  border-radius: 38px;
+  padding: 14px 32px;
+  color: white;
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  width: auto; /* يفضل جعله auto أو نسبة متناسقة للحفاظ على شكله الدائري */
+  min-width: 160px;
+  transition: background var(--fast), border-color var(--fast);
+}
+
+.Registerbtncarrer:hover {
+  /* background: #252525; */
+  /* border-color: rgba(255, 255, 255, 0.3); */
+}/* ── Jobs Pagination Arrows ── */
+.jobs-pagination-arrows {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 0 10px;
+  border-top: none;
+}
+
+.jobs-arrow-btn {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50% !important;
+  border: none !important;
+  background: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  transition: background 0.25s, border-color 0.25s, opacity 0.25s;
+}
+
+.jobs-arrow-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.15);
+  /* border-color: rgba(255, 255, 255, 0.6) !important; */
+}
+
+.jobs-arrow-btn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.jobs-arrow-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke: rgb(27, 27, 27);
+  fill: none;
+  flex-shrink: 0;
 }

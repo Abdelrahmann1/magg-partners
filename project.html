@@ -74,7 +74,7 @@
 
   <!-- ── Overview: narrow meta left + brief right ── -->
   <div class="pd-overview" id="pdOverview">
-    <div></div>
+    <!-- <div></div>   -->
     <div class="pd-ov-left">
       <!-- <h1 class="pd-ov-title" id="pdOvTitle"></h1> -->
       <div class="pd-meta-list" id="pdMetaList">
@@ -91,7 +91,7 @@
     <div class="pd-facts-col" id="pdFactsCol"></div>
     <div class="pd-body-col" id="pdBodyCol"></div>
   </div>
-
+  <div class="outer-gallery-container" id="outerGalleryContainer"></div>
   <!-- ── More Projects and News ── -->
   <div class="more-work">
     <div class="section-head">
@@ -230,9 +230,9 @@ const scrollObserver = new IntersectionObserver((entries) => {
   // document.getElementById('pdOvTitle').textContent=p.name;
   document.getElementById('pdBrief').textContent=p.brief||'';
   const metaItems=[
-    {l:'Client:         ',    v:p.client||'—'},
-    {l:'Expertise:      ', v:p.categoryLabel||'—'},
-    {l:'Location:       ',  v:p.location||'—'},
+    {l:'Client         ',    v:p.client||'—'},
+    {l:'Expertise      ', v:p.categoryLabel||'—'},
+    {l:'Location       ',  v:p.location||'—'},
   ];
   document.getElementById('pdMetaList').innerHTML=metaItems.map(m=>
     `<div class="pd-meta-row"><span class="pd-meta-lbl">${m.l}</span><span class="pd-meta-val">${m.v}</span></div>`
@@ -309,9 +309,12 @@ const scrollObserver = new IntersectionObserver((entries) => {
     bodyCol.appendChild(desc);
   }
 /* remaining gallery images */
+// 🆕 استدعاء الديف الخارجي الجديد اللي هتعمله في الـ HTML
+const outerContainer = document.querySelector('.outer-gallery-container');
+
 imgs.slice(2).forEach((src, i) => {
+
   const wrap = document.createElement('div');
-  wrap.className = 'pd-body-img';
 
   const img = document.createElement('img');
   img.src = src;
@@ -321,20 +324,33 @@ imgs.slice(2).forEach((src, i) => {
 
   const cap = document.createElement('div');
   cap.className = 'pd-body-cap';
-  cap.textContent = p.name + ' — ' + p.location + ', ' + p.year;
+  
+  const baseText = p.name + ' — ' + p.location + ', ' + p.year;
+  cap.innerHTML = `${baseText} <span class="custom-copyright">© Magg + Partners</span>`;
+  
   wrap.appendChild(cap);
 
   // ── التعديل السحري هنا ──
-  // لو وصلنا لآخر عنصر في الـ Array
+  // لو وصلنا لآخر عنصر في الـ Array (الصورة الأخيرة)
   if (i === imgs.length - 3) {
-    wrap.classList.add('last-gallery-img-2'); // الكلاس المميز لآخر صورة
     
-    // الخدعة: حط العنصر "بعد" الـ bodyCol مباشرة وليس بداخله
-    bodyCol.after(wrap); 
+    wrap.className = 'last-gallery-img-2'; // الكلاس الخاص بالصورة الأخيرة
+    
+    // 🆕 هنا بندخل الصورة الأخيرة جوه الديف الخارجي تماماً بره الأب القديم
+    if (outerContainer) {
+      outerContainer.appendChild(wrap); 
+    } else {
+      // حل احتياطي لو نسيت تضيف الديف في الـ HTML عشان الكود ميعطلش
+      bodyCol.after(wrap); 
+    }
+    
   } else {
-    // باقي الصور بتدخل جوه الـ bodyCol طبيعي جداً
-    bodyCol.appendChild(wrap);
+    
+    wrap.className = 'pd-body-img'; // باقي الصور بتاخد الكلاس المعتاد
+    bodyCol.appendChild(wrap); // وبتدخل جوه الـ bodyCol الطبيعي
+    
   }
+
 });
 
   /* More Projects */
