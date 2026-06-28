@@ -1067,7 +1067,7 @@ footer {
 .pp-contact {
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 60px; padding: 80px 59px;
-  background: var(--white);
+  background: white;
 }
 .pp-contact-h {
   font-family: var(--font); font-size: 48px; font-weight: 300;
@@ -2020,4 +2020,176 @@ height: 50px;
   .job-nav-arrow.prev { left: 10px; }
   .job-nav-arrow.next { right: 10px; }
   .jobs-pagination-overlay { top: 40%; }
+}
+
+/* ── Contact Section ──────────────────────────────────── */
+#contact {
+  position: relative;
+  z-index: 1;
+  background: white;
+  border-top: 1px solid #d8d3ce;
+}
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+}
+
+.contact-left {
+  padding: 55px 59px;
+  padding-top: 58px;
+
+  /* border-right: 1px solid #d8d3ce; */
+  display: flex;
+  align-items: flex-start;
+}
+
+.contact-title {
+  font-size: 40px;
+  font-weight: 100;
+  letter-spacing: -0.03em;
+  color: #1a1a1a;
+  line-height: 1.1;
+}
+
+.contact-right {
+  padding: 55px 59px;
+  padding-bottom: 105px;
+  background: #fff;
+}
+
+.cf-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.cf-row {
+  /* border-bottom: 1px solid #d8d3ce; */
+  position: relative;
+}
+
+.cf-input,
+.cf-select,
+.cf-textarea {
+  display: block;
+  width: 100%;
+  background: #f4f4f4;
+  border: none;
+  border-radius: 30px;
+  margin-bottom: 37px;
+  font-size: 14px;
+  font-weight: 300;
+  color: #1a1a1a;
+  padding: 18px 0;
+  letter-spacing: 0.01em;
+  resize: none;
+  -webkit-appearance: none;
+  padding: 26px      20px;
+}
+
+.cf-input::placeholder,
+.cf-textarea::placeholder {
+  color: #6d6f71;
+  font-size: 20px;
+}
+
+.cf-select {
+  color: #6d6f71;
+  font-size: 20px;
+}
+
+.cf-select.filled  {
+  color: #1a1a1a;
+}
+
+.cf-select option {
+  color: #1a1a1a;
+}
+
+.cf-row-select ,.ccf-row-select {
+  display: flex;
+  align-items: center;
+}
+
+.cf-arrow {
+  position: absolute;
+  display: flex;
+  right: 10px;
+  transform: translate(0, -50%);
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  color: #aaa;
+  pointer-events: none;
+  margin-right: 4px;
+  
+  /* جعل حركة لف السهم ناعمة وسلسة */
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); 
+}
+
+.cf-arrow svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* عندما يتم الضغط على الـ select، السهم المالي له مباشرة يلف 180 درجة */
+.cf-select:focus ~ .cf-arrow {
+  transform: translate(0, -50%) rotate(180deg);
+}
+.cf-row-textarea .cf-textarea {
+  min-height: 264px;
+  padding-top: 18px;
+  /* width: 904px; */
+}
+
+/* .cf-row::after {
+  content: ''; position: absolute; bottom: -1px; left: 0;
+  width: 0; height: 1px; background: #1a1a1a;
+  transition: width 0.45s var(--ease);
+} */
+/* .cf-row:focus-within::after { width: 100%; } */
+.cf-row-submit {
+  border: none;
+  /* padding-top: 37px; */
+  margin-bottom: 25px;
+}
+
+.cf-row-submit::after {
+  display: none;
+}
+
+.cf-submit {
+  background: #f4f4f4;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 14px 0;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 30px;
+  border: none;
+  transition: background var(--fast), color var(--fast), border-color var(--fast);
+   color: #a4a4a4;
+  font-size: 20px;
+}
+
+.cf-submit:hover {
+  background: #1a1a1a;
+  color: #ffffff;
+  border-color: #1a1a1a;
+}
+
+.cf-success {
+  margin-top: 16px;
+  font-size: 12px;
+  color: #666;
+  letter-spacing: 0.08em;
+  display: none;
+}
+
+.cf-success.show {
+  display: block;
 }

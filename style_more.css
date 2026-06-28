@@ -473,10 +473,10 @@ body.c-click .c-dot {
 }
 .about-text {
   font-size: 36px;
-  max-width: 90%;
+  max-width: 1168px;
   padding-top: 73px;
-  padding-left: 376px;
-  padding-right: 365px;
+  /* padding-left: 376px; */
+  /* padding-right: 365px; */
   font-weight: 300;
   /* line-height: 1.75; */
   color: black;
@@ -887,7 +887,7 @@ body.c-click .c-dot {
 #contact {
   position: relative;
   z-index: 1;
-  background: #fff;
+  background: white;
   border-top: 1px solid #d8d3ce;
 }
 

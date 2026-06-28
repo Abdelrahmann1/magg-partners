@@ -103,48 +103,60 @@
   <!-- ── Projects Grid ── -->
   <div class="pstrip-grid pp-strip-grid" id="ppGrid"></div>
 
-  <!-- ── Contact Us ── -->
-  <section class="pp-contact">
-    <div class="pp-contact-left">
-      <h2 class="pp-contact-h">Contact Us</h2>
-    </div>
-    <div class="pp-contact-right">
-    <form class="pp-form" onsubmit="return false;">
-  <input class="pp-input" type="text" placeholder="Name">
-  <input class="pp-input" type="email" placeholder="Email">
-
-  <div class="pp-select-wrap2">
-    <select class="pp-input pp-select2">
-      <option value="" disabled selected>Country / Region</option>
-      <option>Egypt</option>
-      <option>Saudi Arabia</option>
-      <option>UAE</option>
-      <option>United Kingdom</option>
-    </select>
-    <div class="pp-select-arrow2">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <polyline points="6 9 12 15 18 9"/>
-      </svg>
-    </div>
-  </div>
-
-  <div class="pp-select-wrap2">
-    <select class="pp-input pp-select2">
-      <option value="" disabled selected>Interest / Enquiry</option>
-      <option>Architecture</option>
-      <option>Interiors</option>
-      <option>Landscape</option>
-    </select>
-    <div class="pp-select-arrow2">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <polyline points="6 9 12 15 18 9"/>
-      </svg>
-    </div>
-  </div>
-
-  <textarea class="pp-input pp-textarea" placeholder="Enquiry details"></textarea>
-  <button type="submit" class="pp-submit">Submit</button>
-</form>
+   <!-- ── Contact ── -->
+  <section id="contact">
+    <div class="contact-layout">
+      <div class="contact-left">
+        <h2 class="contact-title">Contact Us</h2>
+      </div>
+      <div class="contact-right">
+        <div class="cf-form" id="cfForm">
+          <div class="cf-row">
+            <input class="cf-input" id="cfName" type="text" placeholder="Name">
+          </div>
+          <div class="cf-row">
+            <input class="cf-input" id="cfEmail" type="email" placeholder="Email">
+          </div>
+          <div class="cf-row cf-row-select">
+            <select class="cf-select" id="cfCountry">
+              <option value="" disabled selected>Country / Region</option>
+              <option>United Kingdom</option>
+              <option>Egypt</option>
+              <option>Saudi Arabia</option>
+              <option>United Arab Emirates</option>
+              <option>Other</option>
+            </select>
+            <span class="cf-arrow" id="cf-arrow1">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/>
+                <polyline points="8,10 12,14 16,10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="cf-row cf-row-select">
+            <select class="cf-select" id="cfInterest">
+              <option value="" disabled selected>Interest / Enquiry</option>
+              <option>Architecture</option>
+              <option>Interior Design</option>
+              <option>Urban Planning</option>
+              <option>General Enquiry</option>
+            </select>
+            <span class="cf-arrow">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/>
+                <polyline points="8,10 12,14 16,10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="cf-row cf-row-textarea">
+            <textarea class="cf-textarea" id="cfDetails" placeholder="Enquiry details"></textarea>
+          </div>
+          <div class="cf-row cf-row-submit">
+            <button class="cf-submit" id="cfSubmit" type="button">Submit</button>
+          </div>
+          <p class="cf-success" id="cfSuccess">Thank you — we'll be in touch shortly.</p>
+        </div>
+      </div>
     </div>
   </section>
 
