@@ -1,4 +1,4 @@
-const PROJECTS = [
+const BASE_PROJECTS = [
 
   /* ── REAL PROJECTS ────────────────────────────────────── */
 
@@ -1320,3 +1320,62 @@ const PROJECTS = [
     },
   }
 ];
+
+/* ── Dynamic Projects Store ──────────────────────────────
+   Merges BASE_PROJECTS with dashboard-added/edited/deleted
+   projects kept in localStorage, so every page that reads
+   the global PROJECTS array stays in sync automatically. */
+const MP_CUSTOM_KEY  = 'mp_custom_projects';
+const MP_DELETED_KEY = 'mp_deleted_ids';
+
+function mpLoadCustomProjects(){
+  try { return JSON.parse(localStorage.getItem(MP_CUSTOM_KEY)) || []; }
+  catch(e){ return []; }
+}
+function mpLoadDeletedIds(){
+  try { return JSON.parse(localStorage.getItem(MP_DELETED_KEY)) || []; }
+  catch(e){ return []; }
+}
+function mpSaveCustomProjects(list){ localStorage.setItem(MP_CUSTOM_KEY, JSON.stringify(list)); }
+function mpSaveDeletedIds(list){ localStorage.setItem(MP_DELETED_KEY, JSON.stringify(list)); }
+
+function computeProjects(){
+  const deleted   = mpLoadDeletedIds();
+  const custom    = mpLoadCustomProjects();
+  const customIds = new Set(custom.map(p => p.id));
+  const base  = BASE_PROJECTS.filter(p => !deleted.includes(p.id) && !customIds.has(p.id));
+  const extra = custom.filter(p => !deleted.includes(p.id));
+  return [...base, ...extra];
+}
+
+function isCustomProject(id){
+  return mpLoadCustomProjects().some(p => p.id === id);
+}
+
+function upsertProject(project){
+  const custom = mpLoadCustomProjects();
+  const idx = custom.findIndex(p => p.id === project.id);
+  if (idx >= 0) custom[idx] = project; else custom.push(project);
+  mpSaveCustomProjects(custom);
+  mpSaveDeletedIds(mpLoadDeletedIds().filter(id => id !== project.id));
+  PROJECTS = computeProjects();
+  return PROJECTS;
+}
+
+function deleteProject(id){
+  mpSaveCustomProjects(mpLoadCustomProjects().filter(p => p.id !== id));
+  const deleted = mpLoadDeletedIds();
+  if (!deleted.includes(id)) deleted.push(id);
+  mpSaveDeletedIds(deleted);
+  PROJECTS = computeProjects();
+  return PROJECTS;
+}
+
+function restoreDefaultProjects(){
+  localStorage.removeItem(MP_CUSTOM_KEY);
+  localStorage.removeItem(MP_DELETED_KEY);
+  PROJECTS = computeProjects();
+  return PROJECTS;
+}
+
+let PROJECTS = computeProjects();

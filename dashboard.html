@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Magg + Partners</title>
+<link rel="icon" type="image/png" href="assets/assets/Logo/favicon.png">
+<style>
+@font-face { font-family:'AkzidGroSt'; src:url('fonts/AkzidGroStdBol.otf') format('opentype'); font-weight:700; font-display:swap; }
+@font-face { font-family:'AkzidGroSt'; src:url('fonts/AkzidGroStdReg.otf') format('opentype'); font-weight:400; font-display:swap; }
+@font-face { font-family:'AkzidGroSt'; src:url('fonts/AkzidGroStdLig.otf') format('opentype'); font-weight:300; font-display:swap; }
+
+:root{
+  --ink:#141414; --bg:#f4f2ee; --card:#ffffff; --border:#e2ddd3;
+  --muted:#7a746a; --danger:#b3392c; --radius:14px;
+  --font:'AkzidGroSt','Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:16px;}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;}
+img{display:block;max-width:100%;}
+button{font-family:var(--font);cursor:pointer;}
+input,textarea,select{font-family:var(--font);}
+a{color:inherit;text-decoration:none;}
+
+/* Auth gate */
+#authGate{position:fixed;inset:0;background:var(--ink);display:flex;align-items:center;justify-content:center;z-index:1000;}
+.auth-box{background:#fff;border-radius:var(--radius);padding:40px;width:320px;max-width:90vw;text-align:center;}
+.auth-box h1{font-size:20px;font-weight:700;margin-bottom:6px;}
+.auth-box p{font-size:13px;color:var(--muted);margin-bottom:20px;}
+.auth-box input{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:8px;font-size:15px;margin-bottom:12px;outline:none;}
+.auth-box input:focus{border-color:var(--ink);}
+.auth-box button{width:100%;padding:12px;border:none;border-radius:8px;background:var(--ink);color:#fff;font-size:14px;font-weight:600;}
+.auth-err{color:var(--danger);font-size:12px;margin-top:8px;min-height:16px;}
+
+/* App shell */
+#app{display:none;min-height:100vh;}
+#app.show{display:block;}
+header.dash-header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--border);padding:18px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.dash-title{font-size:18px;font-weight:700;letter-spacing:-.01em;display:flex;align-items:center;gap:10px;}
+.dash-title img{height:24px;width:auto;filter:invert(1);}
+.dash-actions{display:flex;gap:10px;flex-wrap:wrap;}
+.btn{border:1px solid var(--border);background:#fff;color:var(--ink);border-radius:999px;padding:10px 18px;font-size:13px;font-weight:600;transition:.2s;}
+.btn:hover{border-color:var(--ink);}
+.btn-primary{background:var(--ink);color:#fff;border-color:var(--ink);}
+.btn-primary:hover{opacity:.85;}
+.btn-danger{color:var(--danger);border-color:#f0d9d5;}
+.btn-danger:hover{background:var(--danger);color:#fff;}
+
+main{max-width:1400px;margin:0 auto;padding:28px 32px 80px;}
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:22px;}
+.toolbar input[type=text]{flex:1;min-width:220px;padding:11px 16px;border:1px solid var(--border);border-radius:999px;font-size:14px;outline:none;background:#fff;}
+.toolbar select{padding:11px 16px;border:1px solid var(--border);border-radius:999px;font-size:14px;background:#fff;outline:none;}
+.toolbar .count{font-size:13px;color:var(--muted);margin-left:auto;white-space:nowrap;}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px;}
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;}
+.pcard-img{width:100%;height:160px;background:#eee;overflow:hidden;}
+.pcard-img img{width:100%;height:100%;object-fit:cover;}
+.pcard-body{padding:16px;display:flex;flex-direction:column;gap:6px;flex:1;}
+.pcard-cat{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;}
+.pcard-name{font-size:16px;font-weight:700;line-height:1.25;}
+.pcard-loc{font-size:13px;color:var(--muted);}
+.pcard-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;}
+.badge{font-size:10px;padding:3px 9px;border-radius:999px;background:#f0ede6;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em;}
+.badge.local{background:#e7f3ea;color:#2f7a45;}
+.pcard-actions{display:flex;gap:8px;margin-top:auto;padding-top:12px;}
+.pcard-actions button{flex:1;padding:9px 0;font-size:12px;border-radius:8px;border:1px solid var(--border);background:#fff;}
+.pcard-actions .del{color:var(--danger);border-color:#f0d9d5;}
+.empty{text-align:center;padding:80px 20px;color:var(--muted);}
+
+/* Modal */
+#projectModal{position:fixed;inset:0;background:rgba(20,20,20,.55);display:none;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto;z-index:200;}
+#projectModal.show{display:flex;}
+.modal-box{background:#fff;border-radius:18px;width:100%;max-width:760px;padding:36px;margin-bottom:40px;}
+.modal-box h2{font-size:20px;font-weight:700;margin-bottom:24px;}
+.form-section{margin-bottom:24px;}
+.form-section h3{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:12px;font-weight:700;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.form-row.single{grid-template-columns:1fr;}
+.field label{display:block;font-size:12px;font-weight:600;margin-bottom:6px;color:#3a362f;}
+.field input,.field select,.field textarea{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;outline:none;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--ink);}
+.field textarea{resize:vertical;min-height:70px;}
+.field .hint{font-size:11px;color:var(--muted);margin-top:4px;}
+.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:8px;}
+
+@media(max-width:640px){
+  .form-row{grid-template-columns:1fr;}
+  header.dash-header{padding:16px 18px;}
+  main{padding:20px 18px 60px;}
+}
+</style>
+</head>
+<body>
+
+<div id="authGate">
+  <div class="auth-box">
+    <h1>Dashboard Access</h1>
+    <p>Enter the admin password to manage projects.</p>
+    <input type="password" id="authInput" placeholder="Password" autocomplete="off">
+    <button id="authSubmit" type="button">Enter</button>
+    <div class="auth-err" id="authErr"></div>
+  </div>
+</div>
+
+<div id="app">
+  <header class="dash-header">
+    <div class="dash-title">
+      <img src="assets/assets/Logo/260403_Logo_Magg+Partners_White.png" alt="">
+      Projects Dashboard
+    </div>
+    <div class="dash-actions">
+      <button class="btn btn-primary" id="addBtn" type="button">+ Add Project</button>
+      <button class="btn btn-danger" id="restoreBtn" type="button">Restore Defaults</button>
+      <a class="btn" href="projects.html" target="_blank">View Site ↗</a>
+      <button class="btn" id="logoutBtn" type="button">Logout</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="toolbar">
+      <input type="text" id="searchInput" placeholder="Search by name or location…">
+      <select id="categoryFilter">
+        <option value="">All categories</option>
+        <option value="architecture">Architecture</option>
+        <option value="interiors">Interiors</option>
+        <option value="engineering">Engineering</option>
+        <option value="urban">Urban &amp; Landscape</option>
+        <option value="residential">Residential</option>
+        <option value="workplace">Workplace</option>
+        <option value="realestate">Real Estate</option>
+      </select>
+      <span class="count" id="countLabel"></span>
+    </div>
+    <div class="grid" id="projectGrid"></div>
+  </main>
+</div>
+
+<div id="projectModal">
+  <div class="modal-box">
+    <h2 id="modalTitle">Add Project</h2>
+    <form id="projectForm">
+      <input type="hidden" id="fId">
+
+      <div class="form-section">
+        <h3>Basic Info</h3>
+        <div class="form-row">
+          <div class="field"><label>Project Name *</label><input type="text" id="fName" required></div>
+          <div class="field"><label>Location *</label><input type="text" id="fLocation" placeholder="City, Country" required></div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Category *</label>
+            <select id="fCategory" required>
+              <option value="architecture">Architecture</option>
+              <option value="interiors">Interiors</option>
+              <option value="engineering">Engineering</option>
+              <option value="urban">Urban &amp; Landscape</option>
+              <option value="residential">Residential</option>
+              <option value="workplace">Workplace</option>
+              <option value="realestate">Real Estate</option>
+            </select>
+          </div>
+          <div class="field"><label>Category Label</label><input type="text" id="fCategoryLabel" placeholder="e.g. Architecture"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label>Project Type</label><input type="text" id="fType" placeholder="e.g. Residential Tower"></div>
+          <div class="field"><label>Year</label><input type="text" id="fYear" placeholder="e.g. 2026"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label>Status</label><input type="text" id="fStatus" placeholder="e.g. Completed"></div>
+          <div class="field"><label>Client</label><input type="text" id="fClient" placeholder="e.g. Private Client"></div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>Images</h3>
+        <div class="form-row">
+          <div class="field"><label>Thumbnail Image URL *</label><input type="text" id="fThumb" required></div>
+          <div class="field"><label>Hero Image URL</label><input type="text" id="fHero" placeholder="Defaults to thumbnail"></div>
+        </div>
+        <div class="form-row single">
+          <div class="field">
+            <label>Gallery Image URLs</label>
+            <textarea id="fGallery" placeholder="One image URL per line"></textarea>
+            <div class="hint">First two show as the top gallery pair, the rest appear further down the project page.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>Content</h3>
+        <div class="form-row single">
+          <div class="field"><label>Brief Summary</label><textarea id="fBrief" placeholder="One-sentence overview shown on cards"></textarea></div>
+        </div>
+        <div class="form-row single">
+          <div class="field"><label>Full Description</label><textarea id="fDescription" placeholder="Longer paragraph shown on the project page" style="min-height:120px;"></textarea></div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>Project Facts</h3>
+        <div class="form-row">
+          <div class="field"><label>Completion Year</label><input type="text" id="fCompletionYear"></div>
+          <div class="field"><label>Design Finish Year</label><input type="text" id="fDesignFinishYear"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label>Site Area</label><input type="text" id="fSiteArea" placeholder="e.g. 1,200 m²"></div>
+          <div class="field"><label>Gross Area</label><input type="text" id="fGrossArea" placeholder="e.g. 620 m²"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label>Stories / Floors</label><input type="text" id="fStories" placeholder="e.g. 3"></div>
+          <div class="field"><label>Sustainability</label><input type="text" id="fSustainability" placeholder="e.g. LEED Gold"></div>
+        </div>
+        <div class="form-row single">
+          <div class="field"><label>Collaborators</label><input type="text" id="fCollaborators" placeholder="Comma-separated, e.g. Client, Structural Engineer, Contractor"></div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn" id="cancelBtn">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Project</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="projects-data.js"></script>
+<script>
+const ADMIN_PASSWORD = 'MaggAdmin2026';
+
+const authGate  = document.getElementById('authGate');
+const authInput = document.getElementById('authInput');
+const authErr   = document.getElementById('authErr');
+const app       = document.getElementById('app');
+
+function unlock(){
+  authGate.style.display = 'none';
+  app.classList.add('show');
+  renderGrid();
+}
+
+function tryAuth(){
+  if (authInput.value === ADMIN_PASSWORD){
+    sessionStorage.setItem('mp_admin_auth', '1');
+    unlock();
+  } else {
+    authErr.textContent = 'Incorrect password.';
+    authInput.value = '';
+    authInput.focus();
+  }
+}
+document.getElementById('authSubmit').addEventListener('click', tryAuth);
+authInput.addEventListener('keydown', e => { if (e.key === 'Enter') tryAuth(); });
+
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  sessionStorage.removeItem('mp_admin_auth');
+  location.reload();
+});
+
+const CATEGORY_LABELS = {
+  architecture: 'Architecture',
+  interiors: 'Interiors',
+  engineering: 'Engineering',
+  urban: 'Urban Design',
+  residential: 'Residential',
+  workplace: 'Workplace',
+  realestate: 'Real Estate',
+};
+document.getElementById('fCategory').addEventListener('change', e => {
+  const labelField = document.getElementById('fCategoryLabel');
+  if (!labelField.dataset.touched) labelField.value = CATEGORY_LABELS[e.target.value] || '';
+});
+document.getElementById('fCategoryLabel').addEventListener('input', e => { e.target.dataset.touched = '1'; });
+
+function escapeHtml(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+const grid           = document.getElementById('projectGrid');
+const searchInput     = document.getElementById('searchInput');
+const categoryFilter  = document.getElementById('categoryFilter');
+const countLabel      = document.getElementById('countLabel');
+
+function renderGrid(){
+  const q   = searchInput.value.trim().toLowerCase();
+  const cat = categoryFilter.value;
+  const list = PROJECTS.filter(p => {
+    const matchQ   = !q || p.name.toLowerCase().includes(q) || p.location.toLowerCase().includes(q);
+    const matchCat = !cat || p.category === cat;
+    return matchQ && matchCat;
+  });
+  countLabel.textContent = `${list.length} of ${PROJECTS.length} projects`;
+  if (!list.length){
+    grid.innerHTML = '<div class="empty">No projects match your filters.</div>';
+    return;
+  }
+  grid.innerHTML = list.map(p => {
+    const local = isCustomProject(p.id);
+    return `
+      <div class="pcard">
+        <div class="pcard-img"><img src="${p.thumb}" alt="${escapeHtml(p.name)}" loading="lazy"></div>
+        <div class="pcard-body">
+          <div class="pcard-cat">${escapeHtml(p.categoryLabel || p.category || '')}</div>
+          <div class="pcard-name">${escapeHtml(p.name)}</div>
+          <div class="pcard-loc">${escapeHtml(p.location)} · ${escapeHtml(p.year || '')}</div>
+          <div class="pcard-badges">
+            <span class="badge">${escapeHtml(p.status || '—')}</span>
+            ${local ? '<span class="badge local">Custom</span>' : ''}
+          </div>
+          <div class="pcard-actions">
+            <button data-edit="${p.id}" type="button">Edit</button>
+            <button data-view="${p.id}" type="button">View</button>
+            <button data-del="${p.id}" class="del" type="button">Delete</button>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+searchInput.addEventListener('input', renderGrid);
+categoryFilter.addEventListener('change', renderGrid);
+
+grid.addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  const editId = btn.getAttribute('data-edit');
+  const viewId = btn.getAttribute('data-view');
+  const delId  = btn.getAttribute('data-del');
+  if (editId) openModal(PROJECTS.find(p => p.id === editId));
+  if (viewId) window.open('project.html?id=' + encodeURIComponent(viewId), '_blank');
+  if (delId){
+    const proj = PROJECTS.find(p => p.id === delId);
+    if (confirm(`Delete "${proj ? proj.name : delId}"? This cannot be undone.`)){
+      deleteProject(delId);
+      renderGrid();
+    }
+  }
+});
+
+const modal      = document.getElementById('projectModal');
+const form       = document.getElementById('projectForm');
+const modalTitle = document.getElementById('modalTitle');
+
+function openModal(project){
+  form.reset();
+  document.getElementById('fCategoryLabel').dataset.touched = '';
+  if (project){
+    modalTitle.textContent = 'Edit Project';
+    document.getElementById('fId').value = project.id;
+    document.getElementById('fName').value = project.name || '';
+    document.getElementById('fLocation').value = project.location || '';
+    document.getElementById('fCategory').value = project.category || 'architecture';
+    document.getElementById('fCategoryLabel').value = project.categoryLabel || '';
+    document.getElementById('fCategoryLabel').dataset.touched = '1';
+    document.getElementById('fType').value = project.type || '';
+    document.getElementById('fYear').value = project.year || '';
+    document.getElementById('fStatus').value = project.status || '';
+    document.getElementById('fClient').value = project.client || '';
+    document.getElementById('fThumb').value = project.thumb || '';
+    document.getElementById('fHero').value = project.hero || '';
+    document.getElementById('fGallery').value = (project.gallery || []).join('\n');
+    document.getElementById('fBrief').value = project.brief || '';
+    document.getElementById('fDescription').value = project.description || '';
+    const f = project.facts || {};
+    document.getElementById('fCompletionYear').value = f.completionYear || '';
+    document.getElementById('fDesignFinishYear').value = f.designFinishYear || '';
+    document.getElementById('fSiteArea').value = (f.size && f.size.siteArea) || '';
+    document.getElementById('fGrossArea').value = (f.size && f.size.grossArea) || '';
+    document.getElementById('fStories').value = (f.size && f.size.stories) || '';
+    document.getElementById('fSustainability').value = f.sustainability || '';
+    document.getElementById('fCollaborators').value = (f.collaborators || []).join(', ');
+  } else {
+    modalTitle.textContent = 'Add Project';
+    document.getElementById('fId').value = '';
+    document.getElementById('fCategory').value = 'architecture';
+    document.getElementById('fCategoryLabel').value = CATEGORY_LABELS.architecture;
+  }
+  modal.classList.add('show');
+}
+function closeModal(){ modal.classList.remove('show'); }
+
+document.getElementById('addBtn').addEventListener('click', () => openModal(null));
+document.getElementById('cancelBtn').addEventListener('click', closeModal);
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('show')) closeModal(); });
+
+function slugify(str){
+  return str.toString().toLowerCase().trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '') || 'project';
+}
+function uniqueId(base, keepId){
+  const existing = new Set(PROJECTS.map(p => p.id).filter(id => id !== keepId));
+  let id = base, n = 2;
+  while (existing.has(id)) id = base + '-' + (n++);
+  return id;
+}
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const editingId = document.getElementById('fId').value;
+  const name  = document.getElementById('fName').value.trim();
+  const thumb = document.getElementById('fThumb').value.trim();
+  if (!name || !thumb) return;
+
+  const id       = editingId || uniqueId(slugify(name), editingId);
+  const hero     = document.getElementById('fHero').value.trim() || thumb;
+  const gallery  = document.getElementById('fGallery').value.split('\n').map(s => s.trim()).filter(Boolean);
+  const status   = document.getElementById('fStatus').value.trim();
+  const siteArea = document.getElementById('fSiteArea').value.trim();
+  const grossArea = document.getElementById('fGrossArea').value.trim();
+  const stories   = document.getElementById('fStories').value.trim();
+  const collaborators = document.getElementById('fCollaborators').value.split(',').map(s => s.trim()).filter(Boolean);
+  const category = document.getElementById('fCategory').value;
+
+  const existingProject = editingId ? PROJECTS.find(p => p.id === editingId) : null;
+  const num = existingProject ? existingProject.num : String(PROJECTS.length + 1);
+
+  const project = {
+    id, num,
+    name,
+    location: document.getElementById('fLocation').value.trim(),
+    year: document.getElementById('fYear').value.trim(),
+    category,
+    categoryLabel: document.getElementById('fCategoryLabel').value.trim() || CATEGORY_LABELS[category] || '',
+    type: document.getElementById('fType').value.trim(),
+    size: grossArea || '—',
+    floors: stories ? (stories + ' ' + (stories === '1' ? 'Floor' : 'Floors')) : '—',
+    status: status || 'Completed',
+    client: document.getElementById('fClient').value.trim(),
+    thumb, hero, gallery,
+    brief: document.getElementById('fBrief').value.trim(),
+    description: document.getElementById('fDescription').value.trim(),
+    facts: {
+      status: status || 'Completed',
+      completionYear: document.getElementById('fCompletionYear').value.trim(),
+      designFinishYear: document.getElementById('fDesignFinishYear').value.trim(),
+      size: { siteArea, grossArea, stories },
+      sustainability: document.getElementById('fSustainability').value.trim(),
+      collaborators,
+    },
+  };
+
+  upsertProject(project);
+  closeModal();
+  renderGrid();
+});
+
+document.getElementById('restoreBtn').addEventListener('click', () => {
+  if (confirm('Remove all custom projects and edits, and restore the original project list? This cannot be undone.')){
+    restoreDefaultProjects();
+    renderGrid();
+  }
+});
+
+if (sessionStorage.getItem('mp_admin_auth') === '1') unlock();
+</script>
+</body>
+</html>
