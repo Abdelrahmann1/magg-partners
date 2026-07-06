@@ -207,8 +207,12 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="supabase-client.js"></script>
   <script src="projects-data.js"></script>
   <script>
+  (async function(){
+  await loadProjects();
     /* ── Cursor ── */
     const dot=document.getElementById('cDot'),ring=document.getElementById('cRing');
     let mx=0,my=0,rx=0,ry=0;
@@ -328,6 +332,7 @@
       window.addEventListener('load',()=>{setTimeout(hideLoader,300);});
       setTimeout(hideLoader,4000);
     })();
+  })();
   </script>
 </body>
 </html>

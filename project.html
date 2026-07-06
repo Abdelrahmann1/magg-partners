@@ -154,8 +154,12 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="supabase-client.js"></script>
   <script src="projects-data.js"></script>
   <script>
+  (async function(){
+  await loadProjects();
 /* scroll-scale observer — defined here, called after images are injected */
 const scrollObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -391,7 +395,8 @@ imgs.slice(2).forEach((src, i) => {
     window.addEventListener('load',()=>{setTimeout(hideLoader,300);});
     setTimeout(hideLoader,4000);
   })();
+  })();
   </script>
-  
+
 </body>
 </html>

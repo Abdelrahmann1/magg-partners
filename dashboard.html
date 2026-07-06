@@ -31,6 +31,7 @@ a{color:inherit;text-decoration:none;}
 .auth-box input{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:8px;font-size:15px;margin-bottom:12px;outline:none;}
 .auth-box input:focus{border-color:var(--ink);}
 .auth-box button{width:100%;padding:12px;border:none;border-radius:8px;background:var(--ink);color:#fff;font-size:14px;font-weight:600;}
+.auth-box button:disabled{opacity:.5;cursor:default;}
 .auth-err{color:var(--danger);font-size:12px;margin-top:8px;min-height:16px;}
 
 /* App shell */
@@ -39,13 +40,12 @@ a{color:inherit;text-decoration:none;}
 header.dash-header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--border);padding:18px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
 .dash-title{font-size:18px;font-weight:700;letter-spacing:-.01em;display:flex;align-items:center;gap:10px;}
 .dash-title img{height:24px;width:auto;filter:invert(1);}
-.dash-actions{display:flex;gap:10px;flex-wrap:wrap;}
+.dash-whoami{font-size:12px;color:var(--muted);font-weight:400;}
+.dash-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
 .btn{border:1px solid var(--border);background:#fff;color:var(--ink);border-radius:999px;padding:10px 18px;font-size:13px;font-weight:600;transition:.2s;}
 .btn:hover{border-color:var(--ink);}
 .btn-primary{background:var(--ink);color:#fff;border-color:var(--ink);}
 .btn-primary:hover{opacity:.85;}
-.btn-danger{color:var(--danger);border-color:#f0d9d5;}
-.btn-danger:hover{background:var(--danger);color:#fff;}
 
 main{max-width:1400px;margin:0 auto;padding:28px 32px 80px;}
 .toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:22px;}
@@ -63,7 +63,6 @@ main{max-width:1400px;margin:0 auto;padding:28px 32px 80px;}
 .pcard-loc{font-size:13px;color:var(--muted);}
 .pcard-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;}
 .badge{font-size:10px;padding:3px 9px;border-radius:999px;background:#f0ede6;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em;}
-.badge.local{background:#e7f3ea;color:#2f7a45;}
 .pcard-actions{display:flex;gap:8px;margin-top:auto;padding-top:12px;}
 .pcard-actions button{flex:1;padding:9px 0;font-size:12px;border-radius:8px;border:1px solid var(--border);background:#fff;}
 .pcard-actions .del{color:var(--danger);border-color:#f0d9d5;}
@@ -97,9 +96,10 @@ main{max-width:1400px;margin:0 auto;padding:28px 32px 80px;}
 <div id="authGate">
   <div class="auth-box">
     <h1>Dashboard Access</h1>
-    <p>Enter the admin password to manage projects.</p>
-    <input type="password" id="authInput" placeholder="Password" autocomplete="off">
-    <button id="authSubmit" type="button">Enter</button>
+    <p>Sign in with your admin account to manage projects.</p>
+    <input type="email" id="authEmail" placeholder="Email" autocomplete="username">
+    <input type="password" id="authPassword" placeholder="Password" autocomplete="current-password">
+    <button id="authSubmit" type="button">Sign In</button>
     <div class="auth-err" id="authErr"></div>
   </div>
 </div>
@@ -109,10 +109,10 @@ main{max-width:1400px;margin:0 auto;padding:28px 32px 80px;}
     <div class="dash-title">
       <img src="assets/assets/Logo/260403_Logo_Magg+Partners_White.png" alt="">
       Projects Dashboard
+      <span class="dash-whoami" id="whoami"></span>
     </div>
     <div class="dash-actions">
       <button class="btn btn-primary" id="addBtn" type="button">+ Add Project</button>
-      <button class="btn btn-danger" id="restoreBtn" type="button">Restore Defaults</button>
       <a class="btn" href="projects.html" target="_blank">View Site ↗</a>
       <button class="btn" id="logoutBtn" type="button">Logout</button>
     </div>
@@ -220,43 +220,58 @@ main{max-width:1400px;margin:0 auto;padding:28px 32px 80px;}
 
       <div class="modal-actions">
         <button type="button" class="btn" id="cancelBtn">Cancel</button>
-        <button type="submit" class="btn btn-primary">Save Project</button>
+        <button type="submit" class="btn btn-primary" id="saveBtn">Save Project</button>
       </div>
     </form>
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="supabase-client.js"></script>
 <script src="projects-data.js"></script>
 <script>
-const ADMIN_PASSWORD = 'MaggAdmin2026';
+const authGate     = document.getElementById('authGate');
+const authEmail    = document.getElementById('authEmail');
+const authPassword = document.getElementById('authPassword');
+const authErr      = document.getElementById('authErr');
+const authSubmit   = document.getElementById('authSubmit');
+const app          = document.getElementById('app');
+const whoami       = document.getElementById('whoami');
 
-const authGate  = document.getElementById('authGate');
-const authInput = document.getElementById('authInput');
-const authErr   = document.getElementById('authErr');
-const app       = document.getElementById('app');
-
-function unlock(){
+async function showApp(session){
   authGate.style.display = 'none';
   app.classList.add('show');
+  whoami.textContent = session && session.user ? session.user.email : '';
+  await loadProjects();
   renderGrid();
 }
-
-function tryAuth(){
-  if (authInput.value === ADMIN_PASSWORD){
-    sessionStorage.setItem('mp_admin_auth', '1');
-    unlock();
-  } else {
-    authErr.textContent = 'Incorrect password.';
-    authInput.value = '';
-    authInput.focus();
-  }
+function showAuthGate(){
+  app.classList.remove('show');
+  authGate.style.display = 'flex';
 }
-document.getElementById('authSubmit').addEventListener('click', tryAuth);
-authInput.addEventListener('keydown', e => { if (e.key === 'Enter') tryAuth(); });
 
-document.getElementById('logoutBtn').addEventListener('click', () => {
-  sessionStorage.removeItem('mp_admin_auth');
-  location.reload();
+async function tryAuth(){
+  authErr.textContent = '';
+  authSubmit.disabled = true;
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email: authEmail.value.trim(),
+    password: authPassword.value,
+  });
+  authSubmit.disabled = false;
+  if (error){
+    authErr.textContent = error.message;
+    authPassword.value = '';
+    return;
+  }
+  await showApp(data.session);
+}
+authSubmit.addEventListener('click', tryAuth);
+authPassword.addEventListener('keydown', e => { if (e.key === 'Enter') tryAuth(); });
+authEmail.addEventListener('keydown', e => { if (e.key === 'Enter') tryAuth(); });
+
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+  await supabaseClient.auth.signOut();
+  showAuthGate();
 });
 
 const CATEGORY_LABELS = {
@@ -296,9 +311,7 @@ function renderGrid(){
     grid.innerHTML = '<div class="empty">No projects match your filters.</div>';
     return;
   }
-  grid.innerHTML = list.map(p => {
-    const local = isCustomProject(p.id);
-    return `
+  grid.innerHTML = list.map(p => `
       <div class="pcard">
         <div class="pcard-img"><img src="${p.thumb}" alt="${escapeHtml(p.name)}" loading="lazy"></div>
         <div class="pcard-body">
@@ -307,7 +320,6 @@ function renderGrid(){
           <div class="pcard-loc">${escapeHtml(p.location)} · ${escapeHtml(p.year || '')}</div>
           <div class="pcard-badges">
             <span class="badge">${escapeHtml(p.status || '—')}</span>
-            ${local ? '<span class="badge local">Custom</span>' : ''}
           </div>
           <div class="pcard-actions">
             <button data-edit="${p.id}" type="button">Edit</button>
@@ -315,14 +327,13 @@ function renderGrid(){
             <button data-del="${p.id}" class="del" type="button">Delete</button>
           </div>
         </div>
-      </div>`;
-  }).join('');
+      </div>`).join('');
 }
 
 searchInput.addEventListener('input', renderGrid);
 categoryFilter.addEventListener('change', renderGrid);
 
-grid.addEventListener('click', e => {
+grid.addEventListener('click', async e => {
   const btn = e.target.closest('button');
   if (!btn) return;
   const editId = btn.getAttribute('data-edit');
@@ -333,7 +344,8 @@ grid.addEventListener('click', e => {
   if (delId){
     const proj = PROJECTS.find(p => p.id === delId);
     if (confirm(`Delete "${proj ? proj.name : delId}"? This cannot be undone.`)){
-      deleteProject(delId);
+      await deleteProjectFromDB(delId);
+      await loadProjects();
       renderGrid();
     }
   }
@@ -342,6 +354,7 @@ grid.addEventListener('click', e => {
 const modal      = document.getElementById('projectModal');
 const form       = document.getElementById('projectForm');
 const modalTitle = document.getElementById('modalTitle');
+const saveBtn    = document.getElementById('saveBtn');
 
 function openModal(project){
   form.reset();
@@ -398,7 +411,7 @@ function uniqueId(base, keepId){
   return id;
 }
 
-form.addEventListener('submit', e => {
+form.addEventListener('submit', async e => {
   e.preventDefault();
   const editingId = document.getElementById('fId').value;
   const name  = document.getElementById('fName').value.trim();
@@ -443,19 +456,28 @@ form.addEventListener('submit', e => {
     },
   };
 
-  upsertProject(project);
-  closeModal();
-  renderGrid();
-});
-
-document.getElementById('restoreBtn').addEventListener('click', () => {
-  if (confirm('Remove all custom projects and edits, and restore the original project list? This cannot be undone.')){
-    restoreDefaultProjects();
+  saveBtn.disabled = true;
+  try {
+    await upsertProjectToDB(project);
+    await loadProjects();
+    closeModal();
     renderGrid();
+  } catch (err){
+    alert('Failed to save project: ' + err.message);
+  } finally {
+    saveBtn.disabled = false;
   }
 });
 
-if (sessionStorage.getItem('mp_admin_auth') === '1') unlock();
+(async function init(){
+  const { data } = await supabaseClient.auth.getSession();
+  if (data.session) await showApp(data.session);
+  else showAuthGate();
+
+  supabaseClient.auth.onAuthStateChange((event, session) => {
+    if (event === 'SIGNED_OUT') showAuthGate();
+  });
+})();
 </script>
 </body>
 </html>
