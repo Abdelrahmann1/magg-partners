@@ -49,6 +49,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+img:focus-visible{
+  outline: none !important;
+}
 
 html {
   font-size: 16px;
@@ -1066,74 +1069,56 @@ footer {
   justify-content: space-between;
   align-items: flex-end;
 }
-
 .f-top {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 36px;
 }
-
-.f-logo {
-  height: auto;
-  width: 183px;
-  display: block;
+.f-brand {
+  font-size: 21px; font-weight: 300;
+  letter-spacing: 0; font-stretch: normal;
+  color: var(--white); line-height: 1;
+  font-family: var(--font);
 }
-
+.f-logo { width: 183px; height: auto; display: block; object-fit: contain; }
 .f-nav-row {
-  display: flex;
-  gap: 24px;
+  display: flex; gap: 17px; flex-wrap: wrap;
 }
-
 .f-nav-row a {
   display: block;
-  font-size: 11px;
-  font-weight: 400;
-  color: var(--muted);
+  font-size: 14px; font-weight: 400;
+  color: var(--white); letter-spacing: 0;
+  font-stretch: normal; font-family: var(--font);
   transition: color var(--fast);
+  text-decoration: none;
+  padding: 0;
 }
+.f-nav-row a:hover { color: var(--muted); }
 
-.f-nav-row a:hover {
-  color: var(--white);
-}
-
+/* ── Footer right column ── */
 .f-bottom {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: flex-end;
-  gap: 20px;
+  display: flex; flex-direction: column;
+  align-items: flex-end; justify-content: flex-end;
+  gap: 29px;
 }
-
 .f-socials {
-  display: flex;
-  gap: 16px;
-  align-items: center;
+  display: flex; gap: 16px; align-items: center;
 }
-
 .f-soc {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(242, 237, 232, 0.45);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--white);
   transition: color var(--fast), transform 0.2s ease;
 }
-
-.f-soc svg {
-  width: 16px;
-  height: 16px;
-  fill: currentColor;
-}
-
-.f-soc:hover {
-  color: var(--white);
-  transform: translateY(-2px);
-}
-
+.f-soc svg { width: 22px; height: 22px; fill: currentColor; }
+.f-soc:hover { color: var(--muted); transform: translateY(-2px); }
 .f-copy {
-  font-size: 10px;
-  font-weight: 300;
-  color: rgba(242, 237, 232, 0.28);
-  letter-spacing: 0.06em;
+  font-size: 14px; font-weight: 400;
+  color: var(--white); letter-spacing: 0;
+  font-family: var(--font); font-stretch: normal;
+}
+
+@media (max-width: 1100px) {
+  .footer        { grid-template-columns: 1fr 1fr; }
 }
 
 /* ── Responsive ───────────────────────────────────────── */
@@ -1231,7 +1216,7 @@ footer {
 
   .f-nav-row a {
     flex: none;
-    width: 50%;
+    width: fit-content;
     text-align: left;
     padding: 14px 0;
   }
@@ -1541,4 +1526,129 @@ font-size: 20px;
   stroke: rgb(27, 27, 27);
   fill: none;
   flex-shrink: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   RESPONSIVE OVERHAUL — Tablet (≤1024px) & Phone (≤600px) ONLY
+   Pages: About, Studio, Careers. Desktop (≥1025px) left untouched.
+   Appended last to override the older fixed-pixel rules
+   (1507px about image, 582px office cards, fixed-width job rows).
+   ══════════════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+
+  /* ── Nav ── */
+  #nav { padding: 0 28px; }
+
+  /* ── Hero ── */
+  #hero { height: 78vh; min-height: 440px; }
+  .hero-bottom { padding: 0 28px 34px; }
+  .hero-title { font-size: clamp(22px, 4.4vw, 34px); max-width: 70%; }
+
+  /* ── Section heads ── */
+  .section-head { padding: 32px 28px 18px; }
+
+  /* ── About (text + image) ── */
+  .about-inner { padding: 0 28px; }
+  .about-text { font-size: clamp(20px, 3.2vw, 30px); max-width: 100%; padding-top: 56px; margin-bottom: 48px; }
+  .withp .about-text { padding-bottom: 64px; }
+  .about-img-link { width: 100%; }
+  .about-img-wrap { width: 100%; }
+  .about-img-wrap img { width: 100%; height: auto; max-height: 70vh; }
+  .about-img-label { font-size: clamp(24px, 4vw, 36px); bottom: 18px; left: 20px; }
+
+  /* ── Studio: offices grid → clean single column, no fixed widths/dividers ── */
+  .pstrip-grid.pstrip-grid-white {
+    grid-template-columns: 1fr;
+    padding: 0 28px;
+    justify-content: stretch;
+    gap: 28px;
+  }
+  .pstrip-grid-white .pstrip-card { width: 100%; }
+  .pstrip-grid-white .pstrip-card::after { display: none !important; }
+  .pstrip-grid-white .pstrip-card-img img { height: 50vw; max-height: 380px; }
+
+  /* ── Contact ── */
+  .contact-layout { grid-template-columns: 1fr; }
+  .contact-left { padding: 48px 28px 20px; }
+  .contact-right { padding: 8px 28px 72px; }
+  .contact-title { font-size: clamp(28px, 5vw, 40px); }
+
+  /* ── Newsletter ── */
+  #newsletter { grid-template-columns: 1fr; gap: 32px; padding: 56px 28px; }
+  .nl-head { font-size: clamp(24px, 4.5vw, 34px); max-width: 100%; }
+  .nl-form { align-items: stretch; }
+
+  /* ── Footer ── */
+  footer { padding: 44px 28px; flex-direction: column; align-items: flex-start; gap: 36px; }
+  .f-bottom { align-items: flex-start; }
+  .f-nav-row { flex-wrap: wrap; gap: 14px 22px; }
+
+  /* ── Careers ── */
+  .carrer-job-cont { padding: 20px 28px; }
+  .carrer-desc { width: 100%; font-size: clamp(16px, 2.6vw, 20px); }
+  .fitler-title { font-size: clamp(22px, 4vw, 30px); }
+  .pp-filter-bar { flex-wrap: wrap; gap: 12px; }
+  .pp-search-wrap { flex: 1 1 100%; }
+  .pp-select-wrap { flex: 1 1 100%; }
+  .pp-select { width: 100%; min-width: 0; }
+  .job { flex-wrap: wrap; gap: 4px 16px; padding: 20px 0; }
+  .job-title { flex: 1 1 100%; }
+  .job-type,
+  .job-location { min-width: 0; padding-left: 0; flex: 0 0 auto; }
+  .title-ec { width: 100%; }
+}
+
+@media (max-width: 600px) {
+
+  /* ── Nav ── */
+  #nav { padding: 0 20px; }
+  .nav-logo img { width: 150px; }
+  .nav-actions { gap: 24px; }
+
+  /* ── Hero ── */
+  #hero { height: 84vh; min-height: 420px; }
+  .hero-bottom { padding: 0 20px 28px; }
+  .hero-title { font-size: clamp(18px, 6vw, 26px); max-width: 80%; }
+
+  /* ── About ── */
+  .about-inner { padding: 0 20px; }
+  .about-text { padding-top: 44px; margin-bottom: 36px; }
+  .about-img-label { left: 16px; bottom: 14px; }
+
+  /* ── Studio offices ── */
+  .pstrip-grid.pstrip-grid-white { padding: 0 20px; gap: 24px; }
+
+  /* ── Contact ── */
+  .contact-left { padding: 44px 20px 18px; }
+  .contact-right { padding: 6px 20px 60px; }
+
+  /* ── Newsletter / Footer ── */
+  #newsletter { padding: 48px 20px; }
+  footer { padding: 40px 20px; gap: 32px; }
+
+  /* ── Careers ── */
+  .carrer-job-cont { padding: 16px 20px; }
+  .early-carrer { margin: 40px 0; padding: 32px 0; }
+  .Registerbtncarrer { width: 100%; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   NATIVE <select> DROPDOWN — option readability fix (all viewports)
+   Explicit background + colour on every <option> so the OS-native list
+   stays readable (Careers filter is dark, Studio contact form is light).
+   Colour/contrast only — no layout change.
+   ══════════════════════════════════════════════════════════════════════ */
+/* color-scheme makes the OS-native popup paint in the right theme on the
+   FIRST frame — this removes the white-flash-then-black when opening the
+   dark dropdowns. */
+.pp-select { color-scheme: dark; }   /* Careers filter — dark popup */
+.cf-select { color-scheme: light; }  /* Contact form — light popup */
+
+.pp-select option {            /* Careers filter — dark control */
+  background-color: #1a1a1a;
+  color: #F2EDE8;
+}
+.cf-select option {            /* Contact form — light control */
+  background-color: #ffffff;
+  color: #1a1a1a;
 }

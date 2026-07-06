@@ -1053,7 +1053,6 @@ footer {
   font-stretch: normal; letter-spacing: 0; color: var(--white);
   appearance: none; cursor: pointer; min-width: 180px;
 }
-.pp-select option { background: var(--black); }
 .pp-select-arrow {
   position: absolute; right: 18px; pointer-events: none;
   width: 14px; height: 14px;
@@ -2192,4 +2191,207 @@ height: 50px;
 
 .cf-success.show {
   display: block;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   RESPONSIVE OVERHAUL — Tablet (≤1024px) & Phone (≤600px) ONLY
+   Desktop (≥1025px) is intentionally left exactly as it was.
+   Appended last so it cleanly overrides the older fixed-pixel rules
+   (428px / 582px / 1330px cards & images) that caused horizontal overflow.
+   Inspiration: clean, generous, image-led layout (Foster + Partners).
+   ══════════════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+
+  /* ── Nav ── */
+  #nav { padding: 0 28px; }
+
+  /* ── Hero ── */
+  #hero { height: 80vh; min-height: 460px; }
+  .hero-bottom { padding: 0 28px 40px; }
+  .hero-pause { right: 28px; bottom: 34px; }
+  .hero-eyebrow { margin-bottom: 12px; }
+  .hero-title { font-size: clamp(26px, 4.4vw, 38px); max-width: 90%; margin-bottom: 38px; }
+
+  /* ── Section heads ── */
+  .section-head,
+  #expertise .section-head,
+  #proj-strip .section-head { padding: 44px 28px 22px; }
+
+  /* ── Project card grids (Recent + Strip): fluid 2-up, no fixed widths/dividers ── */
+  .recent-grid,
+  .pstrip-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 26px 18px;
+    padding: 0 28px 8px;
+    justify-content: stretch;
+  }
+  .recent-card,
+  .pstrip-card { width: 100%; height: auto; }
+  .recent-card::after,
+  .pstrip-card::after { display: none !important; }
+  .recent-card-img img,
+  .pstrip-card-img img { height: 30vw; max-height: 320px; min-height: 180px; }
+  .recent-info { padding: 22px 6px 8px; }
+
+  /* ── Expertise: full-width, image-led stack ── */
+  .exp-grid { padding: 0 28px 32px; column-gap: 18px; row-gap: 28px; }
+  .exp-card { width: 100%; height: auto; }
+  .exp-card::after { display: none !important; }
+  .exp-card img { height: 60vw; max-height: 560px; }
+  .exp-label { padding: 64px 20px 22px; }
+  .exp-title { font-size: clamp(24px, 4.4vw, 32px); }
+
+  /* ── Vision ── */
+  #vision { margin-top: 8px; }
+  .vision-inner { grid-template-columns: 1fr; }
+  .vision-left { padding: 48px 28px 14px; }
+  .vision-right { padding: 4px 28px 56px; }
+  .vision-text { font-size: clamp(28px, 5vw, 46px); max-width: 100%; }
+
+  /* ── Culture ── */
+  #culture { padding: 64px 28px 56px; }
+  .culture-h { font-size: clamp(26px, 4vw, 34px); margin-bottom: 28px; }
+  .culture-p { font-size: clamp(17px, 2.4vw, 22px); max-width: 100%; }
+
+  /* ── Newsletter ── */
+  #newsletter { grid-template-columns: 1fr; gap: 32px; padding: 56px 28px; }
+  .nl-head { font-size: clamp(24px, 4.5vw, 34px); max-width: 100%; }
+  .nl-form { align-items: stretch; }
+
+  /* ── Footer ── */
+  footer { padding: 48px 28px; flex-direction: column; align-items: flex-start; gap: 40px; }
+  .f-bottom { align-items: flex-start; }
+  .f-nav-row { flex-wrap: wrap; gap: 14px 22px; }
+
+  /* ── Projects page (pp-) ── */
+  .pp-hero { height: 66vh; min-height: 400px; }
+  .pp-hero-top { padding: 20px 28px; }
+  .pp-hero-bottom { padding: 0 28px 40px; }
+  .pp-page-title { font-size: clamp(30px, 6vw, 48px); }
+  .pp-filter-bar { flex-wrap: wrap; padding: 28px; gap: 12px; }
+  .pp-filter-bar::after { left: 28px; right: 28px; }
+  .pp-search-wrap { flex: 1 1 100%; }
+  .pp-select-wrap { flex: 1 1 100%; }
+  .pp-select { width: 100%; min-width: 0; }
+  .pp-strip-grid { padding: 16px 28px; }
+
+  /* ── Contact section (contact.html / projects.html) ── */
+  .contact-layout { grid-template-columns: 1fr !important; }
+  .contact-left { padding: 52px 28px 22px !important; }
+  .contact-right { padding: 22px 28px 72px !important; }
+  .contact-title { font-size: clamp(28px, 5.5vw, 40px); }
+
+  /* ── Project detail (pd-) ── */
+  .pd-hero { height: 70vh; min-height: 420px; }
+  .pd-hero-bottom { padding: 0 28px 26px; }
+  .pd-hero-name { font-size: clamp(26px, 5vw, 40px); }
+
+  .pd-pair { display: flex !important; flex-direction: column; align-items: stretch; gap: 16px; padding: 0 28px; }
+  .pd-pair img,
+  .pd-pair .pd-image-container1 img,
+  .pd-pair .pd-image-container2 img { width: 100% !important; height: auto !important; margin: 0 !important; transform: none; opacity: 1; }
+  .pd-pair .pd-image-container1,
+  .pd-pair .pd-image-container2 { width: 100% !important; margin: 0 !important; }
+  #pd-gallery-name { position: relative; top: auto; left: 0 !important; font-size: 22px; padding: 12px 28px 0; }
+
+  .pd-overview { grid-template-columns: 1fr; margin: 48px 28px; }
+  .pd-ov-left { border-right: none; }
+  .pd-ov-right { padding: 24px 0 0; }
+  .pd-brief { font-size: clamp(22px, 3.6vw, 32px); }
+
+  .pd-content { grid-template-columns: 1fr; padding: 40px 28px; }
+  .pd-facts-col { position: relative; top: auto; max-height: none; overflow: visible; border-right: none; border-bottom: 1px solid var(--border); padding: 0 0 28px; }
+  .pd-body-col { padding: 32px 0 0 !important; }
+  .pd-body-h { font-size: clamp(26px, 4.4vw, 38px); margin-bottom: 24px; }
+  .pd-body-p { font-size: clamp(16px, 2.4vw, 20px); margin-bottom: 40px; }
+  .pd-body-img { margin: 32px 0 56px !important; }
+  .pd-body-img img { width: 100% !important; height: auto !important; }
+
+  .last-gallery-img-2 { padding: 40px 28px; }
+  .pd-more-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; padding: 24px 28px 48px; }
+  .pd-more-card::after,
+  .pd-more-card:not(:nth-child(4n))::after { display: none !important; }
+}
+
+@media (max-width: 600px) {
+
+  /* ── Nav ── */
+  #nav { padding: 0 20px; }
+  .nav-logo img { width: 150px; }
+  .nav-actions { gap: 24px; }
+
+  /* ── Hero ── */
+  #hero { height: 86vh; min-height: 440px; }
+  .hero-bottom { padding: 0 20px 30px; }
+  .hero-pause { right: 20px; bottom: 26px; width: 32px; height: 32px; }
+  .hero-eyebrow { font-size: 12px; margin-bottom: 10px; }
+  .hero-title { font-size: clamp(20px, 6vw, 28px); margin-bottom: 26px; }
+  .hero-dots { gap: 16px; }
+
+  /* ── Section heads ── */
+  .section-head,
+  #expertise .section-head,
+  #proj-strip .section-head { padding: 36px 20px 18px; }
+
+  /* ── Project cards → single column (phone width, as designed) ── */
+  .recent-grid,
+  .pstrip-grid { grid-template-columns: 1fr; gap: 30px; padding: 0 20px 8px; }
+  .recent-card-img img,
+  .pstrip-card-img img { height: 64vw; max-height: 380px; }
+
+  /* ── Expertise ── */
+  .exp-grid { padding: 0 20px 28px; row-gap: 22px; }
+  .exp-card img { height: 86vw; max-height: 460px; }
+
+  /* ── Vision ── */
+  .vision-left { padding: 44px 20px 12px; }
+  .vision-right { padding: 2px 20px 48px; }
+
+  /* ── Culture / Newsletter / Footer ── */
+  #culture { padding: 56px 20px 48px; }
+  #newsletter { padding: 52px 20px; }
+  footer { padding: 44px 20px; gap: 36px; }
+
+  /* ── Projects page ── */
+  .pp-hero-top { padding: 18px 20px; }
+  .pp-hero-bottom { padding: 0 20px 34px; }
+  .pp-filter-bar { padding: 24px 20px; }
+  .pp-filter-bar::after { left: 20px; right: 20px; }
+  .pp-strip-grid { padding: 12px 20px; }
+
+  /* ── Contact ── */
+  .contact-left { padding: 48px 20px 20px !important; }
+  .contact-right { padding: 20px 20px 64px !important; }
+
+  /* ── Project detail ── */
+  .pd-hero-bottom { padding: 0 20px 22px; }
+  .pd-pair { padding: 0 20px; }
+  #pd-gallery-name { padding: 12px 20px 0; }
+  .pd-overview { margin: 40px 20px; }
+  .pd-content { padding: 36px 20px; }
+  .last-gallery-img-2 { padding: 32px 20px; }
+  .pd-more-grid { grid-template-columns: 1fr; padding: 20px 20px 44px; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   NATIVE <select> DROPDOWN — option readability fix (all viewports)
+   The OS-native option list ignores inherited colour, so set BOTH the
+   background and the text colour explicitly on every <option>, themed to
+   its control. Without this the Projects filter (dark) and the Contact
+   form (light) rendered black text on a black panel = invisible options.
+   This is a colour/contrast fix only — it does not alter any layout.
+   ══════════════════════════════════════════════════════════════════════ */
+/* color-scheme makes the OS-native popup paint in the right theme on the
+   FIRST frame — this removes the white-flash-then-black when opening the
+   dark dropdowns. */
+.pp-select { color-scheme: dark; }   /* Projects filter — dark popup */
+.cf-select { color-scheme: light; }  /* Contact form — light popup */
+
+.pp-select option {            /* Projects filter — dark control */
+  background-color: #1a1a1a;
+  color: #F2EDE8;
+}
+.cf-select option {            /* Contact form — light control */
+  background-color: #ffffff;
+  color: #1a1a1a;
 }
