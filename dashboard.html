@@ -12,7 +12,7 @@
 
 :root{
   --ink:#141414; --bg:#f4f2ee; --card:#ffffff; --border:#e2ddd3;
-  --muted:#7a746a; --danger:#b3392c; --radius:14px;
+  --muted:#7a746a; --danger:#b3392c; --ok:#2f7a45; --radius:14px;
   --font:'AkzidGroSt','Helvetica Neue',Helvetica,Arial,sans-serif;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
@@ -48,6 +48,12 @@ header.dash-header{position:sticky;top:0;z-index:50;background:#fff;border-botto
 .btn-primary:hover{opacity:.85;}
 
 main{max-width:1400px;margin:0 auto;padding:28px 32px 80px;}
+
+.tabs{display:flex;gap:8px;margin-bottom:22px;}
+.tab-btn{border:1px solid var(--border);background:#fff;color:var(--muted);border-radius:999px;padding:9px 18px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;}
+.tab-btn.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+.tab-badge{background:var(--danger);color:#fff;border-radius:999px;font-size:11px;padding:1px 7px;}
+
 .toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:22px;}
 .toolbar input[type=text]{flex:1;min-width:220px;padding:11px 16px;border:1px solid var(--border);border-radius:999px;font-size:14px;outline:none;background:#fff;}
 .toolbar select{padding:11px 16px;border:1px solid var(--border);border-radius:999px;font-size:14px;background:#fff;outline:none;}
@@ -63,14 +69,28 @@ main{max-width:1400px;margin:0 auto;padding:28px 32px 80px;}
 .pcard-loc{font-size:13px;color:var(--muted);}
 .pcard-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;}
 .badge{font-size:10px;padding:3px 9px;border-radius:999px;background:#f0ede6;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em;}
+.badge-new{background:#e7f3ea;color:var(--ok);}
 .pcard-actions{display:flex;gap:8px;margin-top:auto;padding-top:12px;}
 .pcard-actions button{flex:1;padding:9px 0;font-size:12px;border-radius:8px;border:1px solid var(--border);background:#fff;}
 .pcard-actions .del{color:var(--danger);border-color:#f0d9d5;}
 .empty{text-align:center;padding:80px 20px;color:var(--muted);}
 
+/* Inquiries */
+.inq-list{display:flex;flex-direction:column;gap:14px;}
+.inq-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
+.inq-top{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.inq-date{font-size:12px;color:var(--muted);margin-left:auto;}
+.inq-name{font-size:15px;font-weight:700;margin-bottom:4px;}
+.inq-subject{font-size:13px;font-weight:600;color:#3a362f;margin-bottom:6px;}
+.inq-message{font-size:14px;line-height:1.5;color:#3a362f;margin-bottom:10px;white-space:pre-wrap;}
+.inq-extras{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--muted);margin-bottom:12px;}
+.inq-actions{display:flex;gap:8px;}
+.inq-actions button{padding:8px 16px;font-size:12px;border-radius:8px;border:1px solid var(--border);background:#fff;}
+.inq-actions .del{color:var(--danger);border-color:#f0d9d5;}
+
 /* Modal */
-#projectModal{position:fixed;inset:0;background:rgba(20,20,20,.55);display:none;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto;z-index:200;}
-#projectModal.show{display:flex;}
+#projectModal,#jobModal{position:fixed;inset:0;background:rgba(20,20,20,.55);display:none;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto;z-index:200;}
+#projectModal.show,#jobModal.show{display:flex;}
 .modal-box{background:#fff;border-radius:18px;width:100%;max-width:760px;padding:36px;margin-bottom:40px;}
 .modal-box h2{font-size:20px;font-weight:700;margin-bottom:24px;}
 .form-section{margin-bottom:24px;}
@@ -83,6 +103,14 @@ main{max-width:1400px;margin:0 auto;padding:28px 32px 80px;}
 .field textarea{resize:vertical;min-height:70px;}
 .field .hint{font-size:11px;color:var(--muted);margin-top:4px;}
 .modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:8px;}
+
+.image-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:14px;}
+.img-tile{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:#fafaf8;}
+.img-tile img{width:100%;height:100px;object-fit:cover;}
+.img-tile-actions{display:flex;flex-direction:column;gap:4px;padding:8px;}
+.img-tile-actions button{font-size:11px;padding:6px 4px;border-radius:6px;border:1px solid var(--border);background:#fff;}
+.img-tile-actions button.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+.img-tile-actions button.del{color:var(--danger);}
 
 @media(max-width:640px){
   .form-row{grid-template-columns:1fr;}
@@ -108,32 +136,70 @@ main{max-width:1400px;margin:0 auto;padding:28px 32px 80px;}
   <header class="dash-header">
     <div class="dash-title">
       <img src="assets/assets/Logo/260403_Logo_Magg+Partners_White.png" alt="">
-      Projects Dashboard
+      Dashboard
       <span class="dash-whoami" id="whoami"></span>
     </div>
     <div class="dash-actions">
       <button class="btn btn-primary" id="addBtn" type="button">+ Add Project</button>
+      <button class="btn btn-primary" id="addJobBtn" type="button" style="display:none;">+ Add Job</button>
       <a class="btn" href="projects.html" target="_blank">View Site ↗</a>
       <button class="btn" id="logoutBtn" type="button">Logout</button>
     </div>
   </header>
 
   <main>
-    <div class="toolbar">
-      <input type="text" id="searchInput" placeholder="Search by name or location…">
-      <select id="categoryFilter">
-        <option value="">All categories</option>
-        <option value="architecture">Architecture</option>
-        <option value="interiors">Interiors</option>
-        <option value="engineering">Engineering</option>
-        <option value="urban">Urban &amp; Landscape</option>
-        <option value="residential">Residential</option>
-        <option value="workplace">Workplace</option>
-        <option value="realestate">Real Estate</option>
-      </select>
-      <span class="count" id="countLabel"></span>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="projects" type="button">Projects</button>
+      <button class="tab-btn" data-tab="jobs" type="button">Jobs</button>
+      <button class="tab-btn" data-tab="inquiries" type="button">Inquiries <span class="tab-badge" id="inqBadge" style="display:none;"></span></button>
     </div>
-    <div class="grid" id="projectGrid"></div>
+
+    <section id="projectsView">
+      <div class="toolbar">
+        <input type="text" id="searchInput" placeholder="Search by name or location…">
+        <select id="categoryFilter">
+          <option value="">All categories</option>
+          <option value="architecture">Architecture</option>
+          <option value="interiors">Interiors</option>
+          <option value="engineering">Engineering</option>
+          <option value="urban">Urban &amp; Landscape</option>
+          <option value="residential">Residential</option>
+          <option value="workplace">Workplace</option>
+          <option value="realestate">Real Estate</option>
+        </select>
+        <span class="count" id="countLabel"></span>
+      </div>
+      <div class="grid" id="projectGrid"></div>
+    </section>
+
+    <section id="jobsView" style="display:none;">
+      <div class="toolbar">
+        <input type="text" id="jobSearchInput" placeholder="Search by job title…">
+        <select id="jobDeptFilter">
+          <option value="">All departments</option>
+          <option value="architecture">Architecture</option>
+          <option value="interiors">Interiors</option>
+          <option value="engineering">Engineering</option>
+          <option value="urban">Urban &amp; Landscape</option>
+          <option value="residential">Residential</option>
+          <option value="workplace">Workplace</option>
+        </select>
+        <span class="count" id="jobCountLabel"></span>
+      </div>
+      <div class="grid" id="jobGrid"></div>
+    </section>
+
+    <section id="inquiriesView" style="display:none;">
+      <div class="toolbar">
+        <select id="inqStatusFilter">
+          <option value="">All statuses</option>
+          <option value="new">New</option>
+          <option value="read">Read</option>
+        </select>
+        <span class="count" id="inqCountLabel"></span>
+      </div>
+      <div class="inq-list" id="inqList"></div>
+    </section>
   </main>
 </div>
 
@@ -176,17 +242,12 @@ main{max-width:1400px;margin:0 auto;padding:28px 32px 80px;}
 
       <div class="form-section">
         <h3>Images</h3>
-        <div class="form-row">
-          <div class="field"><label>Thumbnail Image URL *</label><input type="text" id="fThumb" required></div>
-          <div class="field"><label>Hero Image URL</label><input type="text" id="fHero" placeholder="Defaults to thumbnail"></div>
+        <div class="field">
+          <label>Upload Images</label>
+          <input type="file" id="fImageUpload" accept="image/*" multiple>
+          <div class="hint">Upload from your computer, then pick which image is the Card Image (shown in grids across the site) and which is the Hero (the project's first/banner image). The rest become the project's gallery.</div>
         </div>
-        <div class="form-row single">
-          <div class="field">
-            <label>Gallery Image URLs</label>
-            <textarea id="fGallery" placeholder="One image URL per line"></textarea>
-            <div class="hint">First two show as the top gallery pair, the rest appear further down the project page.</div>
-          </div>
-        </div>
+        <div class="image-grid" id="imagePreviewGrid"></div>
       </div>
 
       <div class="form-section">
@@ -226,6 +287,39 @@ main{max-width:1400px;margin:0 auto;padding:28px 32px 80px;}
   </div>
 </div>
 
+<div id="jobModal">
+  <div class="modal-box" style="max-width:520px;">
+    <h2 id="jobModalTitle">Add Job</h2>
+    <form id="jobForm">
+      <input type="hidden" id="jId">
+      <div class="form-row single">
+        <div class="field"><label>Job Title *</label><input type="text" id="jTitle" required></div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Department *</label>
+          <select id="jDepartment" required>
+            <option value="architecture">Architecture</option>
+            <option value="interiors">Interiors</option>
+            <option value="engineering">Engineering</option>
+            <option value="urban">Urban &amp; Landscape</option>
+            <option value="residential">Residential</option>
+            <option value="workplace">Workplace</option>
+          </select>
+        </div>
+        <div class="field"><label>Location *</label><input type="text" id="jLocation" placeholder="e.g. london" required></div>
+      </div>
+      <div class="form-row single">
+        <div class="field"><label>Type</label><input type="text" id="jType" placeholder="e.g. Full-Time, Part-Time, Consultant"></div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn" id="jobCancelBtn">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="jobSaveBtn">Save Job</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="supabase-client.js"></script>
 <script src="projects-data.js"></script>
@@ -244,6 +338,8 @@ async function showApp(session){
   whoami.textContent = session && session.user ? session.user.email : '';
   await loadProjects();
   renderGrid();
+  await loadAndRenderJobs();
+  await loadAndRenderInquiries();
 }
 function showAuthGate(){
   app.classList.remove('show');
@@ -274,6 +370,84 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
   showAuthGate();
 });
 
+/* ── Tabs ── */
+const tabBtns       = document.querySelectorAll('.tab-btn');
+const projectsView  = document.getElementById('projectsView');
+const jobsView      = document.getElementById('jobsView');
+const inquiriesView = document.getElementById('inquiriesView');
+const addBtn        = document.getElementById('addBtn');
+const addJobBtn     = document.getElementById('addJobBtn');
+function switchTab(tab){
+  tabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  projectsView.style.display  = tab === 'projects'  ? '' : 'none';
+  jobsView.style.display      = tab === 'jobs'       ? '' : 'none';
+  inquiriesView.style.display = tab === 'inquiries' ? '' : 'none';
+  addBtn.style.display    = tab === 'projects' ? '' : 'none';
+  addJobBtn.style.display = tab === 'jobs'     ? '' : 'none';
+}
+tabBtns.forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
+
+function escapeHtml(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ── Inquiries ── */
+let INQUIRIES = [];
+const inqList         = document.getElementById('inqList');
+const inqStatusFilter = document.getElementById('inqStatusFilter');
+const inqCountLabel   = document.getElementById('inqCountLabel');
+const inqBadge        = document.getElementById('inqBadge');
+
+async function loadAndRenderInquiries(){
+  INQUIRIES = await fetchInquiries();
+  renderInquiries();
+}
+function renderInquiries(){
+  const statusFilter = inqStatusFilter.value;
+  const list = INQUIRIES.filter(i => !statusFilter || i.status === statusFilter);
+  inqCountLabel.textContent = `${list.length} of ${INQUIRIES.length} inquiries`;
+
+  const newCount = INQUIRIES.filter(i => i.status === 'new').length;
+  inqBadge.style.display = newCount ? '' : 'none';
+  inqBadge.textContent = newCount;
+
+  if (!list.length){
+    inqList.innerHTML = '<div class="empty">No inquiries yet.</div>';
+    return;
+  }
+  inqList.innerHTML = list.map(i => {
+    const extras = i.data && typeof i.data === 'object'
+      ? Object.entries(i.data).filter(([, v]) => v).map(([k, v]) => `<span><b>${escapeHtml(k)}:</b> ${escapeHtml(String(v))}</span>`).join('')
+      : '';
+    return `
+      <div class="inq-card">
+        <div class="inq-top">
+          <span class="badge">${escapeHtml(i.source)}</span>
+          <span class="badge ${i.status === 'new' ? 'badge-new' : ''}">${escapeHtml(i.status)}</span>
+          <span class="inq-date">${new Date(i.created_at).toLocaleString()}</span>
+        </div>
+        <div class="inq-name">${escapeHtml(i.name || 'Anonymous')}${i.email ? ' — <a href="mailto:' + escapeHtml(i.email) + '">' + escapeHtml(i.email) + '</a>' : ''}</div>
+        ${i.subject ? `<div class="inq-subject">${escapeHtml(i.subject)}</div>` : ''}
+        ${i.message ? `<div class="inq-message">${escapeHtml(i.message)}</div>` : ''}
+        ${extras ? `<div class="inq-extras">${extras}</div>` : ''}
+        <div class="inq-actions">
+          ${i.status !== 'read' ? `<button data-read="${i.id}" type="button">Mark as Read</button>` : ''}
+          <button data-del-inq="${i.id}" class="del" type="button">Delete</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+inqStatusFilter.addEventListener('change', renderInquiries);
+inqList.addEventListener('click', async e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  const readId = btn.getAttribute('data-read');
+  const delId  = btn.getAttribute('data-del-inq');
+  if (readId){ await updateInquiryStatus(readId, 'read'); await loadAndRenderInquiries(); }
+  if (delId && confirm('Delete this inquiry?')){ await deleteInquiry(delId); await loadAndRenderInquiries(); }
+});
+
+/* ── Projects grid ── */
 const CATEGORY_LABELS = {
   architecture: 'Architecture',
   interiors: 'Interiors',
@@ -289,14 +463,10 @@ document.getElementById('fCategory').addEventListener('change', e => {
 });
 document.getElementById('fCategoryLabel').addEventListener('input', e => { e.target.dataset.touched = '1'; });
 
-function escapeHtml(s){
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
 const grid           = document.getElementById('projectGrid');
-const searchInput     = document.getElementById('searchInput');
-const categoryFilter  = document.getElementById('categoryFilter');
-const countLabel      = document.getElementById('countLabel');
+const searchInput    = document.getElementById('searchInput');
+const categoryFilter = document.getElementById('categoryFilter');
+const countLabel     = document.getElementById('countLabel');
 
 function renderGrid(){
   const q   = searchInput.value.trim().toLowerCase();
@@ -351,6 +521,176 @@ grid.addEventListener('click', async e => {
   }
 });
 
+/* ── Jobs ── */
+let JOBS = [];
+const jobGrid        = document.getElementById('jobGrid');
+const jobSearchInput = document.getElementById('jobSearchInput');
+const jobDeptFilter  = document.getElementById('jobDeptFilter');
+const jobCountLabel  = document.getElementById('jobCountLabel');
+
+async function loadAndRenderJobs(){
+  JOBS = await fetchJobsFromDB();
+  renderJobGrid();
+}
+function renderJobGrid(){
+  const q    = jobSearchInput.value.trim().toLowerCase();
+  const dept = jobDeptFilter.value;
+  const list = JOBS.filter(j => {
+    const matchQ    = !q || j.title.toLowerCase().includes(q);
+    const matchDept = !dept || j.department === dept;
+    return matchQ && matchDept;
+  });
+  jobCountLabel.textContent = `${list.length} of ${JOBS.length} jobs`;
+  if (!list.length){
+    jobGrid.innerHTML = '<div class="empty">No jobs match your filters.</div>';
+    return;
+  }
+  jobGrid.innerHTML = list.map(j => `
+      <div class="pcard">
+        <div class="pcard-body">
+          <div class="pcard-cat">${escapeHtml(CATEGORY_LABELS[j.department] || j.department)}</div>
+          <div class="pcard-name">${escapeHtml(j.title)}</div>
+          <div class="pcard-loc">${escapeHtml(j.location)}${j.type ? ' · ' + escapeHtml(j.type) : ''}</div>
+          <div class="pcard-actions">
+            <button data-job-edit="${j.id}" type="button">Edit</button>
+            <button data-job-del="${j.id}" class="del" type="button">Delete</button>
+          </div>
+        </div>
+      </div>`).join('');
+}
+jobSearchInput.addEventListener('input', renderJobGrid);
+jobDeptFilter.addEventListener('change', renderJobGrid);
+
+jobGrid.addEventListener('click', async e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  const editId = btn.getAttribute('data-job-edit');
+  const delId  = btn.getAttribute('data-job-del');
+  if (editId) openJobModal(JOBS.find(j => j.id === editId));
+  if (delId){
+    const job = JOBS.find(j => j.id === delId);
+    if (confirm(`Delete "${job ? job.title : delId}"? This cannot be undone.`)){
+      await deleteJobFromDB(delId);
+      await loadAndRenderJobs();
+    }
+  }
+});
+
+const jobModal      = document.getElementById('jobModal');
+const jobForm        = document.getElementById('jobForm');
+const jobModalTitle  = document.getElementById('jobModalTitle');
+const jobSaveBtn     = document.getElementById('jobSaveBtn');
+
+function openJobModal(job){
+  jobForm.reset();
+  if (job){
+    jobModalTitle.textContent = 'Edit Job';
+    document.getElementById('jId').value = job.id;
+    document.getElementById('jTitle').value = job.title || '';
+    document.getElementById('jDepartment').value = job.department || 'architecture';
+    document.getElementById('jLocation').value = job.location || '';
+    document.getElementById('jType').value = job.type || '';
+  } else {
+    jobModalTitle.textContent = 'Add Job';
+    document.getElementById('jId').value = '';
+    document.getElementById('jDepartment').value = 'architecture';
+  }
+  jobModal.classList.add('show');
+}
+function closeJobModal(){ jobModal.classList.remove('show'); }
+
+addJobBtn.addEventListener('click', () => { switchTab('jobs'); openJobModal(null); });
+document.getElementById('jobCancelBtn').addEventListener('click', closeJobModal);
+jobModal.addEventListener('click', e => { if (e.target === jobModal) closeJobModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && jobModal.classList.contains('show')) closeJobModal(); });
+
+jobForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  const editingId = document.getElementById('jId').value;
+  const title = document.getElementById('jTitle').value.trim();
+  const location = document.getElementById('jLocation').value.trim().toLowerCase();
+  if (!title || !location) return;
+
+  const id = editingId || uniqueId(slugify(title), editingId, JOBS);
+  const job = {
+    id,
+    title,
+    department: document.getElementById('jDepartment').value,
+    location,
+    type: document.getElementById('jType').value.trim(),
+  };
+
+  jobSaveBtn.disabled = true;
+  try {
+    await upsertJobToDB(job);
+    await loadAndRenderJobs();
+    closeJobModal();
+  } catch (err){
+    alert('Failed to save job: ' + err.message);
+  } finally {
+    jobSaveBtn.disabled = false;
+  }
+});
+
+/* ── Image upload widget ── */
+let currentImages = [];
+let thumbUrl = '';
+let heroUrl  = '';
+const imageUploadInput = document.getElementById('fImageUpload');
+const imagePreviewGrid = document.getElementById('imagePreviewGrid');
+
+function renderImagePreview(){
+  if (!currentImages.length){
+    imagePreviewGrid.innerHTML = '<p class="hint">No images yet — upload at least one.</p>';
+    return;
+  }
+  imagePreviewGrid.innerHTML = currentImages.map((url, i) => `
+    <div class="img-tile">
+      <img src="${url}" alt="">
+      <div class="img-tile-actions">
+        <button type="button" data-thumb="${i}" class="${url === thumbUrl ? 'active' : ''}">${url === thumbUrl ? '✓ Card Image' : 'Set as Card Image'}</button>
+        <button type="button" data-hero="${i}" class="${url === heroUrl ? 'active' : ''}">${url === heroUrl ? '✓ Hero' : 'Set as Hero'}</button>
+        <button type="button" data-remove="${i}" class="del">Remove</button>
+      </div>
+    </div>`).join('');
+}
+
+imagePreviewGrid.addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  if (btn.hasAttribute('data-thumb')){
+    thumbUrl = currentImages[Number(btn.getAttribute('data-thumb'))];
+  } else if (btn.hasAttribute('data-hero')){
+    heroUrl = currentImages[Number(btn.getAttribute('data-hero'))];
+  } else if (btn.hasAttribute('data-remove')){
+    const idx = Number(btn.getAttribute('data-remove'));
+    const [removed] = currentImages.splice(idx, 1);
+    deleteProjectImage(removed).catch(() => {});
+    if (removed === thumbUrl) thumbUrl = currentImages[0] || '';
+    if (removed === heroUrl)  heroUrl  = currentImages[0] || '';
+  }
+  renderImagePreview();
+});
+
+imageUploadInput.addEventListener('change', async () => {
+  const files = Array.from(imageUploadInput.files);
+  imageUploadInput.value = '';
+  for (const file of files){
+    if (!file.type.startsWith('image/')) continue;
+    if (file.size > 10 * 1024 * 1024){ alert(`${file.name} is larger than 10MB — skipped.`); continue; }
+    try {
+      const url = await uploadProjectImage(file);
+      currentImages.push(url);
+      if (!thumbUrl) thumbUrl = url;
+      if (!heroUrl)  heroUrl  = url;
+    } catch (err){
+      alert(`Failed to upload ${file.name}: ${err.message}`);
+    }
+    renderImagePreview();
+  }
+});
+
+/* ── Modal ── */
 const modal      = document.getElementById('projectModal');
 const form       = document.getElementById('projectForm');
 const modalTitle = document.getElementById('modalTitle');
@@ -371,9 +711,6 @@ function openModal(project){
     document.getElementById('fYear').value = project.year || '';
     document.getElementById('fStatus').value = project.status || '';
     document.getElementById('fClient').value = project.client || '';
-    document.getElementById('fThumb').value = project.thumb || '';
-    document.getElementById('fHero').value = project.hero || '';
-    document.getElementById('fGallery').value = (project.gallery || []).join('\n');
     document.getElementById('fBrief').value = project.brief || '';
     document.getElementById('fDescription').value = project.description || '';
     const f = project.facts || {};
@@ -384,17 +721,27 @@ function openModal(project){
     document.getElementById('fStories').value = (f.size && f.size.stories) || '';
     document.getElementById('fSustainability').value = f.sustainability || '';
     document.getElementById('fCollaborators').value = (f.collaborators || []).join(', ');
+
+    currentImages = project.gallery && project.gallery.length
+      ? [...new Set(project.gallery)]
+      : [...new Set([project.thumb, project.hero].filter(Boolean))];
+    thumbUrl = project.thumb || currentImages[0] || '';
+    heroUrl  = project.hero  || currentImages[0] || '';
   } else {
     modalTitle.textContent = 'Add Project';
     document.getElementById('fId').value = '';
     document.getElementById('fCategory').value = 'architecture';
     document.getElementById('fCategoryLabel').value = CATEGORY_LABELS.architecture;
+    currentImages = [];
+    thumbUrl = '';
+    heroUrl = '';
   }
+  renderImagePreview();
   modal.classList.add('show');
 }
 function closeModal(){ modal.classList.remove('show'); }
 
-document.getElementById('addBtn').addEventListener('click', () => openModal(null));
+document.getElementById('addBtn').addEventListener('click', () => { switchTab('projects'); openModal(null); });
 document.getElementById('cancelBtn').addEventListener('click', closeModal);
 modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('show')) closeModal(); });
@@ -404,8 +751,8 @@ function slugify(str){
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '') || 'project';
 }
-function uniqueId(base, keepId){
-  const existing = new Set(PROJECTS.map(p => p.id).filter(id => id !== keepId));
+function uniqueId(base, keepId, list){
+  const existing = new Set((list || PROJECTS).map(p => p.id).filter(id => id !== keepId));
   let id = base, n = 2;
   while (existing.has(id)) id = base + '-' + (n++);
   return id;
@@ -414,13 +761,14 @@ function uniqueId(base, keepId){
 form.addEventListener('submit', async e => {
   e.preventDefault();
   const editingId = document.getElementById('fId').value;
-  const name  = document.getElementById('fName').value.trim();
-  const thumb = document.getElementById('fThumb').value.trim();
-  if (!name || !thumb) return;
+  const name = document.getElementById('fName').value.trim();
+  if (!name) return;
+  if (!currentImages.length){ alert('Please upload at least one image.'); return; }
 
   const id       = editingId || uniqueId(slugify(name), editingId);
-  const hero     = document.getElementById('fHero').value.trim() || thumb;
-  const gallery  = document.getElementById('fGallery').value.split('\n').map(s => s.trim()).filter(Boolean);
+  const thumb    = thumbUrl || currentImages[0];
+  const hero     = heroUrl  || thumb;
+  const gallery  = currentImages;
   const status   = document.getElementById('fStatus').value.trim();
   const siteArea = document.getElementById('fSiteArea').value.trim();
   const grossArea = document.getElementById('fGrossArea').value.trim();

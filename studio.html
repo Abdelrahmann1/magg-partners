@@ -6,6 +6,7 @@
   <title>Magg + Partners</title>
   <link rel="icon" type="image/png" href="assets/assets/Logo/favicon.png">
   <link rel="stylesheet" href="style_more.css">
+  <script src="image-protect.js" defer></script>
 </head>
 <body>
 
@@ -355,10 +356,18 @@ projects and news.</p>
     document.querySelectorAll('.cf-select').forEach(sel => {
       sel.addEventListener('change', () => sel.classList.toggle('filled', sel.value !== ''));
     });
-    document.getElementById('cfSubmit').addEventListener('click', () => {
+    document.getElementById('cfSubmit').addEventListener('click', async () => {
       const name    = document.getElementById('cfName').value.trim();
       const email   = document.getElementById('cfEmail').value.trim();
       if (!name || !email) return;
+      const country  = document.getElementById('cfCountry').value;
+      const interest = document.getElementById('cfInterest').value;
+      const details  = document.getElementById('cfDetails').value.trim();
+      try {
+        await submitInquiry({ source: 'studio', name, email, message: details, data: { country, interest } });
+      } catch (err){
+        console.error('Failed to submit inquiry:', err.message);
+      }
       document.getElementById('cfSuccess').classList.add('show');
       document.getElementById('cfForm').querySelectorAll('input, select, textarea').forEach(el => el.value = '');
       document.querySelectorAll('.cf-select').forEach(sel => sel.classList.remove('filled'));

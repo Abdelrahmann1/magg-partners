@@ -6,6 +6,7 @@
   <title>Magg + Partners</title>
   <link rel="icon" type="image/png" href="assets/assets/Logo/favicon.png">
   <link rel="stylesheet" href="nstyles.css">
+  <script src="image-protect.js" defer></script>
 </head>
 <body>
 
@@ -278,9 +279,20 @@
   HERO_PROJECTS.forEach((p,i)=>{
     const slide=document.createElement('div');
     slide.className='hero-slide'+(i===0?' active':'');
-    slide.innerHTML=`<img src="${p.hero||p.thumb}" alt="${p.name}" loading="${i===0?'eager':'lazy'}">`;
+    const img=document.createElement('img');
+    img.alt=p.name;
+    img.loading=i===0?'eager':'lazy';
+    if(i===0) img.src=p.hero||p.thumb;
+    slide.appendChild(img);
     slidesEl.appendChild(slide);
   });
+
+  function loadSlideImage(i){
+    const slide=slidesEl.querySelectorAll('.hero-slide')[i];
+    const img=slide.querySelector('img');
+    if(!img.src) img.src=HERO_PROJECTS[i].hero||HERO_PROJECTS[i].thumb;
+  }
+  setTimeout(()=>loadSlideImage(1%HERO_PROJECTS.length),1200);
 
   HERO_PROJECTS.forEach((_,i)=>{
     const btn=document.createElement('button');
@@ -319,6 +331,7 @@
     dots[cur].classList.add('on');
     restartRing(dots[cur]);
     updateInfo(cur);
+    loadSlideImage((cur+1)%HERO_PROJECTS.length);
   }
   function next(){goTo((cur+1)%HERO_PROJECTS.length);}
   function resetTimer(){clearInterval(timer);timer=setInterval(next,SLIDE_DURATION);}
@@ -341,7 +354,6 @@
   resetTimer();
 
   /* ── Recent Grid ── */
-  const RECENT_DATES=['March 2024','January 2024','September 2023','July 2023'];
   const recentGrid=document.getElementById('recentGrid');
   PROJECTS.slice(0,4).forEach((p,i)=>{
     const a=document.createElement('a');
@@ -352,7 +364,7 @@
       <div class="recent-info">
         <div class="recent-cat">${p.categoryLabel}</div>
         <div class="recent-name">${p.name}</div>
-        <div class="recent-date">${RECENT_DATES[i]||p.year}</div>
+        <div class="recent-date">${p.year}</div>
       </div>`;
     addHover(a);
     recentGrid.appendChild(a);

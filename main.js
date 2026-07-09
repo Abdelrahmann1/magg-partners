@@ -1,18 +1,8 @@
-/* ── 1. بيانات الوظائف الديناميكية (Jobs Data) ── */
-const ALL_JOBS = [
-  { title: "Senior Interior Designer", department: "interiors", location: "london", type: "Visualisation" },
-  { title: "Lead Architect", department: "architecture", location: "london", type: "Design" },
-  { title: "Structural Engineer", department: "engineering", location: "london", type: "Full-Time" },
-  { title: "Urban Planner", department: "urban", location: "london", type: "Consultant" },
-  { title: "Landscape Architect", department: "urban", location: "london", type: "Full-Time" },
-  { title: "Workplace Strategist", department: "workplace", location: "london", type: "Part-Time" },
-  { title: "Residential Designer", department: "residential", location: "london", type: "Project Based" },
-  { title: "Junior Interior Designer", department: "interiors", location: "london", type: "Visualisation" },
-  { title: "BIM Manager", department: "architecture", location: "london", type: "Technical" }
-];
+/* ── 1. بيانات الوظائف (Jobs Data) — loaded from Supabase ── */
+let ALL_JOBS = [];
 
 // إعدادات الفلترة والـ Pagination الافتراضية
-let filteredJobs = [...ALL_JOBS];
+let filteredJobs = [];
 let currentPage = 1;
 const jobsPerPage = 4; // عدد الوظائف اللي هتظهر في الصفحة الواحدة
 
@@ -80,6 +70,16 @@ function renderJobs() {
   nextBtn.disabled = endIndex >= filteredJobs.length;
 }
 
+/* ── دالة بناء قائمة المواقع ديناميكيًا من الوظائف الفعلية ── */
+function populateLocations() {
+  if (!locSelect) return;
+  const current = locSelect.value;
+  const locs = [...new Set(ALL_JOBS.map(j => j.location).filter(Boolean))].sort();
+  locSelect.innerHTML = '<option value="">Location</option>' +
+    locs.map(l => `<option value="${l}">${l.charAt(0).toUpperCase() + l.slice(1)}</option>`).join('');
+  if (locs.includes(current)) locSelect.value = current;
+}
+
 /* ── 4. دالة الفلترة الذكية المتزامنة ── */
 function filterJobs() {
   const searchQuery = searchInput ? searchInput.value.trim().toLowerCase() : '';
@@ -107,8 +107,42 @@ if (locSelect) locSelect.addEventListener('change', filterJobs);
 prevBtn.addEventListener('click', () => { if (currentPage > 1) { currentPage--; renderJobs(); } });
 nextBtn.addEventListener('click', () => { if ((currentPage * jobsPerPage) < filteredJobs.length) { currentPage++; renderJobs(); } });
 
-// تشغيل نظام الوظائف لأول مرة
-renderJobs();
+// تحميل الوظائف من Supabase وتشغيل النظام لأول مرة
+async function loadJobs() {
+  if (typeof fetchJobsFromDB !== 'function') { renderJobs(); return; }
+  ALL_JOBS = await fetchJobsFromDB();
+  populateLocations();
+  filterJobs();
+}
+loadJobs();
+
+/* ── Early Careers Register ── */
+const ecRegisterBtn = document.getElementById('ecRegisterBtn');
+const ecForm = document.getElementById('ecForm');
+const ecSubmitBtn = document.getElementById('ecSubmitBtn');
+const ecSuccess = document.getElementById('ecSuccess');
+if (ecRegisterBtn && ecForm) {
+  ecRegisterBtn.addEventListener('click', () => {
+    ecForm.style.display = ecForm.style.display === 'none' ? 'flex' : 'none';
+  });
+}
+if (ecSubmitBtn) {
+  ecSubmitBtn.addEventListener('click', async () => {
+    const name = document.getElementById('ecName').value.trim();
+    const email = document.getElementById('ecEmail').value.trim();
+    if (!email) return;
+    try {
+      if (typeof submitInquiry === 'function') {
+        await submitInquiry({ source: 'careers', name, email, message: 'Early careers interest registration' });
+      }
+    } catch (err) {
+      console.error('Failed to submit registration:', err.message);
+    }
+    ecForm.style.display = 'none';
+    ecRegisterBtn.style.display = 'none';
+    if (ecSuccess) ecSuccess.style.display = 'block';
+  });
+}
 
 
 /* ── 5. الأكواد الأصلية لصفحات الموقع (بدون أي تكرار) ── */

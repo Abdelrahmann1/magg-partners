@@ -6,6 +6,9 @@
   <title>Contact — Magg + Partners</title>
   <link rel="icon" type="image/png" href="assets/assets/Logo/favicon.png">
   <link rel="stylesheet" href="nstyles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="supabase-client.js"></script>
+  <script src="image-protect.js" defer></script>
 </head>
 <body>
 
@@ -182,8 +185,17 @@
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();openSearch();}});
   si.addEventListener('input',()=>{ sr.innerHTML='<p class="search-empty">Search not available on this page. <a href="projects.html" style="color:var(--white);text-decoration:underline;">Browse Projects →</a></p>'; });
 
-  function handleSubmit(e){
+  async function handleSubmit(e){
     e.preventDefault();
+    const name    = document.getElementById('cfName').value.trim();
+    const email   = document.getElementById('cfEmail').value.trim();
+    const subject = document.getElementById('cfSubject').value;
+    const message = document.getElementById('cfMsg').value.trim();
+    try {
+      await submitInquiry({ source: 'contact', name, email, subject, message });
+    } catch (err){
+      console.error('Failed to submit inquiry:', err.message);
+    }
     document.getElementById('cfSuccess').classList.add('show');
     document.getElementById('contactForm').style.opacity='0.5';
     document.getElementById('contactForm').style.pointerEvents='none';

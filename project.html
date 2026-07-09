@@ -6,6 +6,7 @@
   <title>Project — Magg + Partners</title>
   <link rel="icon" type="image/png" href="assets/assets/Logo/favicon.png">
   <link rel="stylesheet" href="nstyles.css">
+  <script src="image-protect.js" defer></script>
 </head>
 <body>
 
@@ -285,20 +286,18 @@ if(imgs.length>=2){
   /* Content — facts left */
   const f=p.facts||{};
   const factsItems=[];
-  if(p.type) factsItems.push({l:'Project Facts',v:p.type});
-  if(p.client) factsItems.push({l:'Status',v:p.status});
-  if(f.completionYear||p.year) factsItems.push({l:'Appointment Year',v:p.year});
-  if(f.designFinishYear) factsItems.push({l:'Completion Year',v:f.completionYear});
+  if(p.type) factsItems.push({l:'Project Type',v:p.type});
+  if(p.status) factsItems.push({l:'Status',v:p.status});
+  if(p.year) factsItems.push({l:'Year',v:p.year});
+  if(f.completionYear) factsItems.push({l:'Completion Year',v:f.completionYear});
   if(f.designFinishYear) factsItems.push({l:'Design Finish Year',v:f.designFinishYear});
   if(f.size){
     const s=f.size;
     if(s.siteArea) factsItems.push({l:'Site Area',v:s.siteArea});
     if(s.grossArea) factsItems.push({l:'Gross Area',v:s.grossArea});
     if(s.stories) factsItems.push({l:'Stories',v:s.stories});
-  } else if(p.size) factsItems.push({l:'Size',v:p.size});
-  if(f.status||p.status) factsItems.push({l:'team',v:f.collaborators[0]||'—'});
-  if(f.sustainability) factsItems.push({l:'Awards and Accreditations',v:f.collaborators[1]||'—'});
-  if(f.sustainability) factsItems.push({l:'Collaborators',v:f.collaborators[2]||'—'});
+  } else if(p.size && p.size!=='—') factsItems.push({l:'Size',v:p.size});
+  if(f.sustainability) factsItems.push({l:'Sustainability',v:f.sustainability});
 
   const factsCol=document.getElementById('pdFactsCol');
   factsCol.innerHTML=factsItems.map(item=>

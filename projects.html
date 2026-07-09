@@ -6,6 +6,7 @@
   <title>Magg + Partners</title>
   <link rel="icon" type="image/png" href="assets/assets/Logo/favicon.png" />
   <link rel="stylesheet" href="nstyles.css" />
+  <script src="image-protect.js" defer></script>
 </head>
 <body>
 
@@ -257,15 +258,26 @@
     HERO_PROJECTS.forEach((p, i) => {
       const slide = document.createElement('div');
       slide.className = 'hero-slide' + (i === 0 ? ' active' : '');
-      slide.innerHTML = `<img src="${p.hero || p.thumb}" alt="${p.name}" loading="${i === 0 ? 'eager' : 'lazy'}">`;
+      const img = document.createElement('img');
+      img.alt = p.name;
+      img.loading = i === 0 ? 'eager' : 'lazy';
+      if (i === 0) img.src = p.hero || p.thumb;
+      slide.appendChild(img);
       ppSlides.appendChild(slide);
     });
+    function ppLoadSlideImage(i){
+      const slide = ppSlides.querySelectorAll('.hero-slide')[i];
+      const img = slide.querySelector('img');
+      if (!img.src) img.src = HERO_PROJECTS[i].hero || HERO_PROJECTS[i].thumb;
+    }
+    setTimeout(() => ppLoadSlideImage(1 % HERO_PROJECTS.length), 1200);
     let ppCur = 0, ppTimer = null;
     function ppGoTo(idx){
       const slides = ppSlides.querySelectorAll('.hero-slide');
       slides[ppCur].classList.remove('active');
       ppCur = idx;
       slides[ppCur].classList.add('active');
+      ppLoadSlideImage((ppCur + 1) % HERO_PROJECTS.length);
     }
     function ppNext(){ ppGoTo((ppCur + 1) % HERO_PROJECTS.length); }
     function ppReset(){ clearInterval(ppTimer); ppTimer = setInterval(ppNext, 5000); }
@@ -324,6 +336,27 @@
     ppType.addEventListener('change', renderPPGrid);
     ppLocSelect.addEventListener('change', renderPPGrid);
     renderPPGrid();
+
+    /* ── Contact Form ── */
+    document.querySelectorAll('.cf-select').forEach(sel => {
+      sel.addEventListener('change', () => sel.classList.toggle('filled', sel.value !== ''));
+    });
+    document.getElementById('cfSubmit').addEventListener('click', async () => {
+      const name    = document.getElementById('cfName').value.trim();
+      const email   = document.getElementById('cfEmail').value.trim();
+      if (!name || !email) return;
+      const country  = document.getElementById('cfCountry').value;
+      const interest = document.getElementById('cfInterest').value;
+      const details  = document.getElementById('cfDetails').value.trim();
+      try {
+        await submitInquiry({ source: 'projects', name, email, message: details, data: { country, interest } });
+      } catch (err){
+        console.error('Failed to submit inquiry:', err.message);
+      }
+      document.getElementById('cfSuccess').classList.add('show');
+      document.getElementById('cfForm').querySelectorAll('input, select, textarea').forEach(el => el.value = '');
+      document.querySelectorAll('.cf-select').forEach(sel => sel.classList.remove('filled'));
+    });
 
     /* ── Page Loader ── */
     (function(){

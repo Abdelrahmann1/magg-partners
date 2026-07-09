@@ -6,6 +6,14 @@
   <title>Magg + Partners</title>
   <link rel="icon" type="image/png" href="assets/assets/Logo/favicon.png">
   <link rel="stylesheet" href="style_more.css">
+  <script src="image-protect.js" defer></script>
+  <style>
+    .ec-form{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;align-items:center;}
+    .ec-input{background:#1a1a1a;border:1px solid #3a3a3a;border-radius:38px;padding:14px 24px;color:#fff;font-family:inherit;font-size:15px;min-width:200px;}
+    .ec-input::placeholder{color:rgba(255,255,255,.4);}
+    .ec-input:focus{outline:none;border-color:rgba(255,255,255,.4);}
+    .ec-success{margin-top:16px;color:#fff;font-size:15px;}
+  </style>
 </head>
 <body>
 
@@ -95,20 +103,25 @@
       <div class="pp-select-wrap">
         <select id="ppLocation" class="pp-select">
           <option value="">Location</option>
-          <option value="london">London</option>
         </select>
         <div class="pp-select-arrow-bg">
           <svg class="pp-select-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
         </div>
       </div>
     </div>
-    
+
     <div class="jobs-desc"></div>
     <div class="early-carrer">
       <p class="title-ec">For early careers, you can register your interest and submit your details prospectively with us.</p>
-      <input type="text" id="Register" class="Registerbtncarrer" placeholder="Register">
+      <button type="button" id="ecRegisterBtn" class="Registerbtncarrer">Register</button>
+      <div class="ec-form" id="ecForm" style="display:none;">
+        <input type="text" id="ecName" class="ec-input" placeholder="Your name">
+        <input type="email" id="ecEmail" class="ec-input" placeholder="Your email">
+        <button type="button" id="ecSubmitBtn" class="Registerbtncarrer">Submit</button>
+      </div>
+      <p class="ec-success" id="ecSuccess" style="display:none;">Thank you — we'll keep your details on file.</p>
     </div>
-    
+
   </div>
 </section>
 
@@ -149,6 +162,8 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="supabase-client.js"></script>
   <script src="./main.js"></script>
 </body>
 </html>
