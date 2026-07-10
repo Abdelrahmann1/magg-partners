@@ -954,7 +954,7 @@ body.c-click .c-dot {
 
 .cf-input::placeholder,
 .cf-textarea::placeholder {
-  color: #6d6f71;
+  color:  #6d6f71 !important;
   font-size: 20px;
 }
 
@@ -1028,16 +1028,16 @@ body.c-click .c-dot {
 .cf-submit {
   background: #f4f4f4;
   font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
   padding: 14px 0;
   width: 100%;
   cursor: pointer;
   border-radius: 30px;
   border: none;
   transition: background var(--fast), color var(--fast), border-color var(--fast);
-   color: #a4a4a4;
+   /* color: #a4a4a4; */
   font-size: 20px;
+  color:  #6d6f71 !important;
+
 }
 
 .cf-submit:hover {
