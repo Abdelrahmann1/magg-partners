@@ -52,7 +52,6 @@
   --slow:   0.8s var(--soft);
 }
 
-
 /* ── Reset ────────────────────────────────────────────── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { font-size: 16px; scroll-behavior: smooth; }
@@ -243,314 +242,83 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
 .search-esc:hover { color: #000; border-color: rgba(0,0,0,0.4); }
 
 /* ════════════════════════════════════════════
-   NEWS PAGE — white background layout
+   ARTICLE PAGE
 ════════════════════════════════════════════ */
-
-/* ── Page Header ─────────────────────────── */
-.news-page-header {
+.article-hero {
+  position: relative;
+  width: 100%;
+  height: 64vh;
+  min-height: 440px;
   margin-top: 72px;
-  padding: 48px 59px 32px 59px;
-  background: #ffffff;
-}
-.news-page-title {
-  font-family: var(--font);
-  font-size: clamp(28px, 3.5vw, 42px);
-  font-weight: 300;
-  font-stretch: normal;
-  letter-spacing: -0.01em;
-  color: #000000;
-  line-height: 1.1;
-}
-
-/* ── Filter Bar ──────────────────────────── */
-.news-filter-bar {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 0 59px 0 59px;
-  background: #ffffff;
-  margin-bottom: 0;
-}
-
-/* Search input */
-.news-search-wrap {
-  flex: 1;
-  position: relative;
-}
-.news-search-input {
-  width: 100%;
-  background: #f2f2f2;
-  border: 1px solid #e8e8e8;
-  border-radius: 36px;
-  padding: 13px 20px;
-  font-family: var(--font);
-  font-size: 14px;
-  font-weight: 400;
-  color: #888888;
-  transition: border-color var(--fast);
-}
-.news-search-input::placeholder {
-  color: #aaaaaa;
-}
-.news-search-input:focus {
-  border-color: #ccc;
-  color: #000;
-  outline: none;
-}
-
-/* Types dropdown */
-.news-types-wrap {
-  position: relative;
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-}
-.news-types-select {
-  background: #f2f2f2;
-  border: 1px solid #e8e8e8;
-  border-radius: 36px;
-  padding: 13px 52px 13px 20px;
-  font-family: var(--font);
-  font-size: 14px;
-  font-weight: 400;
-  color: #888888;
-  appearance: none;
-  -webkit-appearance: none;
-  cursor: pointer;
-  min-width: 360px;
-  transition: border-color var(--fast);
-}
-.news-types-select:focus {
-  border-color: #ccc;
-  outline: none;
-}
-.news-types-select option {
-  background: #ffffff;
-  color: #000;
-}
-.news-types-arrow-wrap {
-  position: absolute;
-  right: 14px;
-  pointer-events: none;
-  width: 26px;
-  height: 26px;
-  border: 1px solid #d0d0d0;
-  border-radius: 50%;
-  /* background: #ffffff; */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.news-types-arrow {
-  width: 13px;
-  height: 13px;
-  stroke: #888;
-  fill: none;
-  stroke-width: 2;
-}
-
-/* ── Divider after filter ─────────────────── */
-.news-divider {
-  height: 1px;
-  background: #6e6e6e;
-  margin: 28px 59px 0 59px;
-}
-
-/* ── News List ───────────────────────────── */
-.news-list {
-  padding: 0 59px;
-  background: #ffffff;
-}
-
-/* Each article row */
-.news-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 48px;
-  padding: 48px 0;
-  border-bottom: 1px solid #6e6e6e;
-  text-decoration: none;
-  color: inherit;
-  transition: opacity 0.2s ease;
-}
-.news-row:hover { opacity: 0.8; }
-.news-row:first-child {
-  border-top: none;
-}
-
-/* Image side */
-.news-row-img {
-  flex-shrink: 0;
-    width: 468px;
-    height: 260px;
   overflow: hidden;
-  border-radius: 2px;
-  background: #f0f0f0;
+  background: #14120f center/cover no-repeat;
 }
-.news-row-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.7s var(--soft);
+.article-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(10,10,10,0.25) 0%, rgba(10,10,10,0.05) 38%, rgba(10,10,10,0.82) 100%);
 }
-.news-row:hover .news-row-img img {
-  transform: scale(1.04);
+.article-back {
+  position: absolute; top: 28px; left: 48px; z-index: 2;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: #fff; opacity: 0.8;
+  transition: opacity var(--fast);
 }
-
-/* Text side */
-.news-row-body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding-top: 4px;
+.article-back:hover { opacity: 1; }
+.article-hero-bottom {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  padding: 0 48px 44px;
 }
-
-.news-row-cat {
-font-family: var(--font);
-    font-size: 13px;
-    font-weight: 900;
-    color: black;
-    letter-spacing: 0;
-    margin-bottom: 10px;
+.article-cat {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.72);
+  margin-bottom: 16px;
 }
-
-.news-row-title {
+.article-title {
   font-family: var(--font);
-  font-size: clamp(22px, 2.5vw, 34px);
+  font-size: clamp(30px, 4.6vw, 58px);
   font-weight: 300;
-  letter-spacing: -0.02em;
-  color: #000000;
-  line-height: 1.15;
-  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+  color: #fff;
+  line-height: 1.12;
+  max-width: 800px;
+  margin-bottom: 16px;
 }
-
-.news-row-meta {
-font-family: var(--font);
-    font-size: 18px;
-    font-weight: 300;
-    color: #959595;
-    letter-spacing: 0;
-    margin-bottom: 8px;
-
+.article-meta {
+  font-size: 14px;
+  color: rgba(255,255,255,0.62);
 }
-
-.news-row-excerpt {
-font-family: var(--font);
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 1.7;
-    color: #464646;
-    margin-bottom: 10px;
-    max-width: 700px;
+.article-body-wrap {
+  display: flex;
+  justify-content: center;
+  background: #ffffff;
+  padding: 68px 48px 96px;
 }
-
-.news-read-btn {
-  display: inline-block;
-  padding: 12px 40px;
-  /* border: 1px solid #cccccc; */
-  border-radius: 24px;
-  background: #f2f2f2;
+.article-body {
+  width: 100%;
+  max-width: 700px;
+}
+.article-body p {
   font-family: var(--font);
-  font-size: 15px;
-  font-weight: 400;
-  color: #888888;
-  cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
-  width: fit-content;
+  font-size: 19px;
+  line-height: 1.85;
+  color: #2a2a2a;
+  margin-bottom: 26px;
+  white-space: pre-wrap;
 }
-.news-row:hover .news-read-btn {
-  border-color: #888;
-  color: #555;
+.article-body p:first-of-type {
+  font-size: 21px;
+  color: #000;
 }
 
-
-/* ── Responsive ───────────────────────────────────────── */
-@media (max-width: 1200px) {
-  .news-row-img { width: 360px; height: 210px; }
-}
-@media (max-width: 1024px) {
-  .news-row-img { width: 300px; height: 190px; }
-  .news-row-title { font-size: clamp(20px, 2.2vw, 28px); }
-  #newsletter { gap: 48px; }
-}
-@media (max-width: 860px) {
-  .news-row-img { width: 260px; height: 175px; }
-  .news-row { gap: 32px; }
-  .f-top-row { flex-wrap: wrap; gap: 20px; }
-}
 @media (max-width: 768px) {
-  /* Nav */
   #nav { padding: 0 20px; height: 60px; }
-
-  /* Page header */
-  .news-page-header { padding: 36px 20px 20px; margin-top: 60px; }
-  .news-page-title { font-size: clamp(22px, 5vw, 32px); }
-
-  /* Filter bar */
-  .news-filter-bar { padding: 0 20px; flex-direction: column; align-items: stretch; gap: 12px; }
-  .news-search-input { font-size: 14px; padding: 12px 16px; }
-  .news-types-select { min-width: 100%; font-size: 14px; padding: 12px 44px 12px 16px; }
-  .news-divider { margin: 20px 20px 0; }
-
-  /* News list */
-  .news-list { padding: 0 20px; }
-  .news-row {
-    flex-direction: column;
-    gap: 16px;
-    padding: 28px 0;
-  }
-  .news-row-img {
-    width: 100%;
-    height: 230px;
-    border-radius: 2px;
-  }
-  .news-row-title { font-size: clamp(18px, 4vw, 24px); margin-bottom: 8px; }
-  .news-row-cat { font-size: 12px; margin-bottom: 6px; }
-  .news-row-meta { font-size: 12px; margin-bottom: 12px; }
-  .news-row-excerpt { font-size: 13px; margin-bottom: 18px; }
-  .news-read-btn { padding: 9px 20px; font-size: 12px; }
-
-  /* Newsletter */
-  #newsletter {
-    grid-template-columns: 1fr;
-    gap: 28px;
-    padding: 52px 20px 48px;
-  }
-  .nl-head { font-size: clamp(20px, 5vw, 28px); max-width: 100%; }
-  .nl-input { font-size: 15px; padding: 15px 18px; }
-  .nl-btn { font-size: 15px; margin-top: 18px; }
-
-  /* Footer */
-  footer { padding: 32px 20px 36px; }
-  .f-top-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-    padding-bottom: 24px;
-    margin-bottom: 20px;
-  }
-  .f-bottom-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-  .f-nav-row { gap: 16px; flex-wrap: wrap; }
-  .f-nav-row a { font-size: 13px; }
-  .f-copy { font-size: 12px; }
-}
-@media (max-width: 480px) {
-  .news-page-title { font-size: 22px; }
-  .news-row-title { font-size: 18px; }
-  .news-row-img { height: 200px; }
-  .f-nav-row { gap: 12px; }
-  .f-nav-row a { font-size: 12px; }
-  #newsletter { padding: 44px 16px 40px; }
-  .news-list { padding: 0 16px; }
-  .news-page-header { padding: 32px 16px 16px; }
-  .news-filter-bar { padding: 0 16px; }
-  .news-divider { margin: 16px 16px 0; }
+  .article-hero { height: 50vh; min-height: 340px; margin-top: 60px; }
+  .article-back { top: 20px; left: 20px; }
+  .article-hero-bottom { padding: 0 20px 30px; }
+  .article-body-wrap { padding: 44px 20px 64px; }
+  .article-body p { font-size: 16px; }
+  .article-body p:first-of-type { font-size: 17px; }
 }
   </style>
 </head>
@@ -607,43 +375,21 @@ font-family: var(--font);
     <div class="search-results-wrap" id="searchResults"></div>
   </div>
 
-  <!-- ── Page Header ── -->
-  <div class="news-page-header">
-    <h1 class="news-page-title">News and Publications</h1>
-  </div>
-
-  <!-- ── Filter Bar ── -->
-  <div class="news-filter-bar">
-    <div class="news-search-wrap">
-      <input
-        type="text"
-        id="newsSearch"
-        class="news-search-input"
-        placeholder="Search news and publications"
-        autocomplete="off"
-      >
-    </div>
-    <div class="news-types-wrap">
-      <select id="newsType" class="news-types-select">
-        <option value="">All types</option>
-        <option value="Award">Award</option>
-        <option value="Article">Article</option>
-        <option value="Project">Project</option>
-        <option value="Publication">Publication</option>
-        <option value="Event">Event</option>
-        <option value="Insight">Insight</option>
-      </select>
-      <div class="news-types-arrow-wrap">
-        <svg class="news-types-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
+  <!-- ── Hero ── -->
+  <div class="article-hero" id="artHero">
+    <div class="article-hero-overlay"></div>
+    <a class="article-back" href="news.html">← Back to News</a>
+    <div class="article-hero-bottom">
+      <div class="article-cat" id="artCat"></div>
+      <h1 class="article-title" id="artTitle"></h1>
+      <div class="article-meta" id="artMeta"></div>
     </div>
   </div>
 
-  <!-- ── Divider ── -->
-  <div class="news-divider"></div>
-
-  <!-- ── News List ── -->
-  <div class="news-list" id="newsList"></div>
+  <!-- ── Body ── -->
+  <div class="article-body-wrap">
+    <div class="article-body" id="artBody"></div>
+  </div>
 
 <!-- ── Newsletter ── -->
   <section id="newsletter">
@@ -760,70 +506,26 @@ projects and news.</p>
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); openSearch(); }
   });
 
-  /* ── News data (from Supabase) ── */
-  let NEWS = await fetchNewsFromDB();
+  /* ── Load article ── */
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  const NEWS = await fetchNewsFromDB();
+  const n = NEWS.find(item => item.id === id);
 
-  /* ── Render news list ── */
-  function formatDate(dateStr) {
-    const d = new Date(dateStr);
-    if (isNaN(d)) return dateStr;
-    const day = d.getDate();
-    const suffix = (day === 1 || day === 21 || day === 31) ? 'st'
-                 : (day === 2 || day === 22) ? 'nd'
-                 : (day === 3 || day === 23) ? 'rd' : 'th';
-    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    return `${day}${suffix} ${months[d.getMonth()]} ${d.getFullYear()}`;
-  }
-
-  function renderNews(items) {
-    const list = document.getElementById('newsList');
-    list.innerHTML = '';
-    if (!items.length) {
-      list.innerHTML = '<p style="padding:48px 0; color:#aaa; font-size:14px;">No results found.</p>';
-      return;
+  if (!n) {
+    window.location.replace('news.html');
+  } else {
+    document.title = n.title + ' — Magg+Partners';
+    document.getElementById('artCat').textContent = n.cat || '';
+    document.getElementById('artTitle').textContent = n.title || '';
+    document.getElementById('artMeta').textContent = [n.date, n.readTime].filter(Boolean).join(' · ');
+    if (n.img) {
+      document.getElementById('artHero').style.backgroundImage = `url('${n.img}')`;
     }
-    items.forEach(n => {
-      const btnLabel = n.cat === 'Article' ? 'Read Article'
-                     : n.cat === 'Publication' ? 'Read Publication'
-                     : n.cat === 'Insight' ? 'Read Insight'
-                     : 'Read News';
-      const a = document.createElement('a');
-      a.className = 'news-row';
-      a.href = 'news-article.html?id=' + encodeURIComponent(n.id);
-      a.innerHTML = `
-        <div class="news-row-img">
-          <img src="${n.img}" alt="${n.title}" loading="lazy">
-        </div>
-        <div class="news-row-body">
-          <div class="news-row-cat">${n.cat}</div>
-          <h2 class="news-row-title">${n.title}</h2>
-          <div class="news-row-meta">${n.date} · ${n.readTime}</div>
-          <p class="news-row-excerpt">${n.excerpt}</p>
-          <span class="news-read-btn">${btnLabel}</span>
-        </div>
-      `;
-      addHover(a);
-      list.appendChild(a);
-    });
+    const bodyEl = document.getElementById('artBody');
+    const paragraphs = (n.content && n.content.trim()) ? n.content.split(/\n\s*\n/) : [n.excerpt || ''];
+    bodyEl.innerHTML = paragraphs.filter(Boolean).map(p => `<p>${p}</p>`).join('');
   }
-
-  /* ── Filter logic ── */
-  function applyFilter() {
-    const q    = document.getElementById('newsSearch').value.trim().toLowerCase();
-    const type = document.getElementById('newsType').value;
-    const filtered = NEWS.filter(n => {
-      const matchQ    = !q || n.title.toLowerCase().includes(q) || n.excerpt.toLowerCase().includes(q) || n.cat.toLowerCase().includes(q);
-      const matchType = !type || n.cat === type;
-      return matchQ && matchType;
-    });
-    renderNews(filtered);
-  }
-
-  document.getElementById('newsSearch').addEventListener('input', applyFilter);
-  document.getElementById('newsType').addEventListener('change', applyFilter);
-
-  /* Initial render */
-  renderNews(NEWS);
 
   /* ── Page Loader ── */
   (function () {

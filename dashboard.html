@@ -89,8 +89,8 @@ main{max-width:1400px;margin:0 auto;padding:28px 32px 80px;}
 .inq-actions .del{color:var(--danger);border-color:#f0d9d5;}
 
 /* Modal */
-#projectModal,#jobModal{position:fixed;inset:0;background:rgba(20,20,20,.55);display:none;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto;z-index:200;}
-#projectModal.show,#jobModal.show{display:flex;}
+#projectModal,#jobModal,#newsModal{position:fixed;inset:0;background:rgba(20,20,20,.55);display:none;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto;z-index:200;}
+#projectModal.show,#jobModal.show,#newsModal.show{display:flex;}
 .modal-box{background:#fff;border-radius:18px;width:100%;max-width:760px;padding:36px;margin-bottom:40px;}
 .modal-box h2{font-size:20px;font-weight:700;margin-bottom:24px;}
 .form-section{margin-bottom:24px;}
@@ -142,6 +142,7 @@ main{max-width:1400px;margin:0 auto;padding:28px 32px 80px;}
     <div class="dash-actions">
       <button class="btn btn-primary" id="addBtn" type="button">+ Add Project</button>
       <button class="btn btn-primary" id="addJobBtn" type="button" style="display:none;">+ Add Job</button>
+      <button class="btn btn-primary" id="addNewsBtn" type="button" style="display:none;">+ Add News</button>
       <a class="btn" href="projects.html" target="_blank">View Site ↗</a>
       <button class="btn" id="logoutBtn" type="button">Logout</button>
     </div>
@@ -151,6 +152,7 @@ main{max-width:1400px;margin:0 auto;padding:28px 32px 80px;}
     <div class="tabs">
       <button class="tab-btn active" data-tab="projects" type="button">Projects</button>
       <button class="tab-btn" data-tab="jobs" type="button">Jobs</button>
+      <button class="tab-btn" data-tab="news" type="button">News</button>
       <button class="tab-btn" data-tab="inquiries" type="button">Inquiries <span class="tab-badge" id="inqBadge" style="display:none;"></span></button>
     </div>
 
@@ -187,6 +189,23 @@ main{max-width:1400px;margin:0 auto;padding:28px 32px 80px;}
         <span class="count" id="jobCountLabel"></span>
       </div>
       <div class="grid" id="jobGrid"></div>
+    </section>
+
+    <section id="newsView" style="display:none;">
+      <div class="toolbar">
+        <input type="text" id="newsSearchInput" placeholder="Search by title…">
+        <select id="newsTypeFilter">
+          <option value="">All types</option>
+          <option value="Award">Award</option>
+          <option value="Article">Article</option>
+          <option value="Project">Project</option>
+          <option value="Publication">Publication</option>
+          <option value="Event">Event</option>
+          <option value="Insight">Insight</option>
+        </select>
+        <span class="count" id="newsCountLabel"></span>
+      </div>
+      <div class="grid" id="newsGrid"></div>
     </section>
 
     <section id="inquiriesView" style="display:none;">
@@ -320,6 +339,52 @@ main{max-width:1400px;margin:0 auto;padding:28px 32px 80px;}
   </div>
 </div>
 
+<div id="newsModal">
+  <div class="modal-box">
+    <h2 id="newsModalTitle">Add News</h2>
+    <form id="newsForm">
+      <input type="hidden" id="nId">
+      <div class="form-row single">
+        <div class="field"><label>Title *</label><input type="text" id="nTitle" required></div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Type *</label>
+          <select id="nCat" required>
+            <option value="Award">Award</option>
+            <option value="Article">Article</option>
+            <option value="Project">Project</option>
+            <option value="Publication">Publication</option>
+            <option value="Event">Event</option>
+            <option value="Insight">Insight</option>
+          </select>
+        </div>
+        <div class="field"><label>Date</label><input type="text" id="nDate" placeholder="e.g. March 2024"></div>
+      </div>
+      <div class="form-row single">
+        <div class="field"><label>Read Time</label><input type="text" id="nReadTime" placeholder="e.g. 5 minute read"></div>
+      </div>
+      <div class="form-row single">
+        <div class="field"><label>Excerpt</label><textarea id="nExcerpt" placeholder="Short summary shown in the news list"></textarea></div>
+      </div>
+      <div class="form-row single">
+        <div class="field"><label>Full Content</label><textarea id="nContent" placeholder="Full article body shown on the article page" style="min-height:160px;"></textarea></div>
+      </div>
+
+      <div class="form-section">
+        <h3>Image</h3>
+        <input type="file" id="nImageUpload" accept="image/*">
+        <div class="image-grid" id="newsImagePreview"></div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn" id="newsCancelBtn">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="newsSaveBtn">Save News</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="supabase-client.js"></script>
 <script src="projects-data.js"></script>
@@ -339,6 +404,7 @@ async function showApp(session){
   await loadProjects();
   renderGrid();
   await loadAndRenderJobs();
+  await loadAndRenderNews();
   await loadAndRenderInquiries();
 }
 function showAuthGate(){
@@ -374,16 +440,20 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
 const tabBtns       = document.querySelectorAll('.tab-btn');
 const projectsView  = document.getElementById('projectsView');
 const jobsView      = document.getElementById('jobsView');
+const newsView      = document.getElementById('newsView');
 const inquiriesView = document.getElementById('inquiriesView');
 const addBtn        = document.getElementById('addBtn');
 const addJobBtn     = document.getElementById('addJobBtn');
+const addNewsBtn    = document.getElementById('addNewsBtn');
 function switchTab(tab){
   tabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
   projectsView.style.display  = tab === 'projects'  ? '' : 'none';
   jobsView.style.display      = tab === 'jobs'       ? '' : 'none';
+  newsView.style.display      = tab === 'news'       ? '' : 'none';
   inquiriesView.style.display = tab === 'inquiries' ? '' : 'none';
-  addBtn.style.display    = tab === 'projects' ? '' : 'none';
-  addJobBtn.style.display = tab === 'jobs'     ? '' : 'none';
+  addBtn.style.display     = tab === 'projects' ? '' : 'none';
+  addJobBtn.style.display  = tab === 'jobs'     ? '' : 'none';
+  addNewsBtn.style.display = tab === 'news'     ? '' : 'none';
 }
 tabBtns.forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
 
@@ -629,6 +699,165 @@ jobForm.addEventListener('submit', async e => {
     alert('Failed to save job: ' + err.message);
   } finally {
     jobSaveBtn.disabled = false;
+  }
+});
+
+/* ── News ── */
+let NEWS_ITEMS = [];
+const newsGrid        = document.getElementById('newsGrid');
+const newsSearchInput = document.getElementById('newsSearchInput');
+const newsTypeFilter  = document.getElementById('newsTypeFilter');
+const newsCountLabel  = document.getElementById('newsCountLabel');
+
+async function loadAndRenderNews(){
+  NEWS_ITEMS = await fetchNewsFromDB();
+  renderNewsGrid();
+}
+function renderNewsGrid(){
+  const q    = newsSearchInput.value.trim().toLowerCase();
+  const type = newsTypeFilter.value;
+  const list = NEWS_ITEMS.filter(n => {
+    const matchQ    = !q || n.title.toLowerCase().includes(q);
+    const matchType = !type || n.cat === type;
+    return matchQ && matchType;
+  });
+  newsCountLabel.textContent = `${list.length} of ${NEWS_ITEMS.length} news items`;
+  if (!list.length){
+    newsGrid.innerHTML = '<div class="empty">No news items match your filters.</div>';
+    return;
+  }
+  newsGrid.innerHTML = list.map(n => `
+      <div class="pcard">
+        <div class="pcard-img"><img src="${n.img || ''}" alt="${escapeHtml(n.title)}" loading="lazy"></div>
+        <div class="pcard-body">
+          <div class="pcard-cat">${escapeHtml(n.cat || '')}</div>
+          <div class="pcard-name">${escapeHtml(n.title)}</div>
+          <div class="pcard-loc">${escapeHtml(n.date || '')}${n.readTime ? ' · ' + escapeHtml(n.readTime) : ''}</div>
+          <div class="pcard-actions">
+            <button data-news-edit="${n.id}" type="button">Edit</button>
+            <button data-news-del="${n.id}" class="del" type="button">Delete</button>
+          </div>
+        </div>
+      </div>`).join('');
+}
+newsSearchInput.addEventListener('input', renderNewsGrid);
+newsTypeFilter.addEventListener('change', renderNewsGrid);
+
+newsGrid.addEventListener('click', async e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  const editId = btn.getAttribute('data-news-edit');
+  const delId  = btn.getAttribute('data-news-del');
+  if (editId) openNewsModal(NEWS_ITEMS.find(n => n.id === editId));
+  if (delId){
+    const item = NEWS_ITEMS.find(n => n.id === delId);
+    if (confirm(`Delete "${item ? item.title : delId}"? This cannot be undone.`)){
+      await deleteNewsFromDB(delId);
+      await loadAndRenderNews();
+    }
+  }
+});
+
+const newsModal      = document.getElementById('newsModal');
+const newsForm       = document.getElementById('newsForm');
+const newsModalTitle = document.getElementById('newsModalTitle');
+const newsSaveBtn    = document.getElementById('newsSaveBtn');
+
+let newsImageUrl = '';
+const newsImageUpload  = document.getElementById('nImageUpload');
+const newsImagePreview = document.getElementById('newsImagePreview');
+
+function renderNewsImagePreview(){
+  if (!newsImageUrl){
+    newsImagePreview.innerHTML = '<p class="hint">No image yet — upload one.</p>';
+    return;
+  }
+  newsImagePreview.innerHTML = `
+    <div class="img-tile">
+      <img src="${newsImageUrl}" alt="">
+      <div class="img-tile-actions">
+        <button type="button" data-news-img-remove class="del">Remove</button>
+      </div>
+    </div>`;
+}
+newsImagePreview.addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  if (btn.hasAttribute('data-news-img-remove')){
+    deleteProjectImage(newsImageUrl).catch(() => {});
+    newsImageUrl = '';
+    renderNewsImagePreview();
+  }
+});
+newsImageUpload.addEventListener('change', async () => {
+  const file = newsImageUpload.files[0];
+  newsImageUpload.value = '';
+  if (!file || !file.type.startsWith('image/')) return;
+  if (file.size > 10 * 1024 * 1024){ alert(`${file.name} is larger than 10MB — skipped.`); return; }
+  try {
+    newsImageUrl = await uploadProjectImage(file);
+  } catch (err){
+    alert(`Failed to upload ${file.name}: ${err.message}`);
+  }
+  renderNewsImagePreview();
+});
+
+function openNewsModal(item){
+  newsForm.reset();
+  if (item){
+    newsModalTitle.textContent = 'Edit News';
+    document.getElementById('nId').value = item.id;
+    document.getElementById('nTitle').value = item.title || '';
+    document.getElementById('nCat').value = item.cat || 'Article';
+    document.getElementById('nDate').value = item.date || '';
+    document.getElementById('nReadTime').value = item.readTime || '';
+    document.getElementById('nExcerpt').value = item.excerpt || '';
+    document.getElementById('nContent').value = item.content || '';
+    newsImageUrl = item.img || '';
+  } else {
+    newsModalTitle.textContent = 'Add News';
+    document.getElementById('nId').value = '';
+    document.getElementById('nCat').value = 'Article';
+    newsImageUrl = '';
+  }
+  renderNewsImagePreview();
+  newsModal.classList.add('show');
+}
+function closeNewsModal(){ newsModal.classList.remove('show'); }
+
+addNewsBtn.addEventListener('click', () => { switchTab('news'); openNewsModal(null); });
+document.getElementById('newsCancelBtn').addEventListener('click', closeNewsModal);
+newsModal.addEventListener('click', e => { if (e.target === newsModal) closeNewsModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && newsModal.classList.contains('show')) closeNewsModal(); });
+
+newsForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  const editingId = document.getElementById('nId').value;
+  const title = document.getElementById('nTitle').value.trim();
+  if (!title) return;
+  if (!newsImageUrl){ alert('Please upload an image.'); return; }
+
+  const id = editingId || uniqueId(slugify(title), editingId, NEWS_ITEMS);
+  const item = {
+    id,
+    cat: document.getElementById('nCat').value,
+    title,
+    date: document.getElementById('nDate').value.trim(),
+    readTime: document.getElementById('nReadTime').value.trim(),
+    excerpt: document.getElementById('nExcerpt').value.trim(),
+    content: document.getElementById('nContent').value.trim(),
+    img: newsImageUrl,
+  };
+
+  newsSaveBtn.disabled = true;
+  try {
+    await upsertNewsToDB(item);
+    await loadAndRenderNews();
+    closeNewsModal();
+  } catch (err){
+    alert('Failed to save news: ' + err.message);
+  } finally {
+    newsSaveBtn.disabled = false;
   }
 });
 

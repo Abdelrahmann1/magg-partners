@@ -91,3 +91,22 @@ async function deleteJobFromDB(id){
   const { error } = await supabaseClient.from('jobs').delete().eq('id', id);
   if (error) throw error;
 }
+
+async function fetchNewsFromDB(){
+  const { data, error } = await supabaseClient.from('news').select('data');
+  if (error){
+    console.error('Failed to load news from Supabase:', error.message);
+    return [];
+  }
+  return data.map(row => row.data);
+}
+
+async function upsertNewsToDB(item){
+  const { error } = await supabaseClient.from('news').upsert({ id: item.id, data: item });
+  if (error) throw error;
+}
+
+async function deleteNewsFromDB(id){
+  const { error } = await supabaseClient.from('news').delete().eq('id', id);
+  if (error) throw error;
+}
