@@ -164,8 +164,8 @@
   <!-- ── Newsletter ── -->
   <section id="newsletter">
     <p class="nl-head">Stay up to date with our latest projects and news.</p>
-    <form class="nl-form" onsubmit="return false;">
-      <input class="nl-input" type="email" placeholder="Email address">
+    <form class="nl-form" id="nlForm">
+      <input class="nl-input" type="email" id="nlEmail" placeholder="Email address" required>
       <button class="nl-btn" type="submit">subscribe</button>
     </form>
   </section>
@@ -363,6 +363,24 @@
       document.getElementById('cfForm').querySelectorAll('input, select, textarea').forEach(el => el.value = '');
       document.querySelectorAll('.cf-select').forEach(sel => sel.classList.remove('filled'));
     });
+
+    /* ── Newsletter ── */
+    const nlForm = document.getElementById('nlForm');
+    if (nlForm) {
+      nlForm.addEventListener('submit', async e => {
+        e.preventDefault();
+        const emailInput = document.getElementById('nlEmail');
+        const email = emailInput.value.trim();
+        if (!email) return;
+        try {
+          await subscribeToNewsletter(email);
+          emailInput.value = '';
+          emailInput.placeholder = 'Subscribed — thank you!';
+        } catch (err) {
+          console.error('Newsletter subscribe failed:', err.message);
+        }
+      });
+    }
 
     /* ── Page Loader ── */
     (function(){

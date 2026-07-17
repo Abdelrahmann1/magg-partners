@@ -154,6 +154,7 @@ main{max-width:1400px;margin:0 auto;padding:28px 32px 80px;}
       <button class="tab-btn" data-tab="jobs" type="button">Jobs</button>
       <button class="tab-btn" data-tab="news" type="button">News</button>
       <button class="tab-btn" data-tab="inquiries" type="button">Inquiries <span class="tab-badge" id="inqBadge" style="display:none;"></span></button>
+      <button class="tab-btn" data-tab="subscribers" type="button">Subscribers</button>
     </div>
 
     <section id="projectsView">
@@ -218,6 +219,14 @@ main{max-width:1400px;margin:0 auto;padding:28px 32px 80px;}
         <span class="count" id="inqCountLabel"></span>
       </div>
       <div class="inq-list" id="inqList"></div>
+    </section>
+
+    <section id="subscribersView" style="display:none;">
+      <div class="toolbar">
+        <button class="btn" id="copyEmailsBtn" type="button">Copy All Emails</button>
+        <span class="count" id="subCountLabel"></span>
+      </div>
+      <div class="inq-list" id="subList"></div>
     </section>
   </main>
 </div>
@@ -406,6 +415,7 @@ async function showApp(session){
   await loadAndRenderJobs();
   await loadAndRenderNews();
   await loadAndRenderInquiries();
+  await loadAndRenderSubscribers();
 }
 function showAuthGate(){
   app.classList.remove('show');
@@ -438,19 +448,21 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
 
 /* ── Tabs ── */
 const tabBtns       = document.querySelectorAll('.tab-btn');
-const projectsView  = document.getElementById('projectsView');
-const jobsView      = document.getElementById('jobsView');
-const newsView      = document.getElementById('newsView');
-const inquiriesView = document.getElementById('inquiriesView');
+const projectsView    = document.getElementById('projectsView');
+const jobsView        = document.getElementById('jobsView');
+const newsView        = document.getElementById('newsView');
+const inquiriesView   = document.getElementById('inquiriesView');
+const subscribersView = document.getElementById('subscribersView');
 const addBtn        = document.getElementById('addBtn');
 const addJobBtn     = document.getElementById('addJobBtn');
 const addNewsBtn    = document.getElementById('addNewsBtn');
 function switchTab(tab){
   tabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-  projectsView.style.display  = tab === 'projects'  ? '' : 'none';
-  jobsView.style.display      = tab === 'jobs'       ? '' : 'none';
-  newsView.style.display      = tab === 'news'       ? '' : 'none';
-  inquiriesView.style.display = tab === 'inquiries' ? '' : 'none';
+  projectsView.style.display    = tab === 'projects'    ? '' : 'none';
+  jobsView.style.display        = tab === 'jobs'         ? '' : 'none';
+  newsView.style.display        = tab === 'news'         ? '' : 'none';
+  inquiriesView.style.display   = tab === 'inquiries'   ? '' : 'none';
+  subscribersView.style.display = tab === 'subscribers' ? '' : 'none';
   addBtn.style.display     = tab === 'projects' ? '' : 'none';
   addJobBtn.style.display  = tab === 'jobs'     ? '' : 'none';
   addNewsBtn.style.display = tab === 'news'     ? '' : 'none';
@@ -515,6 +527,50 @@ inqList.addEventListener('click', async e => {
   const delId  = btn.getAttribute('data-del-inq');
   if (readId){ await updateInquiryStatus(readId, 'read'); await loadAndRenderInquiries(); }
   if (delId && confirm('Delete this inquiry?')){ await deleteInquiry(delId); await loadAndRenderInquiries(); }
+});
+
+/* ── Subscribers ── */
+let SUBSCRIBERS = [];
+const subList        = document.getElementById('subList');
+const subCountLabel  = document.getElementById('subCountLabel');
+const copyEmailsBtn  = document.getElementById('copyEmailsBtn');
+
+async function loadAndRenderSubscribers(){
+  SUBSCRIBERS = await fetchNewsletterSubscribers();
+  renderSubscribers();
+}
+function renderSubscribers(){
+  subCountLabel.textContent = `${SUBSCRIBERS.length} subscriber${SUBSCRIBERS.length === 1 ? '' : 's'}`;
+  if (!SUBSCRIBERS.length){
+    subList.innerHTML = '<div class="empty">No subscribers yet.</div>';
+    return;
+  }
+  subList.innerHTML = SUBSCRIBERS.map(s => `
+      <div class="inq-card">
+        <div class="inq-top">
+          <span class="inq-date">${new Date(s.created_at).toLocaleString()}</span>
+        </div>
+        <div class="inq-name"><a href="mailto:${escapeHtml(s.email)}">${escapeHtml(s.email)}</a></div>
+        <div class="inq-actions">
+          <button data-sub-del="${s.id}" class="del" type="button">Delete</button>
+        </div>
+      </div>`).join('');
+}
+subList.addEventListener('click', async e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  const delId = btn.getAttribute('data-sub-del');
+  if (delId && confirm('Remove this subscriber?')){ await deleteNewsletterSubscriber(delId); await loadAndRenderSubscribers(); }
+});
+copyEmailsBtn.addEventListener('click', async () => {
+  const emails = SUBSCRIBERS.map(s => s.email).join(', ');
+  try {
+    await navigator.clipboard.writeText(emails);
+    copyEmailsBtn.textContent = 'Copied!';
+    setTimeout(() => { copyEmailsBtn.textContent = 'Copy All Emails'; }, 1500);
+  } catch (err){
+    alert('Could not copy automatically. Emails:\n\n' + emails);
+  }
 });
 
 /* ── Projects grid ── */

@@ -871,7 +871,7 @@ body.c-click .c-dot {
 .nl-btn {
     margin-top: 31px;
     background: transparent;
-    color: var(--white);
+    color: var(--muted);
     font-size: 20px;
     font-weight: 500;
     height: 46px;

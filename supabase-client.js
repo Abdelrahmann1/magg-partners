@@ -110,3 +110,25 @@ async function deleteNewsFromDB(id){
   const { error } = await supabaseClient.from('news').delete().eq('id', id);
   if (error) throw error;
 }
+
+async function subscribeToNewsletter(email){
+  const { error } = await supabaseClient.from('newsletter_subscribers').insert({ email });
+  if (error && error.code !== '23505') throw error; // 23505 = duplicate email, treat as already subscribed
+}
+
+async function fetchNewsletterSubscribers(){
+  const { data, error } = await supabaseClient
+    .from('newsletter_subscribers')
+    .select('*')
+    .order('created_at', { ascending: false });
+  if (error){
+    console.error('Failed to load subscribers from Supabase:', error.message);
+    return [];
+  }
+  return data;
+}
+
+async function deleteNewsletterSubscriber(id){
+  const { error } = await supabaseClient.from('newsletter_subscribers').delete().eq('id', id);
+  if (error) throw error;
+}

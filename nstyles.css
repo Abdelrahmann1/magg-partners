@@ -908,7 +908,7 @@ object-fit: cover;
 .nl-btn {
     margin-top: 31px;
     background: rgba(0,0,0,0.04);
-    color: var(--white);
+    color: var(--muted);
     font-size: 20px;
     width: 100%;
     font-weight: 400;
