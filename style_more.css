@@ -1052,7 +1052,8 @@ body.c-click .c-dot {
   margin-bottom: 37px;
   font-size: 20px;
   font-weight: 300;
-  color: #1a1a1a;
+  font-family: var(--font) !important;
+  color: #6d6f71;
   padding: 18px 0;
   letter-spacing: 0.01em;
   resize: none;
@@ -1084,7 +1085,7 @@ body.c-click .c-dot {
 
 .cf-select option {
   font-weight: 300;
-  color: #1a1a1a;
+  color: #6d6f71;
 }
 
 .cf-row-select ,.ccf-row-select {
@@ -1152,7 +1153,7 @@ body.c-click .c-dot {
   transition: background var(--fast), color var(--fast), border-color var(--fast);
    /* color: #a4a4a4; */
   font-size: 20px;
-  color:  #6d6f71 !important;
+  color:  #a4a4a4 !important;
 
 }
 

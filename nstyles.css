@@ -2081,7 +2081,8 @@ height: 50px;
   margin-bottom: 37px;
   font-size: 20px;
   font-weight: 300;
-  color: #1a1a1a;
+  color: #6d6f71;
+  font-family: var(--font) !important;
   padding: 18px 0;
   letter-spacing: 0.01em;
   resize: none;
@@ -2113,7 +2114,7 @@ height: 50px;
 
 .cf-select option {
   font-weight: 300;
-  color: #1a1a1a;
+  color: #6d6f71;
 }
 .cf-row-select ,.ccf-row-select {
   display: flex;
@@ -2180,7 +2181,7 @@ height: 50px;
   transition: background var(--fast), color var(--fast), border-color var(--fast);
    /* color: #a4a4a4; */
   font-size: 20px;
-  color:  #6d6f71 !important;
+  color:  #a4a4a4 !important;
 
 }
 
