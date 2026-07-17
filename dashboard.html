@@ -153,8 +153,9 @@ main{max-width:1400px;margin:0 auto;padding:28px 32px 80px;}
       <button class="tab-btn active" data-tab="projects" type="button">Projects</button>
       <button class="tab-btn" data-tab="jobs" type="button">Jobs</button>
       <button class="tab-btn" data-tab="news" type="button">News</button>
-      <button class="tab-btn" data-tab="inquiries" type="button">Inquiries <span class="tab-badge" id="inqBadge" style="display:none;"></span></button>
+      <button class="tab-btn" data-tab="inquiries" type="button">Enquiries <span class="tab-badge" id="inqBadge" style="display:none;"></span></button>
       <button class="tab-btn" data-tab="subscribers" type="button">Subscribers</button>
+      <button class="tab-btn" data-tab="sitecontent" type="button">Site Content</button>
     </div>
 
     <section id="projectsView">
@@ -212,7 +213,7 @@ main{max-width:1400px;margin:0 auto;padding:28px 32px 80px;}
     <section id="inquiriesView" style="display:none;">
       <div class="toolbar">
         <select id="inqStatusFilter">
-          <option value="">All statuses</option>
+          <option value="">All Enquiries</option>
           <option value="new">New</option>
           <option value="read">Read</option>
         </select>
@@ -227,6 +228,32 @@ main{max-width:1400px;margin:0 auto;padding:28px 32px 80px;}
         <span class="count" id="subCountLabel"></span>
       </div>
       <div class="inq-list" id="subList"></div>
+    </section>
+
+    <section id="sitecontentView" style="display:none;">
+      <div class="form-section">
+        <h3>Expertise Cards (Home Page)</h3>
+        <div class="grid" id="scExpertiseGrid"></div>
+        <div class="modal-actions"><button class="btn btn-primary" id="scExpertiseSave" type="button">Save Expertise Cards</button></div>
+      </div>
+
+      <div class="form-section">
+        <h3>Page Hero Images</h3>
+        <div class="grid" id="scHeroGrid"></div>
+        <div class="modal-actions"><button class="btn btn-primary" id="scHeroSave" type="button">Save Hero Images</button></div>
+      </div>
+
+      <div class="form-section">
+        <h3>Studio "About" Teaser Card</h3>
+        <div class="grid" id="scTeaserGrid"></div>
+        <div class="modal-actions"><button class="btn btn-primary" id="scTeaserSave" type="button">Save Teaser Card</button></div>
+      </div>
+
+      <div class="form-section">
+        <h3>Office Locations (Studio Page)</h3>
+        <div class="grid" id="scOfficesGrid"></div>
+        <div class="modal-actions"><button class="btn btn-primary" id="scOfficesSave" type="button">Save Office Locations</button></div>
+      </div>
     </section>
   </main>
 </div>
@@ -416,6 +443,7 @@ async function showApp(session){
   await loadAndRenderNews();
   await loadAndRenderInquiries();
   await loadAndRenderSubscribers();
+  await loadAndRenderSiteContent();
 }
 function showAuthGate(){
   app.classList.remove('show');
@@ -448,11 +476,12 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
 
 /* ── Tabs ── */
 const tabBtns       = document.querySelectorAll('.tab-btn');
-const projectsView    = document.getElementById('projectsView');
-const jobsView        = document.getElementById('jobsView');
-const newsView        = document.getElementById('newsView');
-const inquiriesView   = document.getElementById('inquiriesView');
-const subscribersView = document.getElementById('subscribersView');
+const projectsView     = document.getElementById('projectsView');
+const jobsView         = document.getElementById('jobsView');
+const newsView         = document.getElementById('newsView');
+const inquiriesView    = document.getElementById('inquiriesView');
+const subscribersView  = document.getElementById('subscribersView');
+const sitecontentView  = document.getElementById('sitecontentView');
 const addBtn        = document.getElementById('addBtn');
 const addJobBtn     = document.getElementById('addJobBtn');
 const addNewsBtn    = document.getElementById('addNewsBtn');
@@ -463,6 +492,7 @@ function switchTab(tab){
   newsView.style.display        = tab === 'news'         ? '' : 'none';
   inquiriesView.style.display   = tab === 'inquiries'   ? '' : 'none';
   subscribersView.style.display = tab === 'subscribers' ? '' : 'none';
+  sitecontentView.style.display = tab === 'sitecontent' ? '' : 'none';
   addBtn.style.display     = tab === 'projects' ? '' : 'none';
   addJobBtn.style.display  = tab === 'jobs'     ? '' : 'none';
   addNewsBtn.style.display = tab === 'news'     ? '' : 'none';
@@ -487,7 +517,7 @@ async function loadAndRenderInquiries(){
 function renderInquiries(){
   const statusFilter = inqStatusFilter.value;
   const list = INQUIRIES.filter(i => !statusFilter || i.status === statusFilter);
-  inqCountLabel.textContent = `${list.length} of ${INQUIRIES.length} inquiries`;
+  inqCountLabel.textContent = `${list.length} of ${INQUIRIES.length} Enquiries`;
 
   const newCount = INQUIRIES.filter(i => i.status === 'new').length;
   inqBadge.style.display = newCount ? '' : 'none';
@@ -571,6 +601,144 @@ copyEmailsBtn.addEventListener('click', async () => {
   } catch (err){
     alert('Could not copy automatically. Emails:\n\n' + emails);
   }
+});
+
+/* ── Site Content ── */
+let SC_EXPERTISE = { cards: [] };
+let SC_HEROES    = {};
+let SC_TEASER    = {};
+let SC_OFFICES   = { offices: [] };
+
+const scExpertiseGrid = document.getElementById('scExpertiseGrid');
+const scHeroGrid      = document.getElementById('scHeroGrid');
+const scTeaserGrid    = document.getElementById('scTeaserGrid');
+const scOfficesGrid   = document.getElementById('scOfficesGrid');
+
+async function loadAndRenderSiteContent(){
+  SC_EXPERTISE = (await fetchSiteContent('expertise_grid')) || { cards: [] };
+  SC_HEROES    = (await fetchSiteContent('page_heroes')) || {};
+  SC_TEASER    = (await fetchSiteContent('studio_about_teaser')) || {};
+  SC_OFFICES   = (await fetchSiteContent('office_locations')) || { offices: [] };
+  renderExpertiseEditor();
+  renderHeroEditor();
+  renderTeaserEditor();
+  renderOfficesEditor();
+}
+
+function scUploadHandler(fileInput, imgEl, onDone){
+  fileInput.addEventListener('change', async () => {
+    const file = fileInput.files[0];
+    fileInput.value = '';
+    if (!file || !file.type.startsWith('image/')) return;
+    if (file.size > 10 * 1024 * 1024){ alert(`${file.name} is larger than 10MB — skipped.`); return; }
+    try {
+      const url = await uploadProjectImage(file);
+      imgEl.src = url;
+      onDone(url);
+    } catch (err){
+      alert(`Failed to upload ${file.name}: ${err.message}`);
+    }
+  });
+}
+
+function renderExpertiseEditor(){
+  scExpertiseGrid.innerHTML = '';
+  SC_EXPERTISE.cards.forEach(c => {
+    const tile = document.createElement('div');
+    tile.className = 'img-tile';
+    tile.innerHTML = `
+      <img src="${c.img || ''}" alt="">
+      <div class="img-tile-actions">
+        <input type="file" accept="image/*">
+        <div class="field"><label>Title</label><input type="text" value="${escapeHtml(c.title || '')}"></div>
+        <div class="field"><label>Link (href)</label><input type="text" value="${escapeHtml(c.href || '')}"></div>
+      </div>`;
+    const imgEl = tile.querySelector('img');
+    const fileInput = tile.querySelector('input[type=file]');
+    const [titleInput, hrefInput] = tile.querySelectorAll('input[type=text]');
+    scUploadHandler(fileInput, imgEl, url => { c.img = url; });
+    titleInput.addEventListener('input', () => { c.title = titleInput.value; c.alt = titleInput.value; });
+    hrefInput.addEventListener('input', () => { c.href = hrefInput.value; });
+    scExpertiseGrid.appendChild(tile);
+  });
+}
+
+function renderHeroEditor(){
+  scHeroGrid.innerHTML = '';
+  const labels = { about: 'About Page', careers: 'Careers Page', studio: 'Studio Page' };
+  Object.keys(labels).forEach(key => {
+    const tile = document.createElement('div');
+    tile.className = 'img-tile';
+    tile.innerHTML = `
+      <img src="${SC_HEROES[key] || ''}" alt="">
+      <div class="img-tile-actions">
+        <div class="hint">${labels[key]} Hero</div>
+        <input type="file" accept="image/*">
+      </div>`;
+    const imgEl = tile.querySelector('img');
+    const fileInput = tile.querySelector('input[type=file]');
+    scUploadHandler(fileInput, imgEl, url => { SC_HEROES[key] = url; });
+    scHeroGrid.appendChild(tile);
+  });
+}
+
+function renderTeaserEditor(){
+  scTeaserGrid.innerHTML = '';
+  const tile = document.createElement('div');
+  tile.className = 'img-tile';
+  tile.innerHTML = `
+    <img src="${SC_TEASER.img || ''}" alt="">
+    <div class="img-tile-actions">
+      <input type="file" accept="image/*">
+      <div class="field"><label>Label Text</label><input type="text" value="${escapeHtml(SC_TEASER.label || '')}"></div>
+    </div>`;
+  const imgEl = tile.querySelector('img');
+  const fileInput = tile.querySelector('input[type=file]');
+  const labelInput = tile.querySelector('input[type=text]');
+  scUploadHandler(fileInput, imgEl, url => { SC_TEASER.img = url; });
+  labelInput.addEventListener('input', () => { SC_TEASER.label = labelInput.value; });
+  scTeaserGrid.appendChild(tile);
+}
+
+function renderOfficesEditor(){
+  scOfficesGrid.innerHTML = '';
+  SC_OFFICES.offices.forEach(o => {
+    const tile = document.createElement('div');
+    tile.className = 'img-tile';
+    tile.innerHTML = `
+      <img src="${o.img || ''}" alt="">
+      <div class="img-tile-actions">
+        <input type="file" accept="image/*">
+        <div class="field"><label>City</label><input type="text" value="${escapeHtml(o.city || '')}"></div>
+        <div class="field"><label>Country</label><input type="text" value="${escapeHtml(o.country || '')}"></div>
+        <div class="field"><label>Phone</label><input type="text" value="${escapeHtml(o.phone || '')}"></div>
+      </div>`;
+    const imgEl = tile.querySelector('img');
+    const fileInput = tile.querySelector('input[type=file]');
+    const [cityInput, countryInput, phoneInput] = tile.querySelectorAll('input[type=text]');
+    scUploadHandler(fileInput, imgEl, url => { o.img = url; });
+    cityInput.addEventListener('input', () => { o.city = cityInput.value; });
+    countryInput.addEventListener('input', () => { o.country = countryInput.value; });
+    phoneInput.addEventListener('input', () => { o.phone = phoneInput.value; });
+    scOfficesGrid.appendChild(tile);
+  });
+}
+
+document.getElementById('scExpertiseSave').addEventListener('click', async () => {
+  try { await saveSiteContent('expertise_grid', SC_EXPERTISE); alert('Expertise cards saved.'); }
+  catch (err){ alert('Failed to save: ' + err.message); }
+});
+document.getElementById('scHeroSave').addEventListener('click', async () => {
+  try { await saveSiteContent('page_heroes', SC_HEROES); alert('Hero images saved.'); }
+  catch (err){ alert('Failed to save: ' + err.message); }
+});
+document.getElementById('scTeaserSave').addEventListener('click', async () => {
+  try { await saveSiteContent('studio_about_teaser', SC_TEASER); alert('Teaser card saved.'); }
+  catch (err){ alert('Failed to save: ' + err.message); }
+});
+document.getElementById('scOfficesSave').addEventListener('click', async () => {
+  try { await saveSiteContent('office_locations', SC_OFFICES); alert('Office locations saved.'); }
+  catch (err){ alert('Failed to save: ' + err.message); }
 });
 
 /* ── Projects grid ── */

@@ -21,7 +21,7 @@
       <li><a href="projects.html">Projects</a></li>
       <li><a href="news.html">News</a></li>
       <li><a href="careers.html">Careers</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="studio.html#pstripGrid">Contact</a></li>
     </ul>
     <div class="nav-actions">
       <button class="nav-search-btn" id="searchBtn" aria-label="Search">
@@ -38,7 +38,7 @@
       <li><a href="projects.html"     class="mob-lnk">Projects</a></li>
       <li><a href="news.html"         class="mob-lnk">News</a></li>
       <li><a href="careers.html"      class="mob-lnk">Careers</a></li>
-      <li><a href="contact.html"      class="mob-lnk">Contact</a></li>
+      <li><a href="studio.html#pstripGrid"      class="mob-lnk">Contact</a></li>
     </ul>
   </div>
   <!-- ── Search Overlay ── -->
@@ -55,7 +55,7 @@
   <section id="hero">
     <div class="hero-slides">
       <div class="hero-slide active">
-        <img src="assets/assets/02_Projects/2513_StudioOffice_Riyadh, KSA/07.jpg" alt="Studio Hero Image" loading="eager">
+        <img id="heroImg" src="" alt="Studio Hero Image" loading="eager">
       </div>
     </div>
     <div class="hero-overlay"></div>
@@ -72,9 +72,9 @@
       <p class="about-text">Magg + Partners is a multidisciplinary design practice shaping better spaces, stronger environments, and a forward thinking built future. Founded in 2021, the practice brings a distinct perspective to architecture and engineering.</p>
       <a class="about-img-link" href="about.html">
         <div class="about-img-wrap">
-          <img src="assets/assets/02_Projects/2513_StudioOffice_Riyadh, KSA/07.jpg" alt="About Magg+Partners" loading="lazy">
+          <img id="aboutTeaserImg" src="" alt="About Magg+Partners" loading="lazy">
           <div class="about-img-overlay"></div>
-          <span class="about-img-label">About</span>
+          <span class="about-img-label" id="aboutTeaserLabel">About</span>
         </div>
       </a>
     </div>
@@ -84,35 +84,7 @@
     <!-- <div class="section-head">
       <span class="section-label">Projects</span>
     </div> -->
-    <div class="pstrip-grid pstrip-grid-white" id="pstripGrid">
-       <div class="pstrip-card">
-       <div class="pstrip-card-img">
-        <img src="assets/assets/02_Projects/2218_Office_HQ,%20Kuwait/Final%202_HERO_01.jpg"  loading="lazy"></div>
-        <div class="pstrip-info">
-          <div class="pstrip-cat">  London</div>
-          <div class="pstrip-name">United Kingdom</div>
-          <div class="pstrip-loc">+44 7341 970896 </div>
-        </div>
-        </div>
-         <div class="pstrip-card">
-       <div class="pstrip-card-img">
-        <img src="assets/assets/02_Projects/2218_Office_HQ,%20Kuwait/Final%202_HERO_01.jpg"  loading="lazy"></div>
-        <div class="pstrip-info">
-          <div class="pstrip-cat">  Cairo</div>
-          <div class="pstrip-name"> Egypt</div>
-          <div class="pstrip-loc">+20 114 171 8788 </div>
-        </div>
-        </div>
-         <div class="pstrip-card">
-       <div class="pstrip-card-img">
-        <img src="assets/assets/02_Projects/2218_Office_HQ,%20Kuwait/Final%202_HERO_01.jpg"  loading="lazy"></div>
-        <div class="pstrip-info">
-          <div class="pstrip-cat">  Riyadh</div>
-          <div class="pstrip-name">Saudi Arabia</div>
-          <div class="pstrip-loc">+966 50 570 5829</div>
-        </div>
-        </div>
-    </div>
+    <div class="office-grid" id="pstripGrid"></div>
   </section>
 
   <!-- ── Contact ── -->
@@ -148,10 +120,11 @@
           <div class="cf-row cf-row-select">
             <select class="cf-select" id="cfInterest">
               <option value="" disabled selected>Interest / Enquiry</option>
-              <option>Architecture</option>
-              <option>Interior Design</option>
-              <option>Urban Planning</option>
-              <option>General Enquiry</option>
+              <option>New Project Enquiry</option>
+              <option>Partnership </option>
+              <option>Press & Media </option>
+              <option>Careers </option>
+              <option>General Enquiry </option>
             </select>
             <span class="cf-arrow">
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -209,7 +182,7 @@ projects and news.</p>
         <a href="index.html#expertise">Expertise</a>
         <a href="news.html">News</a>
         <a href="careers.html">Careers</a>
-        <a href="contact.html">Contact</a>
+        <a href="studio.html#pstripGrid">Contact</a>
       </div>
     </div>
     <div class="f-bottom">
@@ -249,6 +222,13 @@ projects and news.</p>
   <script>
   (async function(){
   await loadProjects();
+    const pageHeroes = await fetchSiteContent('page_heroes');
+    if (pageHeroes && pageHeroes.studio) document.getElementById('heroImg').src = pageHeroes.studio;
+    const aboutTeaser = await fetchSiteContent('studio_about_teaser');
+    if (aboutTeaser) {
+      if (aboutTeaser.img) document.getElementById('aboutTeaserImg').src = aboutTeaser.img;
+      if (aboutTeaser.label) document.getElementById('aboutTeaserLabel').textContent = aboutTeaser.label;
+    }
     /* ── Custom Cursor ── */
     const dot = document.getElementById('cDot'), ring = document.getElementById('cRing');
     let mx = 0, my = 0, rx = 0, ry = 0;
@@ -322,22 +302,24 @@ projects and news.</p>
       sr.appendChild(grp);
     }
 
-    /* ── Projects Strip ── */
-    // const pstripGrid = document.getElementById('pstripGrid');
-    // PROJECTS.slice(4, 8).forEach(p => {
-    //   const a = document.createElement('a');
-    //   a.className = 'pstrip-card';
-    //   a.href = 'project.html?id=' + p.id;
-    //   a.innerHTML = `
-    //     <div class="pstrip-card-img"><img src="${p.thumb}" alt="${p.name}" loading="lazy"></div>
-    //     <div class="pstrip-info">
-    //       <div class="pstrip-cat"> <p> ${p.categoryLabel}</p></div>
-    //       <div class="pstrip-name">${p.name}</div>
-    //       <div class="pstrip-loc">${p.location} · ${p.year}</div>
-    //     </div>`;
-    //   addHover(a);
-    //   pstripGrid.appendChild(a);
-    // });
+    /* ── Office Locations ── */
+    const pstripGrid = document.getElementById('pstripGrid');
+    const officeLocations = await fetchSiteContent('office_locations');
+    (officeLocations && officeLocations.offices ? officeLocations.offices : []).forEach((o, i) => {
+      if (i > 0) {
+        const divider = document.createElement('div');
+        divider.className = 'office-divider';
+        pstripGrid.appendChild(divider);
+      }
+      const div = document.createElement('div');
+      div.className = 'office-card';
+      div.innerHTML = `
+        <div class="office-card-img"><img src="${o.img}" loading="lazy"></div>
+        <div class="office-cat">  ${o.city}</div>
+        <div class="office-name">${o.country}</div>
+        <div class="office-loc">${o.phone}</div>`;
+      pstripGrid.appendChild(div);
+    });
 
     /* ── Hero scroll-reveal ── */
     const heroEl = document.getElementById('hero');

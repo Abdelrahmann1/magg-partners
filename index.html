@@ -31,7 +31,7 @@
       <li><a href="studio.html">Studio</a></li>
       <li><a href="news.html">News</a></li>
       <li><a href="careers.html">Careers</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="studio.html#pstripGrid">Contact</a></li>
     </ul>
     <div class="nav-actions">
       <button class="nav-search-btn" id="searchBtn" aria-label="Search">
@@ -48,7 +48,7 @@
       <li><a href="studio.html" class="mob-lnk">Studio</a></li>
       <li><a href="news.html"         class="mob-lnk">News</a></li>
       <li><a href="careers.html"      class="mob-lnk">Careers</a></li>
-      <li><a href="contact.html"      class="mob-lnk">Contact</a></li>
+      <li><a href="studio.html#pstripGrid"      class="mob-lnk">Contact</a></li>
     </ul>
   </div>
 
@@ -107,50 +107,7 @@
       <span class="section-label">Expertise</span>
       <!-- <a class="section-link" href="projects.html">Explore disciplines →</a> -->
     </div>
-    <div class="exp-grid">
-      <a class="exp-card" href="projects.html?cat=architecture">
-        <img src="assets/assets/02_Projects/2514_Florida%20Tower_TNG_Florida,%20USA/Hero.png" alt="Architecture" loading="lazy">
-        <div class="exp-label">
-          <div class="exp-title">Architecture</div>
-          <!-- <div class="exp-sub">Towers · Civic · Cultural</div> -->
-        </div>
-      </a>
-      <a class="exp-card" href="projects.html?cat=interiors">
-        <img src="assets/assets/02_Projects/2115_Dens%20Dental%20Center,%20Alexandria,%20EGY/Hero.jpg" alt="Interiors" loading="lazy">
-        <div class="exp-label">
-          <div class="exp-title">Interiors</div>
-          <!-- <div class="exp-sub">Residential · Commercial · Hospitality</div> -->
-        </div>
-      </a>
-      <a class="exp-card" href="projects.html?cat=engineering">
-        <img src="assets/assets/02_Projects/2218_Office_HQ,%20Kuwait/Final%202_HERO_01.jpg" alt="Engineering" loading="lazy">
-        <div class="exp-label">
-          <div class="exp-title">Engineering</div>
-          <!-- <div class="exp-sub">Structural · MEP · Facade</div> -->
-        </div>
-      </a>
-      <a class="exp-card" href="projects.html?cat=urban">
-        <img src="assets/assets/02_Projects/2213_Go%20Green%20Office,%20Riyadh,%20KSA/Hero.jpg" alt="Urban &amp; Landscape" loading="lazy">
-        <div class="exp-label">
-          <div class="exp-title">Urban &amp; Landscape</div>
-          <!-- <div class="exp-sub">Masterplanning · Public Realm</div> -->
-        </div>
-      </a>
-      <a class="exp-card" href="projects.html?cat=architecture">
-        <img src="assets/assets/02_Projects/2215_Dr.%20Mona%20Elharoun,%20Zayed%20City,%20EGY/Hero.png" alt="Residential" loading="lazy">
-        <div class="exp-label">
-          <div class="exp-title">Residential</div>
-          <!-- <div class="exp-sub">Villas · Apartments · Mixed-use</div> -->
-        </div>
-      </a>
-      <a class="exp-card" href="projects.html">
-        <img src="assets/assets/02_Projects/2513_StudioOffice_Riyadh,%20KSA/02.jpg" alt="Workplace" loading="lazy">
-        <div class="exp-label">
-          <div class="exp-title">Workplace</div>
-          <!-- <div class="exp-sub">Offices · Studios · Creative Spaces</div> -->
-        </div>
-      </a>
-    </div>
+    <div class="exp-grid" id="expGrid"></div>
   </section>
 
   <!-- ── Projects Strip ── -->
@@ -174,7 +131,7 @@
     <p class="nl-head">Stay up to date with our latest projects and news.</p>
     <form class="nl-form" id="nlForm">
       <input class="nl-input" type="email" id="nlEmail" placeholder="Email address" required>
-      <button class="nl-btn" type="submit">subscribe</button>
+      <button class="nl-btn" type="submit">Subscribe</button>
     </form>
   </section>
 
@@ -188,7 +145,7 @@
         <a href="studio.html">Studio</a>
         <a href="news.html">News</a>
         <a href="careers.html">Careers</a>
-        <a href="contact.html">Contact</a>
+        <a href="studio.html#pstripGrid">Contact</a>
       </div>
     </div>
     <div class="f-bottom">
@@ -352,6 +309,22 @@
 
   updateInfo(0);
   resetTimer();
+
+  /* ── Expertise Grid ── */
+  const expGrid = document.getElementById('expGrid');
+  const expertiseContent = await fetchSiteContent('expertise_grid');
+  (expertiseContent && expertiseContent.cards ? expertiseContent.cards : []).forEach(c => {
+    const a = document.createElement('a');
+    a.className = 'exp-card';
+    a.href = c.href;
+    a.innerHTML = `
+      <img src="${c.img}" alt="${c.alt || c.title}" loading="lazy">
+      <div class="exp-label">
+        <div class="exp-title">${c.title}</div>
+      </div>`;
+    addHover(a);
+    expGrid.appendChild(a);
+  });
 
   /* ── Recent Grid ── */
   const recentGrid=document.getElementById('recentGrid');

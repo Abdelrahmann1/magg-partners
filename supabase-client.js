@@ -7,14 +7,12 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 async function fetchProjectsFromDB(){
-  const { data, error } = await supabaseClient.from('projects').select('data');
+  const { data, error } = await supabaseClient.from('projects').select('data').order('created_at', { ascending: false });
   if (error){
     console.error('Failed to load projects from Supabase:', error.message);
     return [];
   }
-  return data
-    .map(row => row.data)
-    .sort((a, b) => (parseInt(a.num, 10) || 9999) - (parseInt(b.num, 10) || 9999));
+  return data.map(row => row.data);
 }
 
 async function upsertProjectToDB(project){
@@ -74,7 +72,7 @@ async function deleteInquiry(id){
 }
 
 async function fetchJobsFromDB(){
-  const { data, error } = await supabaseClient.from('jobs').select('data');
+  const { data, error } = await supabaseClient.from('jobs').select('data').order('created_at', { ascending: false });
   if (error){
     console.error('Failed to load jobs from Supabase:', error.message);
     return [];
@@ -93,7 +91,7 @@ async function deleteJobFromDB(id){
 }
 
 async function fetchNewsFromDB(){
-  const { data, error } = await supabaseClient.from('news').select('data');
+  const { data, error } = await supabaseClient.from('news').select('data').order('created_at', { ascending: false });
   if (error){
     console.error('Failed to load news from Supabase:', error.message);
     return [];
@@ -130,5 +128,19 @@ async function fetchNewsletterSubscribers(){
 
 async function deleteNewsletterSubscriber(id){
   const { error } = await supabaseClient.from('newsletter_subscribers').delete().eq('id', id);
+  if (error) throw error;
+}
+
+async function fetchSiteContent(id){
+  const { data, error } = await supabaseClient.from('site_content').select('data').eq('id', id).maybeSingle();
+  if (error){
+    console.error('Failed to load site content:', id, error.message);
+    return null;
+  }
+  return data ? data.data : null;
+}
+
+async function saveSiteContent(id, content){
+  const { error } = await supabaseClient.from('site_content').upsert({ id, data: content });
   if (error) throw error;
 }

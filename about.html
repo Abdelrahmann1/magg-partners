@@ -17,12 +17,12 @@
   <nav id="nav">
     <a href="index.html" class="nav-logo"><img src="assets/assets/Logo/260403_Logo_Magg+Partners_White.png" alt="Magg+Partners"></a>
     <ul class="nav-links">
-      <li><a href="index.html"     class="mob-lnk">Home</a></li>
+      <li><a href="index.html">Home</a></li>
       <li><a href="projects.html">Projects</a></li>
       <li><a href="studio.html">Studio</a></li>
       <li><a href="news.html">News</a></li>
       <li><a href="careers.html">Careers</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="studio.html#pstripGrid">Contact</a></li>
     </ul>
     <div class="nav-actions">
       <button class="nav-search-btn" id="searchBtn" aria-label="Search">
@@ -40,7 +40,7 @@
       <li><a href="studio.html" class="mob-lnk">Studio</a></li>
       <li><a href="news.html"         class="mob-lnk">News</a></li>
       <li><a href="careers.html"      class="mob-lnk">Careers</a></li>
-      <li><a href="contact.html"      class="mob-lnk">Contact</a></li>
+      <li><a href="studio.html#pstripGrid"      class="mob-lnk">Contact</a></li>
     </ul>
   </div>
 
@@ -58,7 +58,7 @@
   <section id="hero">
     <div class="hero-slides">
       <div class="hero-slide active">
-        <img src="assets/assets/02_Projects/2513_StudioOffice_Riyadh, KSA/07.jpg" alt="Studio Hero Image" loading="eager">
+        <img id="heroImg" src="" alt="Studio Hero Image" loading="eager">
       </div>
     </div>
     <div class="hero-overlay"></div>
@@ -104,7 +104,7 @@ projects and news.</p>
         <a href="studio.html">Studio</a>
         <a href="news.html">News</a>
         <a href="careers.html">Careers</a>
-        <a href="contact.html">Contact</a>
+        <a href="studio.html#pstripGrid">Contact</a>
       </div>
     </div>
     <div class="f-bottom">
@@ -145,6 +145,8 @@ projects and news.</p>
   <script>
   (async function(){
   await loadProjects();
+    const pageHeroes = await fetchSiteContent('page_heroes');
+    if (pageHeroes && pageHeroes.about) document.getElementById('heroImg').src = pageHeroes.about;
     /* ── Custom Cursor ── */
     const dot = document.getElementById('cDot'), ring = document.getElementById('cRing');
     let mx = 0, my = 0, rx = 0, ry = 0;

@@ -869,7 +869,7 @@ object-fit: cover;
   background: var(--black);
   border-top: 1px solid #3a3a3a;
   padding: 62px 59px 54px;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
+  display: grid; grid-template-columns: 1fr 1fr;  align-items: start;
 }
 .nl-head {
   font-family: var(--font);
@@ -880,7 +880,7 @@ object-fit: cover;
   max-height: 83px;
 
 }
-.nl-form { display: flex; flex-direction: column; gap: 0; padding-top: 0; align-items: flex-end;}
+.nl-form { display: flex; flex-direction: column; gap: 0; padding-top: 0; align-items: flex-start;}
 .nl-input {
   background: #3a3a3a;
   border: 1px solid #3a3a3a;
@@ -1358,7 +1358,7 @@ footer {
 }
 .pd-hero-bottom {
   position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
-  padding: 0 48px 28px;
+  padding: 0 59px 28px;
 }
 .pd-hero-name {
   font-size: 40px; font-weight: 400; letter-spacing: 0.01em;
@@ -1665,7 +1665,7 @@ position: relative;}
 
 /* ── Contact Page ─────────────────────────────────────── */
 .contact-layout {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  display: grid; grid-template-columns: 1fr 1fr;
   margin: 2px 0; border-top: 1px solid var(--border);
 }
 .offices { padding: 80px 64px; background: var(--off); }
@@ -1787,7 +1787,7 @@ position: relative;}
   #culture       { padding: 72px 24px 60px; }
   .culture-h     { font-size: 28px; }
   .culture-p     { font-size: 16px; max-width: 100%; }
-  #newsletter    { grid-template-columns: 1fr; gap: 40px; padding: 64px 24px; }
+  #newsletter    { grid-template-columns: 1fr;  padding: 64px 24px; }
   .nl-head       { font-size: 28px; max-width: 100%; }
   .nl-form       { padding-top: 0; }
   footer         { padding: 48px 24px; flex-direction: column; align-items: flex-start; gap: 48px; }
@@ -2031,7 +2031,7 @@ height: 50px;
 
 .contact-layout {
   display: grid;
-  grid-template-columns: 1fr 1.6fr;
+  grid-template-columns: 1fr 1fr;
 }
 
 .contact-left {
@@ -2053,6 +2053,7 @@ height: 50px;
 
 .contact-right {
   padding: 55px 59px;
+  padding-left: 0px;
   padding-bottom: 105px;
   background: #fff;
 }
@@ -2254,7 +2255,7 @@ height: 50px;
   .culture-p { font-size: clamp(17px, 2.4vw, 22px); max-width: 100%; }
 
   /* ── Newsletter ── */
-  #newsletter { grid-template-columns: 1fr; gap: 32px; padding: 56px 28px; }
+  #newsletter { grid-template-columns: 1fr; padding: 56px 28px; }
   .nl-head { font-size: clamp(24px, 4.5vw, 34px); max-width: 100%; }
   .nl-form { align-items: stretch; }
 
@@ -2275,7 +2276,7 @@ height: 50px;
   .pp-select { width: 100%; min-width: 0; }
   .pp-strip-grid { padding: 16px 28px; }
 
-  /* ── Contact section (contact.html / projects.html) ── */
+  /* ── Contact section (studio.html#pstripGrid / projects.html) ── */
   .contact-layout { grid-template-columns: 1fr !important; }
   .contact-left { padding: 52px 28px 22px !important; }
   .contact-right { padding: 22px 28px 72px !important; }

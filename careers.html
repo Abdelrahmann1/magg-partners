@@ -9,7 +9,7 @@
   <script src="image-protect.js" defer></script>
   <style>
     .ec-form{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;align-items:center;}
-    .ec-input{background:#1a1a1a;border:1px solid #3a3a3a;border-radius:38px;padding:14px 24px;color:#fff;font-family:inherit;font-size:15px;min-width:200px;}
+    .ec-input{background:#1a1a1a;border:1px solid #3a3a3a;border-radius:38px;padding:14px 24px;color:#fff;font-family:inherit;font-size:15px;min-width:200px;margin-top:30px;}
     .ec-input::placeholder{color:rgba(255,255,255,.4);}
     .ec-input:focus{outline:none;border-color:rgba(255,255,255,.4);}
     .ec-success{margin-top:16px;color:#fff;font-size:15px;}
@@ -24,11 +24,11 @@
   <nav id="nav">
     <a href="index.html" class="nav-logo"><img src="assets/assets/Logo/260403_Logo_Magg+Partners_White.png" alt="Magg+Partners"></a>
     <ul class="nav-links">
-      <li><a href="index.html"         class="mob-lnk">Home</a></li>
+      <li><a href="index.html">Home</a></li>
       <li><a href="projects.html">Projects</a></li>
       <li><a href="studio.html">Studio</a></li>
       <li><a href="news.html">News</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="studio.html#pstripGrid">Contact</a></li>
     </ul>
     <div class="nav-actions">
       <button class="nav-search-btn" id="searchBtn" aria-label="Search">
@@ -45,7 +45,7 @@
       <li><a href="projects.html"     class="mob-lnk">Projects</a></li>
       <li><a href="studio.html" class="mob-lnk">Studio</a></li>
       <li><a href="news.html"         class="mob-lnk">News</a></li>
-      <li><a href="contact.html"      class="mob-lnk">Contact</a></li>
+      <li><a href="studio.html#pstripGrid"      class="mob-lnk">Contact</a></li>
     </ul>
   </div>
   <div class="search-overlay" id="searchOverlay">
@@ -60,7 +60,7 @@
   <section id="hero">
     <div class="hero-slides">
       <div class="hero-slide active">
-        <img src="assets/assets/02_Projects/2513_StudioOffice_Riyadh, KSA/07.jpg" alt="Studio Hero Image" loading="eager">
+        <img id="heroImg" src="" alt="Studio Hero Image" loading="eager">
       </div>
     </div>
     <div class="hero-overlay"></div>
@@ -135,7 +135,7 @@
         <a href="index.html#expertise">Expertise</a>
         <a href="studio.html">Studio</a>
         <a href="news.html">News</a>
-        <a href="contact.html">Contact</a>
+        <a href="studio.html#pstripGrid">Contact</a>
       </div>
     </div>
     <div class="f-bottom">
@@ -171,6 +171,12 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
   <script src="supabase-client.js"></script>
+  <script>
+  (async function(){
+    const pageHeroes = await fetchSiteContent('page_heroes');
+    if (pageHeroes && pageHeroes.careers) document.getElementById('heroImg').src = pageHeroes.careers;
+  })();
+  </script>
   <script src="./main.js"></script>
 </body>
 </html>
