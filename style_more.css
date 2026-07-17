@@ -1050,7 +1050,7 @@ body.c-click .c-dot {
   border: none;
   border-radius: 30px;
   margin-bottom: 37px;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 300;
   color: #1a1a1a;
   padding: 18px 0;
@@ -1063,19 +1063,27 @@ body.c-click .c-dot {
 .cf-input::placeholder,
 .cf-textarea::placeholder {
   color:  #6d6f71 !important;
-  font-size: 20px;
+  font-weight: 300;
+  font-size: 20px !important;
+   font-family: var(--font) !important;
 }
 
+
 .cf-select {
+  font-family: var(--font);
   color: #6d6f71;
   font-size: 20px;
+
 }
 
 .cf-select.filled  {
   color: #1a1a1a;
+  font-weight: 300;
+
 }
 
 .cf-select option {
+  font-weight: 300;
   color: #1a1a1a;
 }
 

@@ -1690,9 +1690,9 @@ position: relative;}
   letter-spacing: 0.01em; resize: none;
   -webkit-appearance: none;
 }
-/* .cf-input::placeholder, .cf-textarea::placeholder { color: rgba(242,237,232,0.18); } */
+.cf-input::placeholder, .cf-textarea::placeholder { font-family: var(--font) !important; }
 .cf-textarea { min-height: 100px; }
-.cf-select option { background: var(--black); }
+.cf-select option { background: #1a1a1a; }
 .cf-field::after {
   content: ''; position: absolute; bottom: -1px; left: 0;
   width: 0; height: 1px; background: var(--white);
@@ -2069,6 +2069,7 @@ height: 50px;
   position: relative;
 }
 
+
 .cf-input,
 .cf-select,
 .cf-textarea {
@@ -2078,7 +2079,7 @@ height: 50px;
   border: none;
   border-radius: 30px;
   margin-bottom: 37px;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 300;
   color: #1a1a1a;
   padding: 18px 0;
@@ -2091,22 +2092,29 @@ height: 50px;
 .cf-input::placeholder,
 .cf-textarea::placeholder {
   color:  #6d6f71 !important;
-  font-size: 20px;
+  font-weight: 300;
+  font-size: 20px !important;
+   font-family: var(--font) !important;
 }
 
+
 .cf-select {
+  font-family: var(--font);
   color: #6d6f71;
   font-size: 20px;
+
 }
 
 .cf-select.filled  {
   color: #1a1a1a;
+  font-weight: 300;
+
 }
 
 .cf-select option {
+  font-weight: 300;
   color: #1a1a1a;
 }
-
 .cf-row-select ,.ccf-row-select {
   display: flex;
   align-items: center;
