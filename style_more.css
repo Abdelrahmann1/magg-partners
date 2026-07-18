@@ -653,6 +653,8 @@ body.c-click .c-dot {
   }
 }
 @media (max-width: 973px) {
+  .nl-input { margin-top: 25px !important; }
+
   .pstrip-grid { padding: 0 20px 40px; }
   .pstrip-card:not(:nth-child(2n))::after {
     transform: translateX(calc((100vw - 2 * 428px - 40px) / 2));
@@ -1316,7 +1318,9 @@ footer {
     max-width: 100%;
     font-size: 20px;
   }
-
+.f-logo{
+    width: 150px;
+  }
   .pstrip-grid {
     grid-template-columns: 1fr;
     padding: 20px 20px 40px;
@@ -1685,10 +1689,10 @@ font-size: 20px;
   .pstrip-grid-white .pstrip-card-img img { height: 50vw; max-height: 380px; }
  
   /* ── Contact ── */
-  .contact-layout { grid-template-columns: 1fr; }
-  .contact-left { padding: 48px 28px 20px; }
-  .contact-right { padding: 8px 28px 72px; }
-  .contact-title { font-size: clamp(28px, 5vw, 40px); }
+  .contact-layout { grid-template-columns: 1fr !important; }
+  .contact-left { padding: 52px 28px 22px !important; }
+  .contact-right { padding: 22px 28px 72px !important; }
+  .contact-title { font-size: clamp(28px, 5.5vw, 40px); }
 
   /* ── Newsletter ── */
   #newsletter { grid-template-columns: 1fr; padding: 56px 28px; }
@@ -1736,8 +1740,8 @@ font-size: 20px;
   .pstrip-grid.pstrip-grid-white { padding: 0 20px; gap: 24px; }
 
   /* ── Contact ── */
-  .contact-left { padding: 44px 20px 18px; }
-  .contact-right { padding: 6px 20px 60px; }
+  .contact-left { padding: 48px 20px 20px !important; }
+  .contact-right { padding: 20px 20px 64px !important; }
 
   /* ── Section heads ── */
   .section-head { padding: 36px 20px 18px; }

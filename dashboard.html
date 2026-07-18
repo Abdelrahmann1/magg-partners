@@ -232,6 +232,12 @@ main{max-width:1400px;margin:0 auto;padding:28px 32px 80px;}
 
     <section id="sitecontentView" style="display:none;">
       <div class="form-section">
+        <h3>Home Page Hero (Slideshow)</h3>
+        <div class="grid" id="scHomeHeroGrid"></div>
+        <div class="modal-actions"><button class="btn btn-primary" id="scHomeHeroSave" type="button">Save Hero Slides</button></div>
+      </div>
+
+      <div class="form-section">
         <h3>Expertise Cards (Home Page)</h3>
         <div class="grid" id="scExpertiseGrid"></div>
         <div class="modal-actions"><button class="btn btn-primary" id="scExpertiseSave" type="button">Save Expertise Cards</button></div>
@@ -604,21 +610,32 @@ copyEmailsBtn.addEventListener('click', async () => {
 });
 
 /* ── Site Content ── */
+let SC_HOME_HERO = { slides: [] };
 let SC_EXPERTISE = { cards: [] };
 let SC_HEROES    = {};
 let SC_TEASER    = {};
 let SC_OFFICES   = { offices: [] };
 
+const scHomeHeroGrid  = document.getElementById('scHomeHeroGrid');
 const scExpertiseGrid = document.getElementById('scExpertiseGrid');
 const scHeroGrid      = document.getElementById('scHeroGrid');
 const scTeaserGrid    = document.getElementById('scTeaserGrid');
 const scOfficesGrid   = document.getElementById('scOfficesGrid');
 
+function ensureHomeHeroSlides(){
+  if (!Array.isArray(SC_HOME_HERO.slides)) SC_HOME_HERO.slides = [];
+  while (SC_HOME_HERO.slides.length < 6) SC_HOME_HERO.slides.push({});
+  SC_HOME_HERO.slides = SC_HOME_HERO.slides.slice(0, 6);
+}
+
 async function loadAndRenderSiteContent(){
+  SC_HOME_HERO = (await fetchSiteContent('home_hero')) || { slides: [] };
+  ensureHomeHeroSlides();
   SC_EXPERTISE = (await fetchSiteContent('expertise_grid')) || { cards: [] };
   SC_HEROES    = (await fetchSiteContent('page_heroes')) || {};
   SC_TEASER    = (await fetchSiteContent('studio_about_teaser')) || {};
   SC_OFFICES   = (await fetchSiteContent('office_locations')) || { offices: [] };
+  renderHomeHeroEditor();
   renderExpertiseEditor();
   renderHeroEditor();
   renderTeaserEditor();
@@ -638,6 +655,28 @@ function scUploadHandler(fileInput, imgEl, onDone){
     } catch (err){
       alert(`Failed to upload ${file.name}: ${err.message}`);
     }
+  });
+}
+
+function renderHomeHeroEditor(){
+  scHomeHeroGrid.innerHTML = '';
+  SC_HOME_HERO.slides.forEach(s => {
+    const tile = document.createElement('div');
+    tile.className = 'img-tile';
+    tile.innerHTML = `
+      <img src="${s.img || ''}" alt="">
+      <div class="img-tile-actions">
+        <input type="file" accept="image/*">
+        <div class="field"><label>Eyebrow (category)</label><input type="text" value="${escapeHtml(s.eyebrow || '')}"></div>
+        <div class="field"><label>Title</label><input type="text" value="${escapeHtml(s.title || '')}"></div>
+      </div>`;
+    const imgEl = tile.querySelector('img');
+    const fileInput = tile.querySelector('input[type=file]');
+    const [eyebrowInput, titleInput] = tile.querySelectorAll('input[type=text]');
+    scUploadHandler(fileInput, imgEl, url => { s.img = url; });
+    eyebrowInput.addEventListener('input', () => { s.eyebrow = eyebrowInput.value; });
+    titleInput.addEventListener('input', () => { s.title = titleInput.value; });
+    scHomeHeroGrid.appendChild(tile);
   });
 }
 
@@ -724,6 +763,10 @@ function renderOfficesEditor(){
   });
 }
 
+document.getElementById('scHomeHeroSave').addEventListener('click', async () => {
+  try { await saveSiteContent('home_hero', { slides: SC_HOME_HERO.slides.filter(s => s.img) }); alert('Home hero slides saved.'); }
+  catch (err){ alert('Failed to save: ' + err.message); }
+});
 document.getElementById('scExpertiseSave').addEventListener('click', async () => {
   try { await saveSiteContent('expertise_grid', SC_EXPERTISE); alert('Expertise cards saved.'); }
   catch (err){ alert('Failed to save: ' + err.message); }
