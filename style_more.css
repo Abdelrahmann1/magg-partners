@@ -434,13 +434,14 @@ body.c-click .c-dot {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 28px 59px 20px;
+  padding: 14px 59px 30px;
 }
 
 .section-label {
-  font-size: 10px;
-  text-transform: uppercase;
-  color: white;
+  font-family: var(--font) !important;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--white);
 }
 
 .section-link {
@@ -1661,7 +1662,7 @@ font-size: 20px;
   .hero-title { font-size: clamp(22px, 4.4vw, 34px); max-width: 70%; }
 
   /* ── Section heads ── */
-  .section-head { padding: 32px 28px 18px; }
+  .section-head { padding: 44px 28px 22px; }
 
   /* ── About (text + image) ── */
   .about-inner { padding: 0 28px; }
@@ -1695,7 +1696,7 @@ font-size: 20px;
   .nl-form { align-items: stretch; }
 
   /* ── Footer ── */
-  footer { padding: 44px 28px; flex-direction: column; align-items: flex-start; gap: 36px; }
+  footer { padding: 48px 28px; flex-direction: column; align-items: flex-start; gap: 40px; }
   .f-bottom { align-items: flex-start; }
   .f-nav-row { flex-wrap: wrap; gap: 14px 22px; }
 
@@ -1738,9 +1739,12 @@ font-size: 20px;
   .contact-left { padding: 44px 20px 18px; }
   .contact-right { padding: 6px 20px 60px; }
 
+  /* ── Section heads ── */
+  .section-head { padding: 36px 20px 18px; }
+
   /* ── Newsletter / Footer ── */
-  #newsletter { padding: 48px 20px; }
-  footer { padding: 40px 20px; gap: 32px; }
+  #newsletter { padding: 52px 20px; }
+  footer { padding: 44px 20px; gap: 36px; }
 
   /* ── Careers ── */
   .carrer-job-cont { padding: 16px 20px; }
