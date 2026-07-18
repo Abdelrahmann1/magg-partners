@@ -44,30 +44,30 @@ async function deleteProjectImage(url){
   await supabaseClient.storage.from(PROJECT_IMAGES_BUCKET).remove([path]);
 }
 
-async function submitInquiry(payload){
-  const { error } = await supabaseClient.from('inquiries').insert(payload);
+async function submitEnquiry(payload){
+  const { error } = await supabaseClient.from('enquiries').insert(payload);
   if (error) throw error;
 }
 
-async function fetchInquiries(){
+async function fetchEnquiries(){
   const { data, error } = await supabaseClient
-    .from('inquiries')
+    .from('enquiries')
     .select('*')
     .order('created_at', { ascending: false });
   if (error){
-    console.error('Failed to load inquiries from Supabase:', error.message);
+    console.error('Failed to load enquiries from Supabase:', error.message);
     return [];
   }
   return data;
 }
 
-async function updateInquiryStatus(id, status){
-  const { error } = await supabaseClient.from('inquiries').update({ status }).eq('id', id);
+async function updateEnquiryStatus(id, status){
+  const { error } = await supabaseClient.from('enquiries').update({ status }).eq('id', id);
   if (error) throw error;
 }
 
-async function deleteInquiry(id){
-  const { error } = await supabaseClient.from('inquiries').delete().eq('id', id);
+async function deleteEnquiry(id){
+  const { error } = await supabaseClient.from('enquiries').delete().eq('id', id);
   if (error) throw error;
 }
 

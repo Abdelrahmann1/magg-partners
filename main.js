@@ -132,8 +132,8 @@ if (ecSubmitBtn) {
     const email = document.getElementById('ecEmail').value.trim();
     if (!email) return;
     try {
-      if (typeof submitInquiry === 'function') {
-        await submitInquiry({ source: 'careers', name, email, message: 'Early careers interest registration' });
+      if (typeof submitEnquiry === 'function') {
+        await submitEnquiry({ source: 'careers', name, email, message: 'Early careers interest registration' });
       }
     } catch (err) {
       console.error('Failed to submit registration:', err.message);

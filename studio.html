@@ -345,9 +345,9 @@ projects and news.</p>
       const interest = document.getElementById('cfInterest').value;
       const details  = document.getElementById('cfDetails').value.trim();
       try {
-        await submitInquiry({ source: 'studio', name, email, message: details, data: { country, interest } });
+        await submitEnquiry({ source: 'studio', name, email, message: details, data: { country, interest } });
       } catch (err){
-        console.error('Failed to submit inquiry:', err.message);
+        console.error('Failed to submit enquiry:', err.message);
       }
       document.getElementById('cfSuccess').classList.add('show');
       document.getElementById('cfForm').querySelectorAll('input, select, textarea').forEach(el => el.value = '');
