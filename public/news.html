@@ -52,12 +52,13 @@
   --slow:   0.8s var(--soft);
 }
 
+
 /* ── Reset ────────────────────────────────────────────── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { font-size: 16px; scroll-behavior: smooth; }
 body {
   font-family: var(--font);
-  background: #ffffff;
+  background: #ffffff !important;
   color: #000000;
   overflow-x: hidden;
   cursor: none;
@@ -142,7 +143,13 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 59px;
   background: #ffffff;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: none !important;
+}
+#nav::after {
+  content: '';
+  position: absolute; left: 59px; right: 59px; bottom: 0;
+  height: 1px;
+  background: black;
 }
 .nav-logo {
   font-family: var(--font);
@@ -241,76 +248,237 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
 .search-esc:hover { color: #000; border-color: rgba(0,0,0,0.4); }
 
 /* ════════════════════════════════════════════
-   ARTICLE PAGE
+   NEWS PAGE — white background layout
 ════════════════════════════════════════════ */
-.article-hero {
-  position: relative;
-  width: 100%;
-  height: 64vh;
-  min-height: 440px;
+
+/* ── Page Header ─────────────────────────── */
+.news-page-header {
   margin-top: 72px;
-  overflow: hidden;
-  background: #14120f center/cover no-repeat;
-}
-.article-hero-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to bottom, rgba(10,10,10,0.25) 0%, rgba(10,10,10,0.05) 38%, rgba(10,10,10,0.82) 100%);
-}
-.article-back {
-  position: absolute; top: 28px; left: 59px; z-index: 2;
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
-  color: #fff; opacity: 0.8;
-  transition: opacity var(--fast);
-}
-.article-back:hover { opacity: 1; }
-.article-hero-bottom {
-  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
-  padding: 0 59px 44px;
-}
-.article-cat {
-  font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  color: rgba(255,255,255,0.72);
-  margin-bottom: 16px;
-}
-.article-title {
-  font-family: var(--font);
-  font-size: clamp(30px, 4.6vw, 58px);
-  font-weight: 300;
-  letter-spacing: -0.01em;
-  color: #fff;
-  line-height: 1.12;
-  max-width: 800px;
-  margin-bottom: 16px;
-}
-.article-meta {
-  font-size: 14px;
-  color: rgba(255,255,255,0.62);
-}
-.article-body-wrap {
-  display: flex;
-  justify-content: center;
+  padding: 48px 59px 32px 59px;
   background: #ffffff;
-  padding: 68px 59px 96px;
 }
-.article-body {
-  width: 100%;
-  max-width: 700px;
-}
-.article-body p {
+.news-page-title {
   font-family: var(--font);
-  font-size: 19px;
-  line-height: 1.85;
-  color: #2a2a2a;
-  margin-bottom: 26px;
-  white-space: pre-wrap;
-}
-.article-body p:first-of-type {
-  font-size: 21px;
-  color: #000;
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 300;
+  font-stretch: normal;
+  letter-spacing: -0.01em;
+  color: #000000;
+  line-height: 1.1;
 }
 
+/* ── Filter Bar ──────────────────────────── */
+.news-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 59px 0 59px;
+  background: #ffffff;
+  margin-bottom: 0;
+}
+
+/* Search input */
+.news-search-wrap {
+  flex: 1;
+  position: relative;
+}
+.news-search-input {
+  width: 100%;
+  background: #f2f2f2;
+  border: 1px solid #e8e8e8;
+  border-radius: 36px;
+  padding: 13px 20px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 400;
+  color: #888888;
+  transition: border-color var(--fast);
+}
+.news-search-input::placeholder {
+  color: #aaaaaa;
+}
+.news-search-input:focus {
+  border-color: #ccc;
+  color: #000;
+  outline: none;
+}
+
+/* Types dropdown */
+.news-types-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.news-types-select {
+  background: #f2f2f2;
+  border: 1px solid #e8e8e8;
+  border-radius: 36px;
+  padding: 13px 52px 13px 20px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 400;
+  color: #888888;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  min-width: 360px;
+  transition: border-color var(--fast);
+}
+.news-types-select:focus {
+  border-color: #ccc;
+  outline: none;
+}
+.news-types-select option {
+  background: #ffffff;
+  color: #000;
+}
+.news-types-arrow-wrap {
+  position: absolute;
+  right: 14px;
+  pointer-events: none;
+  width: 26px;
+  height: 26px;
+  border: 1px solid #d0d0d0;
+  border-radius: 50%;
+  /* background: #ffffff; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.news-types-arrow {
+  width: 13px;
+  height: 13px;
+  stroke: #888;
+  fill: none;
+  stroke-width: 2;
+}
+
+/* ── Divider after filter ─────────────────── */
+.news-divider {
+  height: 1px;
+  background: #6e6e6e;
+  margin: 28px 59px 0 59px;
+}
+
+/* ── News List ───────────────────────────── */
+.news-list {
+  padding: 0 59px;
+  background: #ffffff;
+}
+
+/* Each article row */
+.news-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 48px;
+  padding: 48px 0;
+  border-bottom: 1px solid #6e6e6e;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s ease;
+}
+.news-row:hover { opacity: 0.8; }
+.news-row:first-child {
+  border-top: none;
+}
+
+/* Image side */
+.news-row-img {
+  flex-shrink: 0;
+    width: 468px;
+    height: 260px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: #f0f0f0;
+}
+.news-row-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s var(--soft);
+}
+.news-row:hover .news-row-img img {
+  transform: scale(1.04);
+}
+
+/* Text side */
+.news-row-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 4px;
+}
+
+.news-row-cat {
+font-family: var(--font);
+    font-size: 13px;
+    font-weight: 900;
+    color: black;
+    letter-spacing: 0;
+    margin-bottom: 10px;
+}
+
+.news-row-title {
+  font-family: var(--font);
+  font-size: clamp(22px, 2.5vw, 34px);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: #000000;
+  line-height: 1.15;
+  margin-bottom: 6px;
+}
+
+.news-row-meta {
+font-family: var(--font);
+    font-size: 18px;
+    font-weight: 300;
+    color: #959595;
+    letter-spacing: 0;
+    margin-bottom: 8px;
+
+}
+
+.news-row-excerpt {
+font-family: var(--font);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: #464646;
+    margin-bottom: 10px;
+    max-width: 700px;
+}
+
+.news-read-btn {
+  display: inline-block;
+  padding: 12px 40px;
+  /* border: 1px solid #cccccc; */
+  border-radius: 24px;
+  background: #f2f2f2;
+  font-family: var(--font);
+  font-size: 15px;
+  font-weight: 400;
+  color: #888888;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  width: fit-content;
+}
+.news-row:hover .news-read-btn {
+  border-color: #888;
+  color: #555;
+}
+
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 1200px) {
+  .news-row-img { width: 360px; height: 210px; }
+}
 @media (max-width: 1024px) {
+  .news-row-img { width: 300px; height: 190px; }
+  .news-row-title { font-size: clamp(20px, 2.2vw, 28px); }
+
   /* Nav / Newsletter / Footer — match site-wide sizing */
   #nav { padding: 0 28px; }
   #newsletter { grid-template-columns: 1fr; padding: 56px 28px; }
@@ -320,13 +488,42 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
   .f-bottom { align-items: flex-start; }
   .f-nav-row { flex-wrap: wrap; gap: 14px 22px; }
 }
+@media (max-width: 860px) {
+  .news-row-img { width: 260px; height: 175px; }
+  .news-row { gap: 32px; }
+}
 @media (max-width: 768px) {
-  .article-hero { height: 50vh; min-height: 340px; }
-  .article-back { top: 20px; left: 20px; }
-  .article-hero-bottom { padding: 0 20px 30px; }
-  .article-body-wrap { padding: 44px 20px 64px; }
-  .article-body p { font-size: 16px; }
-  .article-body p:first-of-type { font-size: 17px; }
+  #nav::after{
+    left: 20px;
+    right: 20px;
+  }
+  /* Page header */
+  .news-page-header { padding: 36px 20px 20px; }
+  .news-page-title { font-size: clamp(22px, 5vw, 32px); }
+
+  /* Filter bar */
+  .news-filter-bar { padding: 0 20px; flex-direction: column; align-items: stretch; gap: 12px; }
+  .news-search-input { font-size: 14px; padding: 12px 16px; }
+  .news-types-select { min-width: 100%; font-size: 14px; padding: 12px 44px 12px 16px; }
+  .news-divider { margin: 20px 20px 0; }
+
+  /* News list */
+  .news-list { padding: 0 20px; }
+  .news-row {
+    flex-direction: column;
+    gap: 16px;
+    padding: 28px 0;
+  }
+  .news-row-img {
+    width: 100%;
+    height: 230px;
+    border-radius: 2px;
+  }
+  .news-row-title { font-size: clamp(18px, 4vw, 24px); margin-bottom: 8px; }
+  .news-row-cat { font-size: 12px; margin-bottom: 6px; }
+  .news-row-meta { font-size: 12px; margin-bottom: 12px; }
+  .news-row-excerpt { font-size: 13px; margin-bottom: 18px; }
+  .news-read-btn { padding: 9px 20px; font-size: 12px; }
 }
 @media (max-width: 600px) {
   /* Nav / Newsletter / Footer — match site-wide sizing */
@@ -334,6 +531,15 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
   .nav-actions { gap: 24px; }
   #newsletter { padding: 52px 20px; }
   footer { padding: 44px 20px; gap: 36px; }
+}
+@media (max-width: 480px) {
+  .news-page-title { font-size: 22px; }
+  .news-row-title { font-size: 18px; }
+  .news-row-img { height: 200px; }
+  .news-list { padding: 0 16px; }
+  .news-page-header { padding: 32px 16px 16px; }
+  .news-filter-bar { padding: 0 16px; }
+  .news-divider { margin: 16px 16px 0; }
 }
   </style>
 </head>
@@ -390,21 +596,43 @@ body.c-click .c-dot  { width: 8px; height: 8px; }
     <div class="search-results-wrap" id="searchResults"></div>
   </div>
 
-  <!-- ── Hero ── -->
-  <div class="article-hero" id="artHero">
-    <div class="article-hero-overlay"></div>
-    <a class="article-back" href="news.html">← Back to News</a>
-    <div class="article-hero-bottom">
-      <div class="article-cat" id="artCat"></div>
-      <h1 class="article-title" id="artTitle"></h1>
-      <div class="article-meta" id="artMeta"></div>
+  <!-- ── Page Header ── -->
+  <div class="news-page-header">
+    <h1 class="news-page-title">News and Publications</h1>
+  </div>
+
+  <!-- ── Filter Bar ── -->
+  <div class="news-filter-bar">
+    <div class="news-search-wrap">
+      <input
+        type="text"
+        id="newsSearch"
+        class="news-search-input"
+        placeholder="Search news and publications"
+        autocomplete="off"
+      >
+    </div>
+    <div class="news-types-wrap">
+      <select id="newsType" class="news-types-select">
+        <option value="">All types</option>
+        <option value="Award">Award</option>
+        <option value="Article">Article</option>
+        <option value="Project">Project</option>
+        <option value="Publication">Publication</option>
+        <option value="Event">Event</option>
+        <option value="Insight">Insight</option>
+      </select>
+      <div class="news-types-arrow-wrap">
+        <svg class="news-types-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
     </div>
   </div>
 
-  <!-- ── Body ── -->
-  <div class="article-body-wrap">
-    <div class="article-body" id="artBody"></div>
-  </div>
+  <!-- ── Divider ── -->
+  <div class="news-divider"></div>
+
+  <!-- ── News List ── -->
+  <div class="news-list" id="newsList"></div>
 
 <!-- ── Newsletter ── -->
   <section id="newsletter">
@@ -432,28 +660,16 @@ projects and news.</p>
     <div class="f-bottom">
       <div class="f-socials">
     <div class="f-socials">
-  <a class="f-soc" href="#" aria-label="Instagram" target="_blank" rel="noopener">
+  <a class="f-soc" href="https://www.instagram.com/maggdesignforum" aria-label="Instagram" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
   </a>
 
-  <a class="f-soc" href="#" aria-label="Facebook" target="_blank" rel="noopener">
+  <a class="f-soc" href="https://www.facebook.com/share/1BhjxJ5RgC/" aria-label="Facebook" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
   </a>
 
-  <a class="f-soc" href="#" aria-label="LinkedIn" target="_blank" rel="noopener">
+  <a class="f-soc" href="https://www.linkedin.com/company/maggdesignforum/" aria-label="LinkedIn" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-  </a>
-
-  <a class="f-soc" href="#" aria-label="Behance" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24"><path d="M22 10.25h-5v1h5v-1zm-10.323 1.905c0-.98-.553-1.684-1.503-1.684-.962 0-1.492.68-1.492 1.684h2.995zm.081 2.502c-.092.938-.644 1.614-1.584 1.614-.943 0-1.543-.637-1.584-1.614h3.168zm7.342-1.928c0-.75-.434-1.258-1.142-1.258-.76 0-1.192.518-1.244 1.258h2.386zm2.9-5.729v18h-24v-18h24zm-13.414 8.795c0-3.328-2.617-3.136-3.836-3.136h-2.75v8h2.946c1.282 0 3.64.043 3.64-2.837 0-1.042-.511-1.745-1.142-1.933 1.026-.296 1.142-1.309 1.142-2.094zm7.986 1.834h-4.836c.063 1.696 1.143 2.378 2.515 2.378 1.147 0 1.944-.452 2.158-1.34h2.131c-.482 2.115-2.28 3.536-4.323 3.536-2.723 0-4.665-1.996-4.665-4.945 0-3.072 1.991-5.055 4.615-5.055 2.766 0 4.417 1.993 4.417 5.086.001.127-.004.257-.012.34zm-12.406-2.629h-.946v1.942h.85c.571 0 1.066-.021 1.066-.947 0-.877-.428-.995-.97-.995zm.946 3.421h-.946v2.247h.946c.553 0 1.171-.054 1.171-1.11 0-1.118-.621-1.137-1.171-1.137z"/></svg>
-  </a>
-
-  <a class="f-soc" href="#" aria-label="Pinterest" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24"><path d="M12.289 21.4c-.695.066-1.414.095-2.114.095-3.008 0-5.801-1.141-7.92-3.133.047-.745.316-1.905.77-2.827l1.196-4.92s-.295-.572-.295-1.417c0-1.328.791-2.316 1.776-2.316.834 0 1.238.61 1.238 1.341 0 .825-.53 2.073-.805 3.22-.234.97.498 1.761 1.48 1.761 1.777 0 3.14-1.821 3.14-4.45 0-2.327-1.713-3.957-4.175-3.957-2.846 0-4.516 2.083-4.516 4.244 0 .84.331 1.745.733 2.222a.332.332 0 0 1 .075.295c-.08.314-.255 1.012-.29 1.143-.046.182-.15.22-.345.132-1.282-.577-2.08-2.392-2.08-3.85 0-3.133 2.336-6.015 6.745-6.015 3.535 0 6.286 2.457 6.286 5.748 0 3.424-2.22 6.18-5.31 6.18-1.036 0-2.015-.525-2.348-1.147l-.638 2.368c-.23.864-.855 1.942-1.277 2.607 1.002.3 2.052.463 3.142.463 4.27 0 7.973-2.52 9.61-6.177A10.051 10.051 0 0 0 12.289 21.4z"/></svg>
-  </a>
-
-  <a class="f-soc" href="#" aria-label="X (Twitter)" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
   </a>
 </div>      </div>
       <span class="f-copy">© 2026 Magg + Partners. All Rights Reserved.</span>
@@ -521,26 +737,70 @@ projects and news.</p>
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); openSearch(); }
   });
 
-  /* ── Load article ── */
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get('id');
-  const NEWS = await fetchNewsFromDB();
-  const n = NEWS.find(item => item.id === id);
+  /* ── News data (from Supabase) ── */
+  let NEWS = await fetchNewsFromDB();
 
-  if (!n) {
-    window.location.replace('news.html');
-  } else {
-    document.title = n.title + ' — Magg+Partners';
-    document.getElementById('artCat').textContent = n.cat || '';
-    document.getElementById('artTitle').textContent = n.title || '';
-    document.getElementById('artMeta').textContent = [n.date, n.readTime].filter(Boolean).join(' · ');
-    if (n.img) {
-      document.getElementById('artHero').style.backgroundImage = `url('${n.img}')`;
-    }
-    const bodyEl = document.getElementById('artBody');
-    const paragraphs = (n.content && n.content.trim()) ? n.content.split(/\n\s*\n/) : [n.excerpt || ''];
-    bodyEl.innerHTML = paragraphs.filter(Boolean).map(p => `<p>${p}</p>`).join('');
+  /* ── Render news list ── */
+  function formatDate(dateStr) {
+    const d = new Date(dateStr);
+    if (isNaN(d)) return dateStr;
+    const day = d.getDate();
+    const suffix = (day === 1 || day === 21 || day === 31) ? 'st'
+                 : (day === 2 || day === 22) ? 'nd'
+                 : (day === 3 || day === 23) ? 'rd' : 'th';
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    return `${day}${suffix} ${months[d.getMonth()]} ${d.getFullYear()}`;
   }
+
+  function renderNews(items) {
+    const list = document.getElementById('newsList');
+    list.innerHTML = '';
+    if (!items.length) {
+      list.innerHTML = '<p style="padding:48px 0; color:#aaa; font-size:14px;">No results found.</p>';
+      return;
+    }
+    items.forEach(n => {
+      const btnLabel = n.cat === 'Article' ? 'Read Article'
+                     : n.cat === 'Publication' ? 'Read Publication'
+                     : n.cat === 'Insight' ? 'Read Insight'
+                     : 'Read News';
+      const a = document.createElement('a');
+      a.className = 'news-row';
+      a.href = 'news-article.html?id=' + encodeURIComponent(n.id);
+      a.innerHTML = `
+        <div class="news-row-img">
+          <img src="${n.img}" alt="${n.title}" loading="lazy">
+        </div>
+        <div class="news-row-body">
+          <div class="news-row-cat">${n.cat}</div>
+          <h2 class="news-row-title">${n.title}</h2>
+          <div class="news-row-meta">${n.date} · ${n.readTime}</div>
+          <p class="news-row-excerpt">${n.excerpt}</p>
+          <span class="news-read-btn">${btnLabel}</span>
+        </div>
+      `;
+      addHover(a);
+      list.appendChild(a);
+    });
+  }
+
+  /* ── Filter logic ── */
+  function applyFilter() {
+    const q    = document.getElementById('newsSearch').value.trim().toLowerCase();
+    const type = document.getElementById('newsType').value;
+    const filtered = NEWS.filter(n => {
+      const matchQ    = !q || n.title.toLowerCase().includes(q) || n.excerpt.toLowerCase().includes(q) || n.cat.toLowerCase().includes(q);
+      const matchType = !type || n.cat === type;
+      return matchQ && matchType;
+    });
+    renderNews(filtered);
+  }
+
+  document.getElementById('newsSearch').addEventListener('input', applyFilter);
+  document.getElementById('newsType').addEventListener('change', applyFilter);
+
+  /* Initial render */
+  renderNews(NEWS);
 
   /* ── Newsletter ── */
   const nlForm = document.getElementById('nlForm');
